@@ -3,8 +3,8 @@ import '../models/models.dart';
 
 final medicationStateProvider =
     NotifierProvider<MedicationStateNotifier, MedicationStateModel>(
-  MedicationStateNotifier.new,
-);
+      MedicationStateNotifier.new,
+    );
 
 class MedicationStateNotifier extends Notifier<MedicationStateModel> {
   @override
@@ -14,10 +14,8 @@ class MedicationStateNotifier extends Notifier<MedicationStateModel> {
   void setName(String? v) => state = state.copyWith(name: v);
   void setDosage(String? v) => state = state.copyWith(dosage: v);
   void setColor(String? v) => state = state.copyWith(color: v);
-  void setPriority(MedicationPriority v) =>
-      state = state.copyWith(priority: v);
-  void setRepeatType(RepeatType v) =>
-      state = state.copyWith(repeatType: v);
+  void setPriority(MedicationPriority v) => state = state.copyWith(priority: v);
+  void setRepeatType(RepeatType v) => state = state.copyWith(repeatType: v);
   void setWeekdays(List<int> v) => state = state.copyWith(weekdays: v);
   void setInterval(int v) => state = state.copyWith(interval: v);
   void setStartDate(DateTime? v) => state = state.copyWith(startDate: v);

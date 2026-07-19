@@ -6,8 +6,8 @@ import '../repositories/medication_filters.dart';
 
 final medicationFiltersProvider =
     NotifierProvider<MedicationFiltersNotifier, MedicationFilters>(
-  MedicationFiltersNotifier.new,
-);
+      MedicationFiltersNotifier.new,
+    );
 
 class MedicationFiltersNotifier extends Notifier<MedicationFilters> {
   @override

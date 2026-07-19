@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 extension ColorExtensions on Color {
   /// Converts the Color to a Hex String (e.g. #FF4F46E5)
   String toHex({bool leadingHashSign = true}) {
-    final hexString = toARGB32().toRadixString(16).toUpperCase().padLeft(8, '0');
+    final hexString = toARGB32()
+        .toRadixString(16)
+        .toUpperCase()
+        .padLeft(8, '0');
     return '${leadingHashSign ? '#' : ''}$hexString';
   }
 }

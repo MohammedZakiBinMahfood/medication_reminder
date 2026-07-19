@@ -1,7 +1,5 @@
 import 'package:app_platform_core/core.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:isar/isar.dart';
-import '../../../../core/database/database_provider.dart';
+import 'package:isar_community/isar.dart';
 import '../../../../core/services/uuid_service.dart';
 import '../../../../core/constants/enums.dart';
 import '../data/collections/medication_collection.dart';
@@ -11,10 +9,6 @@ import '../data/mappers/mappers.dart';
 import '../models/models.dart';
 import 'medication_repository.dart';
 import 'medication_filters.dart';
-
-final medicationRepositoryProvider = Provider<MedicationRepository>((ref) {
-  return MedicationRepositoryImpl(isar: ref.read(isarProvider));
-});
 
 class MedicationRepositoryImpl implements MedicationRepository {
   final Isar isar;
@@ -43,8 +37,7 @@ class MedicationRepositoryImpl implements MedicationRepository {
       final schedule = MedicationScheduleMapper.fromAddModel(
         uuid: scheduleUuid,
         medicationUuid: uuid,
-        minutesFromMidnight:
-            model.startDate.hour * 60 + model.startDate.minute,
+        minutesFromMidnight: model.startDate.hour * 60 + model.startDate.minute,
         repeatType: model.repeatType,
         weekdays: model.weekdays,
         interval: model.interval,
@@ -98,8 +91,7 @@ class MedicationRepositoryImpl implements MedicationRepository {
       final schedule = MedicationScheduleMapper.fromAddModel(
         uuid: scheduleUuid,
         medicationUuid: model.id,
-        minutesFromMidnight:
-            model.startDate.hour * 60 + model.startDate.minute,
+        minutesFromMidnight: model.startDate.hour * 60 + model.startDate.minute,
         repeatType: model.repeatType,
         weekdays: model.weekdays,
         interval: model.interval,
@@ -116,8 +108,9 @@ class MedicationRepositoryImpl implements MedicationRepository {
             .filter()
             .medicationUuidEqualTo(model.id)
             .findAll();
-        await isar.medicationScheduleCollections
-            .deleteAll(oldSchedules.map((e) => e.id).toList());
+        await isar.medicationScheduleCollections.deleteAll(
+          oldSchedules.map((e) => e.id).toList(),
+        );
 
         await isar.medicationScheduleCollections.put(schedule);
       });
@@ -211,9 +204,7 @@ class MedicationRepositoryImpl implements MedicationRepository {
           .isActiveEqualTo(true)
           .findAll();
 
-      return Success(
-        medications.map(MedicationMapper.toDomain).toList(),
-      );
+      return Success(medications.map(MedicationMapper.toDomain).toList());
     } catch (e) {
       return Failure(UnknownError(e.toString()));
     }
@@ -366,8 +357,8 @@ class MedicationRepositoryImpl implements MedicationRepository {
 
       if (filters?.sortField != null) {
         final sortField = filters!.sortField!;
-        final isAsc = (filters.sortDirection ?? SortDirection.asc) ==
-            SortDirection.asc;
+        final isAsc =
+            (filters.sortDirection ?? SortDirection.asc) == SortDirection.asc;
 
         filtered.sort((a, b) {
           int comparison;
@@ -387,8 +378,7 @@ class MedicationRepositoryImpl implements MedicationRepository {
 
       final totalCount = filtered.length;
       final offset = (pagination.page - 1) * pagination.limit;
-      final pageItems =
-          filtered.skip(offset).take(pagination.limit).toList();
+      final pageItems = filtered.skip(offset).take(pagination.limit).toList();
 
       final listModels = pageItems.map((m) {
         return MedicationListModel(
@@ -403,11 +393,13 @@ class MedicationRepositoryImpl implements MedicationRepository {
 
       final hasNext = offset + pagination.limit < totalCount;
 
-      return Success(Paginated<MedicationListModel>(
-        items: listModels,
-        pagination: pagination,
-        hasNext: hasNext,
-      ));
+      return Success(
+        Paginated<MedicationListModel>(
+          items: listModels,
+          pagination: pagination,
+          hasNext: hasNext,
+        ),
+      );
     } catch (e) {
       return Failure(UnknownError(e.toString()));
     }
@@ -425,9 +417,7 @@ class MedicationRepositoryImpl implements MedicationRepository {
           .isDeletedEqualTo(false)
           .findAll();
 
-      return Success(
-        schedules.map(MedicationScheduleMapper.toDomain).toList(),
-      );
+      return Success(schedules.map(MedicationScheduleMapper.toDomain).toList());
     } catch (e) {
       return Failure(UnknownError(e.toString()));
     }
@@ -467,8 +457,7 @@ class MedicationRepositoryImpl implements MedicationRepository {
             ..isDeleted = true
             ..updatedAt = now;
         }
-        await isar.medicationScheduleCollections
-            .putAll(existingSchedules);
+        await isar.medicationScheduleCollections.putAll(existingSchedules);
 
         await isar.medicationScheduleCollections.putAll(newCollections);
       });
@@ -480,9 +469,7 @@ class MedicationRepositoryImpl implements MedicationRepository {
   }
 
   @override
-  Future<Result<List<DoseLogModel>>> getDoseLogs(
-    String medicationUuid,
-  ) async {
+  Future<Result<List<DoseLogModel>>> getDoseLogs(String medicationUuid) async {
     try {
       final logs = await isar.doseLogCollections
           .where()

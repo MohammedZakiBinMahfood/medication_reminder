@@ -1,4 +1,4 @@
-import 'package:isar/isar.dart';
+import 'package:isar_community/isar.dart';
 import '../collections/dose_log_collection.dart';
 import '../../models/enums/medication_enums.dart';
 import '../../models/dose_log_model.dart';

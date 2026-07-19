@@ -1,4 +1,4 @@
-import 'package:isar/isar.dart';
+import 'package:isar_community/isar.dart';
 import '../collections/medication_schedule_collection.dart';
 import '../../models/enums/medication_enums.dart';
 import '../../models/medication_schedule_model.dart';

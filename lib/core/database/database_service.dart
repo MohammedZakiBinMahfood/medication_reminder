@@ -1,8 +1,9 @@
-import 'package:isar/isar.dart';
+import 'package:isar_community/isar.dart';
 import 'package:path_provider/path_provider.dart';
 import '../../features/medications/medication_management/data/collections/medication_collection.dart';
 import '../../features/medications/medication_management/data/collections/medication_schedule_collection.dart';
 import '../../features/medications/medication_management/data/collections/dose_log_collection.dart';
+import '../../features/settings/data/collections/settings_collection.dart';
 
 class DatabaseService {
   Isar? _isar;
@@ -11,14 +12,12 @@ class DatabaseService {
     if (_isar != null) return _isar!;
 
     final dir = await getApplicationDocumentsDirectory();
-    _isar = await Isar.open(
-      [
-        MedicationCollectionSchema,
-        MedicationScheduleCollectionSchema,
-        DoseLogCollectionSchema,
-      ],
-      directory: dir.path,
-    );
+    _isar = await Isar.open([
+      MedicationCollectionSchema,
+      MedicationScheduleCollectionSchema,
+      DoseLogCollectionSchema,
+      SettingsCollectionSchema,
+    ], directory: dir.path);
 
     return _isar!;
   }

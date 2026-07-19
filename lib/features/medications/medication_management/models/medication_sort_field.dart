@@ -1,6 +1,1 @@
-enum MedicationSortField {
-  name,
-  createdAt,
-  priority,
-  updatedAt,
-}
+enum MedicationSortField { name, createdAt, priority, updatedAt }

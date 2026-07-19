@@ -1,19 +1,23 @@
 import 'package:app_platform_core/core.dart';
 import 'package:app_platform_state/state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../../core/notifications/notifications.dart';
+import '../../compliance_history/providers/providers.dart';
 import '../models/models.dart';
 import '../repositories/medication_repository.dart';
-import '../repositories/medication_repository_impl.dart';
+import '../../today_dashboard/providers/dashboard_list_notifier.dart';
+import '../../medication_management/providers/medication_list_notifier.dart';
+import 'repository_providers.dart';
 import 'medication_state_notifier.dart';
 
 final medicationCrudProvider =
     NotifierProvider<MedicationCrudNotifier, ActionStore>(
-  MedicationCrudNotifier.new,
-);
+      MedicationCrudNotifier.new,
+    );
 
 class MedicationCrudNotifier extends Notifier<ActionStore> {
-  MedicationRepository get repository =>
-      ref.read(medicationRepositoryProvider);
+  MedicationRepository get repository => ref.read(medicationRepositoryProvider);
+  NotificationManager get _manager => ref.read(notificationManagerProvider);
   ActionType screenMode = ActionType.create;
 
   @override
@@ -28,8 +32,10 @@ class MedicationCrudNotifier extends Notifier<ActionStore> {
     final model = _buildAddModel(data);
     final result = await repository.createMedication(model);
 
-    if (result case Success()) {
+    if (result case Success<MedicationModel>(:final data)) {
       state = state.success(key.value);
+      await _manager.scheduleMedication(data.uuid);
+      _notifyDependents();
     } else if (result case Failure(:final error)) {
       state = state.fail(key.value, error);
     }
@@ -40,11 +46,17 @@ class MedicationCrudNotifier extends Notifier<ActionStore> {
     final key = ActionKey(ActionType.update, data.id ?? '');
     state = state.start(key.value);
 
+    // Cancel existing notifications BEFORE updating schedules
+    // to prevent orphan notifications with old schedule UUIDs.
+    await _manager.cancelMedication(data.id ?? '');
+
     final model = _buildEditModel(data);
     final result = await repository.updateMedication(model);
 
-    if (result case Success()) {
+    if (result case Success<MedicationModel>(:final data)) {
       state = state.success(key.value);
+      await _manager.scheduleMedication(data.uuid);
+      _notifyDependents();
     } else if (result case Failure(:final error)) {
       state = state.fail(key.value, error);
     }
@@ -53,10 +65,15 @@ class MedicationCrudNotifier extends Notifier<ActionStore> {
   Future<void> delete(String uuid) async {
     final key = ActionKey(ActionType.delete, uuid);
     state = state.start(key.value);
+
+    // Cancel notifications BEFORE soft-deleting to ensure cleanup.
+    await _manager.cancelMedication(uuid);
+
     final result = await repository.deleteMedication(uuid);
 
     if (result case Success()) {
       state = state.success(key.value);
+      _notifyDependents();
     } else if (result case Failure(:final error)) {
       state = state.fail(key.value, error);
     }
@@ -69,6 +86,8 @@ class MedicationCrudNotifier extends Notifier<ActionStore> {
 
     if (result case Success()) {
       state = state.success(key.value);
+      await _manager.scheduleMedication(uuid);
+      _notifyDependents();
     } else if (result case Failure(:final error)) {
       state = state.fail(key.value, error);
     }
@@ -81,9 +100,19 @@ class MedicationCrudNotifier extends Notifier<ActionStore> {
 
     if (result case Success()) {
       state = state.success(key.value);
+      await _manager.cancelMedication(uuid);
+      _notifyDependents();
     } else if (result case Failure(:final error)) {
       state = state.fail(key.value, error);
     }
+  }
+
+  /// Notify all dependent providers after a CRUD operation.
+  void _notifyDependents() {
+    ref.invalidate(dashboardListProvider);
+    ref.invalidate(medicationListProvider);
+    ref.invalidate(historyListProvider);
+    ref.invalidate(historyStatisticsProvider);
   }
 
   MedicationAddModel _buildAddModel(MedicationStateModel data) {

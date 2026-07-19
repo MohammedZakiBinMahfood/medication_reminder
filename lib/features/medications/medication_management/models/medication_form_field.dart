@@ -1,7 +1,1 @@
-enum MedicationFormField {
-  name,
-  dosage,
-  schedule,
-  startDate,
-  endDate,
-}
+enum MedicationFormField { name, dosage, schedule, startDate, endDate }

@@ -1,9 +1,9 @@
-import 'package:isar/isar.dart';
+import 'package:isar_community/isar.dart';
 import '../collections/medication_collection.dart';
-import '../collections/medication_schedule_collection.dart';
 import '../../models/enums/medication_enums.dart';
 import '../../models/medication_model.dart';
 import '../../models/medication_field.dart';
+import '../../models/medication_schedule_model.dart';
 
 class MedicationMapper {
   MedicationMapper._();
@@ -61,7 +61,7 @@ class MedicationMapper {
 
   static MedicationField toFieldWithSchedule(
     MedicationModel medication,
-    MedicationScheduleCollection? schedule,
+    MedicationScheduleModel? schedule,
   ) {
     return MedicationField(
       id: medication.uuid,
@@ -69,8 +69,8 @@ class MedicationMapper {
       dosage: medication.dosage,
       color: medication.color,
       priority: medication.priority,
-      repeatType: repeatTypeFromInt(schedule?.repeatType ?? 0),
-      weekdays: schedule?.weekdays.cast<int>().toList() ?? [],
+      repeatType: schedule?.repeatType ?? RepeatType.daily,
+      weekdays: schedule?.weekdays ?? [],
       interval: schedule?.interval ?? 1,
       startDate: schedule?.startDate ?? medication.createdAt,
       endDate: schedule?.endDate,
@@ -87,5 +87,9 @@ class MedicationMapper {
 
   static RepeatType repeatTypeFromInt(int value) {
     return RepeatType.values[value.clamp(0, RepeatType.values.length - 1)];
+  }
+
+  static DoseStatus doseStatusFromInt(int value) {
+    return DoseStatus.values[value.clamp(0, DoseStatus.values.length - 1)];
   }
 }

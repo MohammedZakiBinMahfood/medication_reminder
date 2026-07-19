@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'database_service.dart';
-import 'package:isar/isar.dart';
+import 'package:isar_community/isar.dart';
 
 final databaseServiceProvider = Provider<DatabaseService>((ref) {
   return DatabaseService();

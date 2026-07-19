@@ -22,7 +22,9 @@ class CText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: color != null ? style?.copyWith(color: color) ?? TextStyle(color: color) : style,
+      style: color != null
+          ? style?.copyWith(color: color) ?? TextStyle(color: color)
+          : style,
       textAlign: textAlign,
       maxLines: maxLines,
       overflow: overflow,

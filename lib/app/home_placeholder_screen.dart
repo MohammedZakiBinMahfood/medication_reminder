@@ -9,9 +9,7 @@ class HomePlaceholderScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const CScaffold(
-      appBar: CAppBar(
-        title: 'Medication Reminder',
-      ),
+      appBar: CAppBar(title: 'Medication Reminder'),
       body: CEmptyView(
         message: 'Foundation Setup Complete\nNo features implemented yet.',
         icon: Icons.check_circle_outline,

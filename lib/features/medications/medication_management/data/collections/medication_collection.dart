@@ -1,4 +1,4 @@
-import 'package:isar/isar.dart';
+import 'package:isar_community/isar.dart';
 
 part 'medication_collection.g.dart';
 
@@ -10,15 +10,15 @@ class MedicationCollection {
   late String uuid;
 
   late String name;
-  
+
   late String dosage;
-  
+
   late String color;
-  
+
   /// Stored as an integer to completely decouple from domain enums.
   /// Mapping to [MedicationPriority] is handled in the repository mapper.
   late short priority;
-  
+
   @Index()
   late bool isActive;
 

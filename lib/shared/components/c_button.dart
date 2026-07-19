@@ -14,8 +14,8 @@ class CButton extends StatelessWidget {
     this.onPressed,
     this.isLoading = false,
     this.icon,
-  })  : isOutlined = false,
-        isText = false;
+  }) : isOutlined = false,
+       isText = false;
 
   const CButton.outlined({
     super.key,
@@ -23,8 +23,8 @@ class CButton extends StatelessWidget {
     this.onPressed,
     this.isLoading = false,
     this.icon,
-  })  : isOutlined = true,
-        isText = false;
+  }) : isOutlined = true,
+       isText = false;
 
   const CButton.text({
     super.key,
@@ -32,8 +32,8 @@ class CButton extends StatelessWidget {
     this.onPressed,
     this.isLoading = false,
     this.icon,
-  })  : isOutlined = false,
-        isText = true;
+  }) : isOutlined = false,
+       isText = true;
 
   @override
   Widget build(BuildContext context) {
@@ -44,22 +44,24 @@ class CButton extends StatelessWidget {
             child: CircularProgressIndicator(strokeWidth: 2),
           )
         : icon != null
-            ? Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  icon!,
-                  const SizedBox(width: 8),
-                  Text(text),
-                ],
-              )
-            : Text(text);
+        ? Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [icon!, const SizedBox(width: 8), Text(text)],
+          )
+        : Text(text);
 
     if (isText) {
       return TextButton(onPressed: isLoading ? null : onPressed, child: child);
     }
     if (isOutlined) {
-      return OutlinedButton(onPressed: isLoading ? null : onPressed, child: child);
+      return OutlinedButton(
+        onPressed: isLoading ? null : onPressed,
+        child: child,
+      );
     }
-    return ElevatedButton(onPressed: isLoading ? null : onPressed, child: child);
+    return ElevatedButton(
+      onPressed: isLoading ? null : onPressed,
+      child: child,
+    );
   }
 }

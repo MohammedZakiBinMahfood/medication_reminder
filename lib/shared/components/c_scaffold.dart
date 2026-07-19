@@ -20,10 +20,7 @@ class CScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBar,
-      body: SafeArea(
-        top: !extendBodyBehindAppBar,
-        child: body,
-      ),
+      body: SafeArea(top: !extendBodyBehindAppBar, child: body),
       floatingActionButton: floatingActionButton,
       bottomNavigationBar: bottomNavigationBar,
       extendBodyBehindAppBar: extendBodyBehindAppBar,

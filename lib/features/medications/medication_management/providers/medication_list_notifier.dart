@@ -2,13 +2,15 @@ import 'package:app_platform_core/core.dart';
 import 'package:app_platform_state/state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/models.dart';
-import '../repositories/repositories.dart';
+import '../repositories/medication_repository.dart';
 import 'medication_filters_provider.dart';
+import 'repository_providers.dart';
 
-final medicationListProvider = NotifierProvider.autoDispose<
-    MedicationListNotifier, BaseState<Paginated<MedicationListModel>>>(
-  MedicationListNotifier.new,
-);
+final medicationListProvider =
+    NotifierProvider.autoDispose<
+      MedicationListNotifier,
+      BaseState<Paginated<MedicationListModel>>
+    >(MedicationListNotifier.new);
 
 class MedicationListNotifier
     extends BaseNotifier<Paginated<MedicationListModel>> {
@@ -53,10 +55,12 @@ class MedicationListNotifier
     );
 
     if (result case Success(:final data)) {
-      setSuccess(current.copyWith(
-        items: [...current.items, ...data.items],
-        isLoadingMore: false,
-      ));
+      setSuccess(
+        current.copyWith(
+          items: [...current.items, ...data.items],
+          isLoadingMore: false,
+        ),
+      );
     } else if (result case Failure()) {
       setSuccess(current.copyWith(isLoadingMore: false));
     }

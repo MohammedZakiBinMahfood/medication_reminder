@@ -1,4 +1,4 @@
-import 'package:isar/isar.dart';
+import 'package:isar_community/isar.dart';
 
 part 'medication_schedule_collection.g.dart';
 
@@ -12,7 +12,7 @@ class MedicationScheduleCollection {
   @Index()
   late String medicationUuid;
 
-  /// Stored as minutes from midnight for faster comparisons, sorting, 
+  /// Stored as minutes from midnight for faster comparisons, sorting,
   /// and locale-independent queries. (e.g., 08:00 -> 480).
   late short minutesFromMidnight;
 
@@ -20,8 +20,8 @@ class MedicationScheduleCollection {
   late short repeatType;
 
   /// Stored as `List<byte>` (values 1-7).
-  /// Reason: Isar does NOT have native bitwise query operators (like &). 
-  /// Using a bitmask would force queries to pull all records and evaluate in Dart memory, 
+  /// Reason: Isar does NOT have native bitwise query operators (like &).
+  /// Using a bitmask would force queries to pull all records and evaluate in Dart memory,
   /// severely impacting performance. `List<byte>` allows native indexed Isar queries like:
   /// `.weekdaysElementEqualTo(DateTime.monday)`.
   late List<byte> weekdays;

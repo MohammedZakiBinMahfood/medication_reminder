@@ -19,10 +19,7 @@ class CCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final card = Card(
       margin: margin,
-      child: Padding(
-        padding: padding ?? EdgeInsets.zero,
-        child: child,
-      ),
+      child: Padding(padding: padding ?? EdgeInsets.zero, child: child),
     );
 
     if (onTap != null) {

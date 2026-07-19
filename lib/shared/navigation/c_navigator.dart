@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 class CNavigator {
   CNavigator._();
 
-  static final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+  static final GlobalKey<NavigatorState> navigatorKey =
+      GlobalKey<NavigatorState>();
 
   static Future<T?> push<T>(Widget page) {
     return navigatorKey.currentState!.push(
@@ -18,7 +19,10 @@ class CNavigator {
     );
   }
 
-  static Future<T?> pushAndRemoveUntil<T>(Widget page, bool Function(Route<dynamic>) predicate) {
+  static Future<T?> pushAndRemoveUntil<T>(
+    Widget page,
+    bool Function(Route<dynamic>) predicate,
+  ) {
     return navigatorKey.currentState!.pushAndRemoveUntil(
       MaterialPageRoute(builder: (_) => page),
       predicate,
