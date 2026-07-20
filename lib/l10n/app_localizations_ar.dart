@@ -516,4 +516,471 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get formUnsavedChanges => 'لديك تغييرات غير محفوظة';
+
+  @override
+  String a11yMedicationActive(Object name) {
+    return '$name, نشط';
+  }
+
+  @override
+  String a11yMedicationInactive(Object name) {
+    return '$name, غير نشط';
+  }
+
+  @override
+  String get a11yMedicationCardHint => 'انقر مرتين للتعديل';
+
+  @override
+  String get a11ySwitchOn => 'مفعّل';
+
+  @override
+  String get a11ySwitchOff => 'غير مفعّل';
+
+  @override
+  String a11yColorSelected(Object color) {
+    return '$color محدد';
+  }
+
+  @override
+  String a11yColorNotSelected(Object color) {
+    return '$color';
+  }
+
+  @override
+  String a11yDaySelected(Object day) {
+    return '$day, محدد';
+  }
+
+  @override
+  String a11yDayNotSelected(Object day) {
+    return '$day, غير محدد';
+  }
+
+  @override
+  String a11yChipSelected(Object label) {
+    return '$label, محدد';
+  }
+
+  @override
+  String a11yChipNotSelected(Object label) {
+    return '$label';
+  }
+
+  @override
+  String a11yPriorityLabel(Object priority) {
+    return 'الأولوية: $priority';
+  }
+
+  @override
+  String a11yDoseStatus(Object status) {
+    return 'الحالة: $status';
+  }
+
+  @override
+  String a11yScheduledTime(Object time) {
+    return 'مجدول في $time';
+  }
+
+  @override
+  String a11yRemainingTime(Object time) {
+    return '$time متبقي';
+  }
+
+  @override
+  String get a11yOverdue => 'متأخر';
+
+  @override
+  String a11yTakeDose(Object name) {
+    return 'تناول جرعة $name';
+  }
+
+  @override
+  String a11ySkipDose(Object name) {
+    return 'تخطي جرعة $name';
+  }
+
+  @override
+  String a11ySnoozeDose(Object name) {
+    return 'تأجيل جرعة $name';
+  }
+
+  @override
+  String get a11yDoseTaken => 'تم تناول الجرعة';
+
+  @override
+  String get a11yDoseSkipped => 'تم تخطي الجرعة';
+
+  @override
+  String get a11yAddMedication => 'إضافة دواء';
+
+  @override
+  String get a11ySearchMedications => 'بحث عن أدوية';
+
+  @override
+  String get a11yClearSearch => 'مسح البحث';
+
+  @override
+  String get a11yLoading => 'جاري التحميل';
+
+  @override
+  String get a11yError => 'خطأ';
+
+  @override
+  String get a11yRetry => 'إعادة المحاولة';
+
+  @override
+  String get a11yEmptyState => 'حالة فارغة';
+
+  @override
+  String a11yProgress(Object percent) {
+    return '$percent% مكتمل';
+  }
+
+  @override
+  String a11yAdherence(Object percent) {
+    return 'نسبة الالتزام: $percent%';
+  }
+
+  @override
+  String a11yStreakCurrent(Object count) {
+    return 'السلسلة الحالية: $count أيام';
+  }
+
+  @override
+  String a11yStreakLongest(Object count) {
+    return 'أطول سلسلة: $count أيام';
+  }
+
+  @override
+  String a11yFilterActive(Object label) {
+    return 'فلتر: $label';
+  }
+
+  @override
+  String a11ySectionCount(Object count, Object label) {
+    return '$label, $count عناصر';
+  }
+
+  @override
+  String a11yGroupHeader(Object count, Object label) {
+    return '$label, $count جرعات';
+  }
+
+  @override
+  String a11yHistoryItem(Object name, Object status, Object time) {
+    return '$name, $status, $time';
+  }
+
+  @override
+  String get a11yOpenDatePicker => 'فتح منتقي التاريخ';
+
+  @override
+  String get a11yClearDate => 'مسح التاريخ';
+
+  @override
+  String get a11yFormRequired => 'حقل مطلوب';
+
+  @override
+  String get a11yDialogConfirm => 'تأكيد الإجراء';
+
+  @override
+  String get a11yDialogCancel => 'إلغاء الإجراء';
+
+  @override
+  String get a11yLanguageArabic => 'العربية';
+
+  @override
+  String get a11yLanguageEnglish => 'الإنجليزية';
+
+  @override
+  String get a11yThemeLight => 'المظهر الفاتح';
+
+  @override
+  String get a11yThemeDark => 'المظهر الداكن';
+
+  @override
+  String get a11yThemeSystem => 'مظهر النظام';
+
+  @override
+  String get a11yNotificationsOn => 'الإشعارات مفعّلة';
+
+  @override
+  String get a11yNotificationsOff => 'الإشعارات غير مفعّلة';
+
+  @override
+  String get wizardAppLogo => 'شعار تطبيق مداوي';
+
+  @override
+  String get wizardWelcomeDescription =>
+      'يساعدك مداوي على تذكّر أدويتك حتى بدون اتصال بالإنترنت، مع الحفاظ الكامل على خصوصية بياناتك.';
+
+  @override
+  String get wizardStart => 'ابدأ';
+
+  @override
+  String get wizardSkip => 'تخطي';
+
+  @override
+  String get wizardNext => 'التالي';
+
+  @override
+  String get wizardNotificationIcon => 'أيقونة صلاحية الإشعارات';
+
+  @override
+  String get wizardNotificationTitle => 'صلاحية الإشعارات';
+
+  @override
+  String get wizardNotificationDescription =>
+      'يعتمد التطبيق على الإشعارات المحلية لتذكيرك بمواعيد أدويةك.';
+
+  @override
+  String get wizardGrantPermission => 'منح الصلاحية';
+
+  @override
+  String get wizardNotificationGranted => 'تم منح الصلاحية';
+
+  @override
+  String get wizardExactAlarmIcon => 'أيقونة المنبه الدقيق';
+
+  @override
+  String get wizardExactAlarmTitle => 'صلاحية المنبه الدقيق';
+
+  @override
+  String get wizardExactAlarmDescription =>
+      'السماح بالمنبهات الدقيقة يضمن وصول تذكيراتك في الوقت المحدد تماماً، حتى وضع توفير البطارية لا يمكنه تأخيرها.';
+
+  @override
+  String get wizardEnableExactAlarm => 'تفعيل المنبهات الدقيقة';
+
+  @override
+  String get wizardExactAlarmGranted => 'تم تفعيل المنبهات الدقيقة';
+
+  @override
+  String get wizardExactAlarmNotRequired => 'غير مطلوب';
+
+  @override
+  String get wizardExactAlarmNotRequiredDescription =>
+      'لا يتطلب جهازك صلاحيات منبه إضافية. يمكنك المتابعة.';
+
+  @override
+  String get wizardBatteryIcon => 'أيقونة تحسين البطارية';
+
+  @override
+  String get wizardBatteryTitle => 'تحسين البطارية';
+
+  @override
+  String get wizardBatteryDescription =>
+      'تمنع بعض الشركات النشاط في الخلفية، مما قد يمنع التذكيرات من الظهور في موعدها. قم بتعطيل تحسين البطارية لمداوي لضمان إشعارات موثوقة.';
+
+  @override
+  String get wizardBatteryGranted => 'تم تعطيل تحسين البطارية';
+
+  @override
+  String get wizardOpenSettings => 'فتح الإعدادات';
+
+  @override
+  String get wizardCompletionIcon => 'أيقونة اكتمال الإعداد';
+
+  @override
+  String get wizardCompletionTitle => 'كل شيء جاهز.';
+
+  @override
+  String get wizardCompletionDescription => 'يمكنك الآن إضافة أول دواء.';
+
+  @override
+  String get wizardAddFirstMedication => 'إضافة دواء';
+
+  @override
+  String get wizardGoHome => 'الانتقال للرئيسية';
+
+  @override
+  String get firstRunWelcomeTitle => 'مرحباً بك في مداوي';
+
+  @override
+  String get firstRunWelcomeDescription =>
+      'ابدأ بإضافة أول دواء لتتلقى تذكيرات في الوقت المناسب وتتابع جرعاتك.';
+
+  @override
+  String get firstRunExploreApp => 'استكشف التطبيق';
+
+  @override
+  String get firstRunDismiss => 'إغلاق';
+
+  @override
+  String get firstRunNotificationHintTitle => 'تفعيل الإشعارات';
+
+  @override
+  String get firstRunNotificationHintDescription =>
+      'لا تنسَ تفعيل الإشعارات لتتلقى تذكيرات الأدوية في الوقت المناسب.';
+
+  @override
+  String get firstRunNotificationHintEnable => 'تفعيل';
+
+  @override
+  String get firstRunSuccessTitle => 'تمت إضافة الدواء!';
+
+  @override
+  String get firstRunSuccessDescription =>
+      'تمت إضافة أول دواء بنجاح. ستتلقى تذكيرات في المواعيد المحددة.';
+
+  @override
+  String get firstRunSuccessContinue => 'بدء التتبع';
+
+  @override
+  String get firstRunEmptyHistoryTitle => 'لا يوجد سجل جرعات بعد';
+
+  @override
+  String get firstRunEmptyHistoryDescription =>
+      'سيظهر سجل التزامك بالأدوية هنا بمجرد البدء في تناول الجرعات.';
+
+  @override
+  String get firstRunEmptySearchTitle => 'لا توجد أدوية مطابقة';
+
+  @override
+  String get firstRunEmptySearchDescription =>
+      'جرّب مصطلح بحث مختلف أو امسح الفلاتر.';
+
+  @override
+  String get healthSystemHealthTitle => 'صحة النظام';
+
+  @override
+  String get healthNotificationPermissionTitle => 'صلاحية الإشعارات';
+
+  @override
+  String get healthExactAlarmTitle => 'صلاحية المنبه الدقيق';
+
+  @override
+  String get healthBatteryTitle => 'تحسين البطارية';
+
+  @override
+  String get healthNotificationServiceTitle => 'خدمة الإشعارات';
+
+  @override
+  String get healthPendingNotificationsTitle => 'الإشعارات المعلقة';
+
+  @override
+  String get healthDatabaseTitle => 'قاعدة البيانات';
+
+  @override
+  String get healthTimeZoneTitle => 'المنطقة الزمنية';
+
+  @override
+  String get healthApplicationTitle => 'التطبيق';
+
+  @override
+  String get healthNotificationGranted => 'الإشعارات مفعّلة';
+
+  @override
+  String get healthNotificationDenied => 'الإشعارات معطّلة';
+
+  @override
+  String get healthNotificationUnknown => 'حالة الإشعارات غير معروفة';
+
+  @override
+  String get healthExactAlarmGranted => 'المنبهات الدقيقة مفعّلة';
+
+  @override
+  String get healthExactAlarmDenied => 'المنبهات الدقيقة معطّلة';
+
+  @override
+  String get healthExactAlarmUnknown => 'حالة المنبه الدقيق غير معروفة';
+
+  @override
+  String get healthExactAlarmUnavailable => 'غير مطلوب على هذا النظام';
+
+  @override
+  String get healthBatteryOptimized => 'تحسين البطارية قد يمنع التذكيرات';
+
+  @override
+  String get healthBatteryIgnored => 'تحسين البطارية معطّل';
+
+  @override
+  String get healthBatteryUnknown => 'حالة تحسين البطارية غير معروفة';
+
+  @override
+  String get healthServiceReady => 'خدمة الإشعارات جاهزة';
+
+  @override
+  String get healthServiceError => 'خدمة الإشعارات واجهت خطأ';
+
+  @override
+  String get healthDatabaseHealthy => 'قاعدة البيانات مفتوحة وسليمة';
+
+  @override
+  String get healthDatabaseError => 'قاعدة البيانات واجهت خطأ';
+
+  @override
+  String get healthTimeZoneInfo => 'المنطقة الزمنية مضبوطة بشكل صحيح';
+
+  @override
+  String get healthTimeZoneError => 'فشل تحديد المنطقة الزمنية';
+
+  @override
+  String get healthPendingNotificationsInfo => 'Slots الإشعارات متاحة';
+
+  @override
+  String get healthPendingNotificationsError =>
+      'فشل الاستعلام عن الإشعارات المعلقة';
+
+  @override
+  String get healthApplicationInfo => 'تم تحميل معلومات التطبيق';
+
+  @override
+  String get healthApplicationError => 'فشل تحميل معلومات التطبيق';
+
+  @override
+  String get healthActionEnableNotifications => 'تفعيل الإشعارات';
+
+  @override
+  String get healthActionGrantExactAlarm => 'منح صلاحية المنبه الدقيق';
+
+  @override
+  String get healthActionOpenBatterySettings => 'فتح إعدادات البطارية';
+
+  @override
+  String get healthQuickFixes => 'إصلاحات سريعة';
+
+  @override
+  String get healthQuickFixesDescription =>
+      'إصلاح المشاكل التي قد تمنع التذكيرات';
+
+  @override
+  String get healthRefresh => 'تحديث';
+
+  @override
+  String get healthScoreExcellent => 'ممتاز';
+
+  @override
+  String get healthScoreGood => 'جيد';
+
+  @override
+  String get healthScoreNeedsAttention => 'يحتاج انتباه';
+
+  @override
+  String get healthScoreCritical => 'حرج';
+
+  @override
+  String healthScorePassed(Object count) {
+    return '$count ناجح';
+  }
+
+  @override
+  String healthScoreFailed(Object count) {
+    return '$count فاشل';
+  }
+
+  @override
+  String a11yHealthCheckStatus(Object status) {
+    return 'الحالة: $status';
+  }
+
+  @override
+  String a11yHealthScore(Object percent) {
+    return 'النتيجة: $percent%';
+  }
+
+  @override
+  String a11yHealthOverall(Object label) {
+    return 'الصحة العامة: $label';
+  }
 }

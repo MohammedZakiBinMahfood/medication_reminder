@@ -20,16 +20,23 @@ class DashboardFilters extends ConsumerWidget {
         padding: const EdgeInsets.symmetric(horizontal: AppSpacing.m),
         children: DashboardFilterType.values.map((type) {
           final isSelected = currentFilter.filterType == type;
+          final filterLabel = _filterLabel(type, l10n);
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xs),
-            child: FilterChip(
-              label: Text(_filterLabel(type, l10n)),
+            child: Semantics(
+              label: filterLabel,
               selected: isSelected,
-              onSelected: (_) {
-                ref.read(dashboardFilterProvider.notifier).setFilterType(type);
-              },
-              selectedColor: Theme.of(context).colorScheme.primaryContainer,
-              checkmarkColor: Theme.of(context).colorScheme.primary,
+              child: FilterChip(
+                label: Text(filterLabel),
+                selected: isSelected,
+                onSelected: (_) {
+                  ref
+                      .read(dashboardFilterProvider.notifier)
+                      .setFilterType(type);
+                },
+                selectedColor: Theme.of(context).colorScheme.primaryContainer,
+                checkmarkColor: Theme.of(context).colorScheme.primary,
+              ),
             ),
           );
         }).toList(),

@@ -13,20 +13,24 @@ class PriorityBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
-    return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.s,
-        vertical: AppSpacing.xxs,
-      ),
-      decoration: BoxDecoration(
-        color: _color.withValues(alpha: 0.1),
-        borderRadius: AppRadius.borderM,
-      ),
-      child: Text(
-        _label(l10n),
-        style: Theme.of(context).textTheme.labelSmall?.copyWith(
-          fontWeight: FontWeight.w600,
-          color: _color,
+    final label = _label(l10n);
+    return Semantics(
+      label: 'Priority: $label',
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppSpacing.s,
+          vertical: AppSpacing.xxs,
+        ),
+        decoration: BoxDecoration(
+          color: _color.withValues(alpha: 0.1),
+          borderRadius: AppRadius.borderM,
+        ),
+        child: Text(
+          label,
+          style: Theme.of(context).textTheme.labelSmall?.copyWith(
+            fontWeight: FontWeight.w600,
+            color: _color,
+          ),
         ),
       ),
     );

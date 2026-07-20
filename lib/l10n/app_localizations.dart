@@ -1093,6 +1093,804 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You have unsaved changes'**
   String get formUnsavedChanges;
+
+  /// No description provided for @a11yMedicationActive.
+  ///
+  /// In en, this message translates to:
+  /// **'{name}, active'**
+  String a11yMedicationActive(Object name);
+
+  /// No description provided for @a11yMedicationInactive.
+  ///
+  /// In en, this message translates to:
+  /// **'{name}, inactive'**
+  String a11yMedicationInactive(Object name);
+
+  /// No description provided for @a11yMedicationCardHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Double tap to edit'**
+  String get a11yMedicationCardHint;
+
+  /// No description provided for @a11ySwitchOn.
+  ///
+  /// In en, this message translates to:
+  /// **'On'**
+  String get a11ySwitchOn;
+
+  /// No description provided for @a11ySwitchOff.
+  ///
+  /// In en, this message translates to:
+  /// **'Off'**
+  String get a11ySwitchOff;
+
+  /// No description provided for @a11yColorSelected.
+  ///
+  /// In en, this message translates to:
+  /// **'{color} selected'**
+  String a11yColorSelected(Object color);
+
+  /// No description provided for @a11yColorNotSelected.
+  ///
+  /// In en, this message translates to:
+  /// **'{color}'**
+  String a11yColorNotSelected(Object color);
+
+  /// No description provided for @a11yDaySelected.
+  ///
+  /// In en, this message translates to:
+  /// **'{day}, selected'**
+  String a11yDaySelected(Object day);
+
+  /// No description provided for @a11yDayNotSelected.
+  ///
+  /// In en, this message translates to:
+  /// **'{day}, not selected'**
+  String a11yDayNotSelected(Object day);
+
+  /// No description provided for @a11yChipSelected.
+  ///
+  /// In en, this message translates to:
+  /// **'{label}, selected'**
+  String a11yChipSelected(Object label);
+
+  /// No description provided for @a11yChipNotSelected.
+  ///
+  /// In en, this message translates to:
+  /// **'{label}'**
+  String a11yChipNotSelected(Object label);
+
+  /// No description provided for @a11yPriorityLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Priority: {priority}'**
+  String a11yPriorityLabel(Object priority);
+
+  /// No description provided for @a11yDoseStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Status: {status}'**
+  String a11yDoseStatus(Object status);
+
+  /// No description provided for @a11yScheduledTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Scheduled at {time}'**
+  String a11yScheduledTime(Object time);
+
+  /// No description provided for @a11yRemainingTime.
+  ///
+  /// In en, this message translates to:
+  /// **'{time} remaining'**
+  String a11yRemainingTime(Object time);
+
+  /// No description provided for @a11yOverdue.
+  ///
+  /// In en, this message translates to:
+  /// **'Overdue'**
+  String get a11yOverdue;
+
+  /// No description provided for @a11yTakeDose.
+  ///
+  /// In en, this message translates to:
+  /// **'Take dose for {name}'**
+  String a11yTakeDose(Object name);
+
+  /// No description provided for @a11ySkipDose.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip dose for {name}'**
+  String a11ySkipDose(Object name);
+
+  /// No description provided for @a11ySnoozeDose.
+  ///
+  /// In en, this message translates to:
+  /// **'Snooze dose for {name}'**
+  String a11ySnoozeDose(Object name);
+
+  /// No description provided for @a11yDoseTaken.
+  ///
+  /// In en, this message translates to:
+  /// **'Dose taken'**
+  String get a11yDoseTaken;
+
+  /// No description provided for @a11yDoseSkipped.
+  ///
+  /// In en, this message translates to:
+  /// **'Dose skipped'**
+  String get a11yDoseSkipped;
+
+  /// No description provided for @a11yAddMedication.
+  ///
+  /// In en, this message translates to:
+  /// **'Add medication'**
+  String get a11yAddMedication;
+
+  /// No description provided for @a11ySearchMedications.
+  ///
+  /// In en, this message translates to:
+  /// **'Search medications'**
+  String get a11ySearchMedications;
+
+  /// No description provided for @a11yClearSearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear search'**
+  String get a11yClearSearch;
+
+  /// No description provided for @a11yLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading'**
+  String get a11yLoading;
+
+  /// No description provided for @a11yError.
+  ///
+  /// In en, this message translates to:
+  /// **'Error'**
+  String get a11yError;
+
+  /// No description provided for @a11yRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry loading'**
+  String get a11yRetry;
+
+  /// No description provided for @a11yEmptyState.
+  ///
+  /// In en, this message translates to:
+  /// **'Empty state'**
+  String get a11yEmptyState;
+
+  /// No description provided for @a11yProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'{percent}% completed'**
+  String a11yProgress(Object percent);
+
+  /// No description provided for @a11yAdherence.
+  ///
+  /// In en, this message translates to:
+  /// **'Adherence: {percent} percent'**
+  String a11yAdherence(Object percent);
+
+  /// No description provided for @a11yStreakCurrent.
+  ///
+  /// In en, this message translates to:
+  /// **'Current streak: {count} days'**
+  String a11yStreakCurrent(Object count);
+
+  /// No description provided for @a11yStreakLongest.
+  ///
+  /// In en, this message translates to:
+  /// **'Longest streak: {count} days'**
+  String a11yStreakLongest(Object count);
+
+  /// No description provided for @a11yFilterActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter: {label}'**
+  String a11yFilterActive(Object label);
+
+  /// No description provided for @a11ySectionCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{label}, {count} items'**
+  String a11ySectionCount(Object count, Object label);
+
+  /// No description provided for @a11yGroupHeader.
+  ///
+  /// In en, this message translates to:
+  /// **'{label}, {count} doses'**
+  String a11yGroupHeader(Object count, Object label);
+
+  /// No description provided for @a11yHistoryItem.
+  ///
+  /// In en, this message translates to:
+  /// **'{name}, {status}, {time}'**
+  String a11yHistoryItem(Object name, Object status, Object time);
+
+  /// No description provided for @a11yOpenDatePicker.
+  ///
+  /// In en, this message translates to:
+  /// **'Open date picker'**
+  String get a11yOpenDatePicker;
+
+  /// No description provided for @a11yClearDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear date'**
+  String get a11yClearDate;
+
+  /// No description provided for @a11yFormRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Required field'**
+  String get a11yFormRequired;
+
+  /// No description provided for @a11yDialogConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm action'**
+  String get a11yDialogConfirm;
+
+  /// No description provided for @a11yDialogCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel action'**
+  String get a11yDialogCancel;
+
+  /// No description provided for @a11yLanguageArabic.
+  ///
+  /// In en, this message translates to:
+  /// **'Arabic'**
+  String get a11yLanguageArabic;
+
+  /// No description provided for @a11yLanguageEnglish.
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get a11yLanguageEnglish;
+
+  /// No description provided for @a11yThemeLight.
+  ///
+  /// In en, this message translates to:
+  /// **'Light theme'**
+  String get a11yThemeLight;
+
+  /// No description provided for @a11yThemeDark.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark theme'**
+  String get a11yThemeDark;
+
+  /// No description provided for @a11yThemeSystem.
+  ///
+  /// In en, this message translates to:
+  /// **'System theme'**
+  String get a11yThemeSystem;
+
+  /// No description provided for @a11yNotificationsOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications enabled'**
+  String get a11yNotificationsOn;
+
+  /// No description provided for @a11yNotificationsOff.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications disabled'**
+  String get a11yNotificationsOff;
+
+  /// No description provided for @wizardAppLogo.
+  ///
+  /// In en, this message translates to:
+  /// **'Mudawy app logo'**
+  String get wizardAppLogo;
+
+  /// No description provided for @wizardWelcomeDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Mudawy helps you remember your medications even without an internet connection, while keeping your data completely private.'**
+  String get wizardWelcomeDescription;
+
+  /// No description provided for @wizardStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Get Started'**
+  String get wizardStart;
+
+  /// No description provided for @wizardSkip.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip'**
+  String get wizardSkip;
+
+  /// No description provided for @wizardNext.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get wizardNext;
+
+  /// No description provided for @wizardNotificationIcon.
+  ///
+  /// In en, this message translates to:
+  /// **'Notification permission icon'**
+  String get wizardNotificationIcon;
+
+  /// No description provided for @wizardNotificationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Notification Permission'**
+  String get wizardNotificationTitle;
+
+  /// No description provided for @wizardNotificationDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'The app relies on local notifications to remind you of your medication schedules.'**
+  String get wizardNotificationDescription;
+
+  /// No description provided for @wizardGrantPermission.
+  ///
+  /// In en, this message translates to:
+  /// **'Grant Permission'**
+  String get wizardGrantPermission;
+
+  /// No description provided for @wizardNotificationGranted.
+  ///
+  /// In en, this message translates to:
+  /// **'Permission granted'**
+  String get wizardNotificationGranted;
+
+  /// No description provided for @wizardExactAlarmIcon.
+  ///
+  /// In en, this message translates to:
+  /// **'Exact alarm icon'**
+  String get wizardExactAlarmIcon;
+
+  /// No description provided for @wizardExactAlarmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Exact Alarm Permission'**
+  String get wizardExactAlarmTitle;
+
+  /// No description provided for @wizardExactAlarmDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Allowing exact alarms ensures your reminders arrive precisely on time, even Doze mode cannot delay them.'**
+  String get wizardExactAlarmDescription;
+
+  /// No description provided for @wizardEnableExactAlarm.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Exact Alarms'**
+  String get wizardEnableExactAlarm;
+
+  /// No description provided for @wizardExactAlarmGranted.
+  ///
+  /// In en, this message translates to:
+  /// **'Exact alarms enabled'**
+  String get wizardExactAlarmGranted;
+
+  /// No description provided for @wizardExactAlarmNotRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Not Required'**
+  String get wizardExactAlarmNotRequired;
+
+  /// No description provided for @wizardExactAlarmNotRequiredDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Your device does not require additional alarm permissions. You can proceed.'**
+  String get wizardExactAlarmNotRequiredDescription;
+
+  /// No description provided for @wizardBatteryIcon.
+  ///
+  /// In en, this message translates to:
+  /// **'Battery optimization icon'**
+  String get wizardBatteryIcon;
+
+  /// No description provided for @wizardBatteryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Battery Optimization'**
+  String get wizardBatteryTitle;
+
+  /// No description provided for @wizardBatteryDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Some manufacturers restrict background activity, which may prevent reminders from appearing on time. Disable battery optimization for Mudawy to ensure reliable notifications.'**
+  String get wizardBatteryDescription;
+
+  /// No description provided for @wizardBatteryGranted.
+  ///
+  /// In en, this message translates to:
+  /// **'Battery optimization disabled'**
+  String get wizardBatteryGranted;
+
+  /// No description provided for @wizardOpenSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Settings'**
+  String get wizardOpenSettings;
+
+  /// No description provided for @wizardCompletionIcon.
+  ///
+  /// In en, this message translates to:
+  /// **'Setup complete icon'**
+  String get wizardCompletionIcon;
+
+  /// No description provided for @wizardCompletionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'All Set!'**
+  String get wizardCompletionTitle;
+
+  /// No description provided for @wizardCompletionDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Everything is ready. You can now add your first medication.'**
+  String get wizardCompletionDescription;
+
+  /// No description provided for @wizardAddFirstMedication.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Medication'**
+  String get wizardAddFirstMedication;
+
+  /// No description provided for @wizardGoHome.
+  ///
+  /// In en, this message translates to:
+  /// **'Go to Home'**
+  String get wizardGoHome;
+
+  /// No description provided for @firstRunWelcomeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome to Mudawy'**
+  String get firstRunWelcomeTitle;
+
+  /// No description provided for @firstRunWelcomeDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Start by adding your first medication to receive timely reminders and track your doses.'**
+  String get firstRunWelcomeDescription;
+
+  /// No description provided for @firstRunExploreApp.
+  ///
+  /// In en, this message translates to:
+  /// **'Explore the app'**
+  String get firstRunExploreApp;
+
+  /// No description provided for @firstRunDismiss.
+  ///
+  /// In en, this message translates to:
+  /// **'Dismiss'**
+  String get firstRunDismiss;
+
+  /// No description provided for @firstRunNotificationHintTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Notifications'**
+  String get firstRunNotificationHintTitle;
+
+  /// No description provided for @firstRunNotificationHintDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t forget to enable notifications to receive timely medication reminders.'**
+  String get firstRunNotificationHintDescription;
+
+  /// No description provided for @firstRunNotificationHintEnable.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable'**
+  String get firstRunNotificationHintEnable;
+
+  /// No description provided for @firstRunSuccessTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Medication Added!'**
+  String get firstRunSuccessTitle;
+
+  /// No description provided for @firstRunSuccessDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Your first medication has been added successfully. You will receive reminders at the scheduled times.'**
+  String get firstRunSuccessDescription;
+
+  /// No description provided for @firstRunSuccessContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Tracking'**
+  String get firstRunSuccessContinue;
+
+  /// No description provided for @firstRunEmptyHistoryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No dose history yet'**
+  String get firstRunEmptyHistoryTitle;
+
+  /// No description provided for @firstRunEmptyHistoryDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Your compliance history will appear here once you start taking doses.'**
+  String get firstRunEmptyHistoryDescription;
+
+  /// No description provided for @firstRunEmptySearchTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No matching medications'**
+  String get firstRunEmptySearchTitle;
+
+  /// No description provided for @firstRunEmptySearchDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Try a different search term or clear filters.'**
+  String get firstRunEmptySearchDescription;
+
+  /// No description provided for @healthSystemHealthTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'System Health'**
+  String get healthSystemHealthTitle;
+
+  /// No description provided for @healthNotificationPermissionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Notification Permission'**
+  String get healthNotificationPermissionTitle;
+
+  /// No description provided for @healthExactAlarmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Exact Alarm Permission'**
+  String get healthExactAlarmTitle;
+
+  /// No description provided for @healthBatteryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Battery Optimization'**
+  String get healthBatteryTitle;
+
+  /// No description provided for @healthNotificationServiceTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Notification Service'**
+  String get healthNotificationServiceTitle;
+
+  /// No description provided for @healthPendingNotificationsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending Notifications'**
+  String get healthPendingNotificationsTitle;
+
+  /// No description provided for @healthDatabaseTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Database'**
+  String get healthDatabaseTitle;
+
+  /// No description provided for @healthTimeZoneTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Time Zone'**
+  String get healthTimeZoneTitle;
+
+  /// No description provided for @healthApplicationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Application'**
+  String get healthApplicationTitle;
+
+  /// No description provided for @healthNotificationGranted.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications are enabled'**
+  String get healthNotificationGranted;
+
+  /// No description provided for @healthNotificationDenied.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications are disabled'**
+  String get healthNotificationDenied;
+
+  /// No description provided for @healthNotificationUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Notification status unknown'**
+  String get healthNotificationUnknown;
+
+  /// No description provided for @healthExactAlarmGranted.
+  ///
+  /// In en, this message translates to:
+  /// **'Exact alarms are enabled'**
+  String get healthExactAlarmGranted;
+
+  /// No description provided for @healthExactAlarmDenied.
+  ///
+  /// In en, this message translates to:
+  /// **'Exact alarms are disabled'**
+  String get healthExactAlarmDenied;
+
+  /// No description provided for @healthExactAlarmUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Exact alarm status unknown'**
+  String get healthExactAlarmUnknown;
+
+  /// No description provided for @healthExactAlarmUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Not required on this platform'**
+  String get healthExactAlarmUnavailable;
+
+  /// No description provided for @healthBatteryOptimized.
+  ///
+  /// In en, this message translates to:
+  /// **'Battery optimization may restrict reminders'**
+  String get healthBatteryOptimized;
+
+  /// No description provided for @healthBatteryIgnored.
+  ///
+  /// In en, this message translates to:
+  /// **'Battery optimization is disabled'**
+  String get healthBatteryIgnored;
+
+  /// No description provided for @healthBatteryUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Battery optimization status unknown'**
+  String get healthBatteryUnknown;
+
+  /// No description provided for @healthServiceReady.
+  ///
+  /// In en, this message translates to:
+  /// **'Notification service is ready'**
+  String get healthServiceReady;
+
+  /// No description provided for @healthServiceError.
+  ///
+  /// In en, this message translates to:
+  /// **'Notification service encountered an error'**
+  String get healthServiceError;
+
+  /// No description provided for @healthDatabaseHealthy.
+  ///
+  /// In en, this message translates to:
+  /// **'Database is open and healthy'**
+  String get healthDatabaseHealthy;
+
+  /// No description provided for @healthDatabaseError.
+  ///
+  /// In en, this message translates to:
+  /// **'Database encountered an error'**
+  String get healthDatabaseError;
+
+  /// No description provided for @healthTimeZoneInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Time zone is configured correctly'**
+  String get healthTimeZoneInfo;
+
+  /// No description provided for @healthTimeZoneError.
+  ///
+  /// In en, this message translates to:
+  /// **'Time zone detection failed'**
+  String get healthTimeZoneError;
+
+  /// No description provided for @healthPendingNotificationsInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Notification slots available'**
+  String get healthPendingNotificationsInfo;
+
+  /// No description provided for @healthPendingNotificationsError.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to query pending notifications'**
+  String get healthPendingNotificationsError;
+
+  /// No description provided for @healthApplicationInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Application information loaded'**
+  String get healthApplicationInfo;
+
+  /// No description provided for @healthApplicationError.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load application info'**
+  String get healthApplicationError;
+
+  /// No description provided for @healthActionEnableNotifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Notifications'**
+  String get healthActionEnableNotifications;
+
+  /// No description provided for @healthActionGrantExactAlarm.
+  ///
+  /// In en, this message translates to:
+  /// **'Grant Exact Alarm'**
+  String get healthActionGrantExactAlarm;
+
+  /// No description provided for @healthActionOpenBatterySettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Battery Settings'**
+  String get healthActionOpenBatterySettings;
+
+  /// No description provided for @healthQuickFixes.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick Fixes'**
+  String get healthQuickFixes;
+
+  /// No description provided for @healthQuickFixesDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Fix issues that may prevent reminders'**
+  String get healthQuickFixesDescription;
+
+  /// No description provided for @healthRefresh.
+  ///
+  /// In en, this message translates to:
+  /// **'Refresh'**
+  String get healthRefresh;
+
+  /// No description provided for @healthScoreExcellent.
+  ///
+  /// In en, this message translates to:
+  /// **'Excellent'**
+  String get healthScoreExcellent;
+
+  /// No description provided for @healthScoreGood.
+  ///
+  /// In en, this message translates to:
+  /// **'Good'**
+  String get healthScoreGood;
+
+  /// No description provided for @healthScoreNeedsAttention.
+  ///
+  /// In en, this message translates to:
+  /// **'Needs Attention'**
+  String get healthScoreNeedsAttention;
+
+  /// No description provided for @healthScoreCritical.
+  ///
+  /// In en, this message translates to:
+  /// **'Critical'**
+  String get healthScoreCritical;
+
+  /// No description provided for @healthScorePassed.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} passed'**
+  String healthScorePassed(Object count);
+
+  /// No description provided for @healthScoreFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} failed'**
+  String healthScoreFailed(Object count);
+
+  /// No description provided for @a11yHealthCheckStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Status: {status}'**
+  String a11yHealthCheckStatus(Object status);
+
+  /// No description provided for @a11yHealthScore.
+  ///
+  /// In en, this message translates to:
+  /// **'Score: {percent} percent'**
+  String a11yHealthScore(Object percent);
+
+  /// No description provided for @a11yHealthOverall.
+  ///
+  /// In en, this message translates to:
+  /// **'Overall health: {label}'**
+  String a11yHealthOverall(Object label);
 }
 
 class _AppLocalizationsDelegate

@@ -5,9 +5,11 @@ import 'package:medication_reminder/shared/components/c_card.dart';
 import 'package:medication_reminder/shared/components/c_button.dart';
 import 'package:medication_reminder/shared/components/c_dialog.dart';
 import 'package:medication_reminder/shared/components/c_snackbar.dart';
+import 'package:medication_reminder/shared/navigation/c_navigator.dart';
 import 'package:medication_reminder/core/design_system/spacing/app_spacing.dart';
 import '../../models/settings_model.dart';
 import '../../providers/providers.dart';
+import '../../../system_health/presentation/screens/system_health_screen.dart';
 
 class SettingsAboutSection extends ConsumerWidget {
   final SettingsModel settings;
@@ -41,19 +43,25 @@ class SettingsAboutSection extends ConsumerWidget {
           ),
 
           // Version
-          ListTile(
-            leading: const Icon(Icons.info_outline),
-            title: Text(l10n.settingsVersion),
-            subtitle: Text(settings.appVersion),
+          Semantics(
+            label: '${l10n.settingsVersion}: ${settings.appVersion}',
+            child: ListTile(
+              leading: const Icon(Icons.info_outline),
+              title: Text(l10n.settingsVersion),
+              subtitle: Text(settings.appVersion),
+            ),
           ),
 
           const Divider(height: 1),
 
           // Build Number
-          ListTile(
-            leading: const Icon(Icons.build),
-            title: Text(l10n.settingsBuildNumber),
-            subtitle: Text(settings.buildNumber),
+          Semantics(
+            label: '${l10n.settingsBuildNumber}: ${settings.buildNumber}',
+            child: ListTile(
+              leading: const Icon(Icons.build),
+              title: Text(l10n.settingsBuildNumber),
+              subtitle: Text(settings.buildNumber),
+            ),
           ),
 
           const Divider(height: 1),
@@ -83,16 +91,33 @@ class SettingsAboutSection extends ConsumerWidget {
             },
           ),
 
+          const Divider(height: 1),
+
+          // System Health
+          Semantics(
+            label: l10n.healthSystemHealthTitle,
+            child: ListTile(
+              leading: const Icon(Icons.health_and_safety),
+              title: Text(l10n.healthSystemHealthTitle),
+              subtitle: const Text('Check app health status'),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => CNavigator.push(const SystemHealthScreen()),
+            ),
+          ),
+
           const SizedBox(height: AppSpacing.m),
 
           // Reset to Defaults
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: AppSpacing.l),
-            child: SizedBox(
-              width: double.infinity,
-              child: CButton.outlined(
-                text: l10n.settingsResetDefaults,
-                onPressed: () => _confirmReset(context, ref, l10n),
+            child: Semantics(
+              label: l10n.settingsResetDefaults,
+              child: SizedBox(
+                width: double.infinity,
+                child: CButton.outlined(
+                  text: l10n.settingsResetDefaults,
+                  onPressed: () => _confirmReset(context, ref, l10n),
+                ),
               ),
             ),
           ),

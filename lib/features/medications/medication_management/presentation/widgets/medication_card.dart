@@ -23,72 +23,85 @@ class MedicationCard extends ConsumerWidget {
     final color = medication.color.toColor();
     final l10n = AppLocalizations.of(context);
 
-    return CCard(
-      onTap: onTap,
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.l,
-        vertical: AppSpacing.m,
-      ),
-      child: Row(
-        children: [
-          Container(
-            width: 8,
-            height: 40,
-            decoration: BoxDecoration(
-              color: color,
-              borderRadius: AppRadius.borderXs,
+    return Semantics(
+      label:
+          '${medication.name}, ${medication.dosage}, ${medication.priority.name}',
+      hint: l10n.a11yMedicationCardHint,
+      child: CCard(
+        onTap: onTap,
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppSpacing.l,
+          vertical: AppSpacing.m,
+        ),
+        child: Row(
+          children: [
+            Container(
+              width: 8,
+              height: 40,
+              decoration: BoxDecoration(
+                color: color,
+                borderRadius: AppRadius.borderXs,
+              ),
             ),
-          ),
-          const SizedBox(width: AppSpacing.m),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  medication.name,
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w600,
+            const SizedBox(width: AppSpacing.m),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    medication.name,
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                const SizedBox(height: AppSpacing.xxs),
-                Text(
-                  medication.dosage,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: colorScheme.onSurfaceVariant,
+                  const SizedBox(height: AppSpacing.xxs),
+                  Text(
+                    medication.dosage,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: colorScheme.onSurfaceVariant,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          const SizedBox(width: AppSpacing.s),
-          PriorityBadge(priority: medication.priority),
-          const SizedBox(width: AppSpacing.s),
-          Switch(
-            value: medication.isActive,
-            onChanged: (value) {
-              if (!value) {
-                CDialog.confirm(
-                  context: context,
-                  title: l10n.confirm,
-                  content: l10n.confirmDeactivateMedication,
-                  confirmText: l10n.confirm,
-                  cancelText: l10n.cancel,
-                  isDestructive: true,
-                ).then((confirmed) {
-                  if (confirmed == true) {
+            const SizedBox(width: AppSpacing.s),
+            PriorityBadge(priority: medication.priority),
+            const SizedBox(width: AppSpacing.s),
+            Semantics(
+              label: medication.isActive
+                  ? l10n.a11yMedicationActive(medication.name)
+                  : l10n.a11yMedicationInactive(medication.name),
+              value: medication.isActive
+                  ? l10n.a11ySwitchOn
+                  : l10n.a11ySwitchOff,
+              child: Switch(
+                value: medication.isActive,
+                onChanged: (value) {
+                  if (!value) {
+                    CDialog.confirm(
+                      context: context,
+                      title: l10n.confirm,
+                      content: l10n.confirmDeactivateMedication,
+                      confirmText: l10n.confirm,
+                      cancelText: l10n.cancel,
+                      isDestructive: true,
+                    ).then((confirmed) {
+                      if (confirmed == true) {
+                        _toggleMedication(ref, value, context, l10n);
+                      }
+                    });
+                  } else {
                     _toggleMedication(ref, value, context, l10n);
                   }
-                });
-              } else {
-                _toggleMedication(ref, value, context, l10n);
-              }
-            },
-          ),
-        ],
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

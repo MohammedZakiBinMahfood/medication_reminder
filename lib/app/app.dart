@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import '../core/design_system/theme/app_theme.dart';
 import '../features/medications/today_dashboard/presentation/screens/dashboard_screen.dart';
+import '../features/onboarding/setup_wizard/presentation/screens/wizard_screen.dart';
+import '../features/onboarding/setup_wizard/repositories/wizard_repository_impl.dart';
 import '../features/settings/models/settings_enums.dart';
 import '../features/settings/providers/providers.dart';
 import '../l10n/app_localizations.dart';
@@ -28,7 +30,7 @@ class App extends ConsumerWidget {
     };
 
     return MaterialApp(
-      title: 'Medication Reminder',
+      title: 'Mudawy',
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: themeMode,
@@ -42,7 +44,62 @@ class App extends ConsumerWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      home: const DashboardScreen(),
+      home: const _WizardOrHome(),
     );
+  }
+}
+
+class _WizardOrHome extends ConsumerStatefulWidget {
+  const _WizardOrHome();
+
+  @override
+  ConsumerState<_WizardOrHome> createState() => _WizardOrHomeState();
+}
+
+class _WizardOrHomeState extends ConsumerState<_WizardOrHome> {
+  bool? _wizardCompleted;
+  bool _loading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _checkWizardStatus();
+    });
+  }
+
+  Future<void> _checkWizardStatus() async {
+    try {
+      final repo = ref.read(wizardRepositoryProvider);
+      final completed = await repo.isWizardCompleted();
+      if (mounted) {
+        setState(() {
+          _wizardCompleted = completed;
+          _loading = false;
+        });
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() {
+          _wizardCompleted = false;
+          _loading = false;
+        });
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (_loading) {
+      return const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
+
+    if (_wizardCompleted == false) {
+      return const WizardScreen();
+    }
+
+    return const DashboardScreen();
   }
 }

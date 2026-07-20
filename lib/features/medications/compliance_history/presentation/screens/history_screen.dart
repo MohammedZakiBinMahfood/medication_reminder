@@ -46,7 +46,6 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen>
     if (state == AppLifecycleState.resumed) {
       ref.read(historyListProvider.notifier).refresh();
 
-      // Reschedule notifications to handle timezone changes while backgrounded.
       final manager = ref.read(notificationManagerProvider);
       manager.onAppResumed();
     }
@@ -68,11 +67,14 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen>
       appBar: AppBar(
         title: Text(l10n.historyTitle),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.refresh),
-            onPressed: () {
-              ref.read(historyListProvider.notifier).refresh();
-            },
+          Semantics(
+            label: l10n.retry,
+            child: IconButton(
+              icon: const Icon(Icons.refresh),
+              onPressed: () {
+                ref.read(historyListProvider.notifier).refresh();
+              },
+            ),
           ),
         ],
       ),
@@ -98,8 +100,8 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen>
     if (data == null || data.isEmpty) {
       return CEmptyView(
         icon: Icons.history,
-        title: l10n.historyEmptyTitle,
-        description: l10n.historyEmptySubtitle,
+        title: l10n.firstRunEmptyHistoryTitle,
+        description: l10n.firstRunEmptyHistoryDescription,
       );
     }
 
@@ -118,7 +120,7 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen>
   Widget _buildGroupedList(HistoryStateModel data) {
     final itemCount = data.groups.fold<int>(
       0,
-      (sum, g) => sum + g.items.length + 1, // +1 for group header
+      (sum, g) => sum + g.items.length + 1,
     );
     final hasMore = data.isLoadingMore || data.hasNext;
 

@@ -37,43 +37,47 @@ class DashboardSectionHeader extends StatelessWidget {
       ),
     };
 
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(
-        AppSpacing.l,
-        AppSpacing.l,
-        AppSpacing.l,
-        AppSpacing.s,
-      ),
-      child: Row(
-        children: [
-          Icon(icon, size: 20, color: color),
-          const SizedBox(width: AppSpacing.s),
-          Text(
-            '$label ($count)',
-            style: Theme.of(context).textTheme.titleSmall?.copyWith(
-              fontWeight: FontWeight.w600,
-              color: color,
-            ),
-          ),
-          const Spacer(),
-          Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: AppSpacing.s,
-              vertical: AppSpacing.xxs,
-            ),
-            decoration: BoxDecoration(
-              color: color.withValues(alpha: 0.1),
-              borderRadius: AppRadius.borderM,
-            ),
-            child: Text(
-              '$count',
-              style: Theme.of(context).textTheme.labelSmall?.copyWith(
+    return Semantics(
+      header: true,
+      label: l10n.a11ySectionCount(count, label),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(
+          AppSpacing.l,
+          AppSpacing.l,
+          AppSpacing.l,
+          AppSpacing.s,
+        ),
+        child: Row(
+          children: [
+            Icon(icon, size: 20, color: color),
+            const SizedBox(width: AppSpacing.s),
+            Text(
+              '$label ($count)',
+              style: Theme.of(context).textTheme.titleSmall?.copyWith(
                 fontWeight: FontWeight.w600,
                 color: color,
               ),
             ),
-          ),
-        ],
+            const Spacer(),
+            Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppSpacing.s,
+                vertical: AppSpacing.xxs,
+              ),
+              decoration: BoxDecoration(
+                color: color.withValues(alpha: 0.1),
+                borderRadius: AppRadius.borderM,
+              ),
+              child: Text(
+                '$count',
+                style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: color,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

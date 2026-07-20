@@ -21,10 +21,17 @@ class RepeatTypeSelector extends StatelessWidget {
       runSpacing: 8,
       children: RepeatType.values.map((type) {
         final isSelected = type == selected;
-        return FilterChip(
-          label: Text(_label(type, l10n)),
+        final label = _label(type, l10n);
+        return Semantics(
+          label: isSelected
+              ? l10n.a11yChipSelected(label)
+              : l10n.a11yChipNotSelected(label),
           selected: isSelected,
-          onSelected: (_) => onSelected(type),
+          child: FilterChip(
+            label: Text(label),
+            selected: isSelected,
+            onSelected: (_) => onSelected(type),
+          ),
         );
       }).toList(),
     );

@@ -15,6 +15,8 @@ class DashboardSummaryCard extends StatelessWidget {
     final l10n = AppLocalizations.of(context);
     final colorScheme = Theme.of(context).colorScheme;
 
+    final percent = summary.completionPercentage.toStringAsFixed(0);
+
     return Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: AppSpacing.l,
@@ -50,22 +52,28 @@ class DashboardSummaryCard extends StatelessWidget {
             ),
             if (summary.totalMedications > 0) ...[
               const SizedBox(height: AppSpacing.m),
-              ClipRRect(
-                borderRadius: AppRadius.borderXs,
-                child: LinearProgressIndicator(
-                  value: summary.completionPercentage / 100,
-                  minHeight: 6,
-                  backgroundColor: colorScheme.surfaceContainerHighest,
-                  valueColor: AlwaysStoppedAnimation<Color>(
-                    colorScheme.primary,
+              Semantics(
+                label: l10n.a11yProgress(percent),
+                child: ClipRRect(
+                  borderRadius: AppRadius.borderXs,
+                  child: LinearProgressIndicator(
+                    value: summary.completionPercentage / 100,
+                    minHeight: 6,
+                    backgroundColor: colorScheme.surfaceContainerHighest,
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                      colorScheme.primary,
+                    ),
                   ),
                 ),
               ),
               const SizedBox(height: AppSpacing.xxs),
-              Text(
-                '${summary.completionPercentage.toStringAsFixed(0)}% ${l10n.dashboardCompletedLower}',
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: colorScheme.onSurfaceVariant,
+              Semantics(
+                excludeSemantics: true,
+                child: Text(
+                  '$percent% ${l10n.dashboardCompletedLower}',
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: colorScheme.onSurfaceVariant,
+                  ),
                 ),
               ),
             ],
@@ -107,23 +115,26 @@ class _SummaryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(
-          value,
-          style: Theme.of(context).textTheme.titleLarge?.copyWith(
-            fontWeight: FontWeight.w600,
-            color: color,
+    return Semantics(
+      label: '$label: $value',
+      child: Column(
+        children: [
+          Text(
+            value,
+            style: Theme.of(context).textTheme.titleLarge?.copyWith(
+              fontWeight: FontWeight.w600,
+              color: color,
+            ),
           ),
-        ),
-        const SizedBox(height: AppSpacing.xxs),
-        Text(
-          label,
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-            color: Theme.of(context).colorScheme.onSurfaceVariant,
+          const SizedBox(height: AppSpacing.xxs),
+          Text(
+            label,
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

@@ -49,25 +49,31 @@ class SettingsNotificationsSection extends ConsumerWidget {
           const Divider(height: 1),
 
           // Sound
-          SwitchListTile(
-            secondary: const Icon(Icons.volume_up_outlined),
-            title: Text(l10n.settingsNotificationSound),
-            value: settings.notificationSound,
-            onChanged: settings.notificationsEnabled
-                ? (v) => notifier.updateNotificationSound(v)
-                : null,
+          Semantics(
+            enabled: settings.notificationsEnabled,
+            child: SwitchListTile(
+              secondary: const Icon(Icons.volume_up_outlined),
+              title: Text(l10n.settingsNotificationSound),
+              value: settings.notificationSound,
+              onChanged: settings.notificationsEnabled
+                  ? (v) => notifier.updateNotificationSound(v)
+                  : null,
+            ),
           ),
 
           const Divider(height: 1),
 
           // Vibration
-          SwitchListTile(
-            secondary: const Icon(Icons.vibration),
-            title: Text(l10n.settingsVibrationEnabled),
-            value: settings.vibrationEnabled,
-            onChanged: settings.notificationsEnabled
-                ? (v) => notifier.updateVibrationEnabled(v)
-                : null,
+          Semantics(
+            enabled: settings.notificationsEnabled,
+            child: SwitchListTile(
+              secondary: const Icon(Icons.vibration),
+              title: Text(l10n.settingsVibrationEnabled),
+              value: settings.vibrationEnabled,
+              onChanged: settings.notificationsEnabled
+                  ? (v) => notifier.updateVibrationEnabled(v)
+                  : null,
+            ),
           ),
 
           const Divider(height: 1),

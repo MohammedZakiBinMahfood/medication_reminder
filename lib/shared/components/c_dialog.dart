@@ -17,10 +17,14 @@ class CDialog {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text(title, style: Theme.of(context).textTheme.titleLarge),
+          title: Semantics(
+            label: title,
+            child: Text(title, style: Theme.of(context).textTheme.titleLarge),
+          ),
           content: Text(content, style: Theme.of(context).textTheme.bodyMedium),
           actions: [
             TextButton(
+              autofocus: true,
               onPressed: () => Navigator.pop(context),
               child: Text(cancelText),
             ),

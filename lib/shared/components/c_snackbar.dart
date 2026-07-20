@@ -51,19 +51,22 @@ class CSnackbar {
   ) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Row(
-          children: [
-            Icon(icon, color: Colors.white),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Text(
-                message,
-                style: Theme.of(
-                  context,
-                ).textTheme.bodyMedium?.copyWith(color: Colors.white),
+        content: Semantics(
+          liveRegion: true,
+          child: Row(
+            children: [
+              Icon(icon, color: Colors.white),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Text(
+                  message,
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodyMedium?.copyWith(color: Colors.white),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
         backgroundColor: color,
         behavior: SnackBarBehavior.floating,

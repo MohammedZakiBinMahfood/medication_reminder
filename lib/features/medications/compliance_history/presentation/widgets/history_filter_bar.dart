@@ -231,32 +231,36 @@ class _FilterChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ActionChip(
-      avatar: Icon(
-        icon,
-        size: 16,
-        color: isSelected ? AppColors.primary : AppColors.textSecondary,
-      ),
-      label: Text(
-        label,
-        style: TextStyle(
-          fontSize: 12,
+    return Semantics(
+      label: label,
+      selected: isSelected,
+      child: ActionChip(
+        avatar: Icon(
+          icon,
+          size: 16,
           color: isSelected ? AppColors.primary : AppColors.textSecondary,
         ),
+        label: Text(
+          label,
+          style: TextStyle(
+            fontSize: 12,
+            color: isSelected ? AppColors.primary : AppColors.textSecondary,
+          ),
+        ),
+        onPressed: onTap,
+        backgroundColor: isSelected
+            ? AppColors.primary.withValues(alpha: 0.08)
+            : AppColors.surface,
+        side: BorderSide(
+          color: isSelected
+              ? AppColors.primary.withValues(alpha: 0.3)
+              : AppColors.border,
+        ),
+        shape: RoundedRectangleBorder(borderRadius: AppRadius.borderL),
+        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xs),
+        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        visualDensity: VisualDensity.compact,
       ),
-      onPressed: onTap,
-      backgroundColor: isSelected
-          ? AppColors.primary.withValues(alpha: 0.08)
-          : AppColors.surface,
-      side: BorderSide(
-        color: isSelected
-            ? AppColors.primary.withValues(alpha: 0.3)
-            : AppColors.border,
-      ),
-      shape: RoundedRectangleBorder(borderRadius: AppRadius.borderL),
-      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xs),
-      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-      visualDensity: VisualDensity.compact,
     );
   }
 }

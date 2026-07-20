@@ -21,17 +21,22 @@ class PrioritySelector extends StatelessWidget {
     return Row(
       children: MedicationPriority.values.map((priority) {
         final isSelected = priority == selected;
+        final label = _label(priority, l10n);
         return Padding(
           padding: const EdgeInsets.only(right: AppSpacing.s),
-          child: FilterChip(
-            label: Text(_label(priority, l10n)),
+          child: Semantics(
+            label: l10n.a11yPriorityLabel(label),
             selected: isSelected,
-            onSelected: (_) => onSelected(priority),
-            selectedColor: _chipColor(priority).withValues(alpha: 0.15),
-            checkmarkColor: _chipColor(priority),
-            labelStyle: TextStyle(
-              color: isSelected ? _chipColor(priority) : null,
-              fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+            child: FilterChip(
+              label: Text(label),
+              selected: isSelected,
+              onSelected: (_) => onSelected(priority),
+              selectedColor: _chipColor(priority).withValues(alpha: 0.15),
+              checkmarkColor: _chipColor(priority),
+              labelStyle: TextStyle(
+                color: isSelected ? _chipColor(priority) : null,
+                fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+              ),
             ),
           ),
         );

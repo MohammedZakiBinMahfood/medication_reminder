@@ -27,60 +27,67 @@ class CEmptyView extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(AppSpacing.xl),
       child: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if (icon != null) ...[
-              Icon(
-                icon,
-                size: 64,
-                color: Theme.of(context).colorScheme.outline,
-              ),
-              const SizedBox(height: AppSpacing.l),
-            ],
-            if (hasNewFeatures) ...[
-              if (title != null)
-                Text(
-                  title!,
-                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                    fontWeight: FontWeight.w600,
-                  ),
-                  textAlign: TextAlign.center,
+        child: Semantics(
+          container: true,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (icon != null) ...[
+                Icon(
+                  icon,
+                  size: 64,
+                  color: Theme.of(context).colorScheme.outline,
                 ),
-              if (title != null && description != null)
                 const SizedBox(height: AppSpacing.l),
-              if (description != null)
-                Text(
-                  description!,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+              ],
+              if (hasNewFeatures) ...[
+                if (title != null)
+                  Semantics(
+                    header: true,
+                    child: Text(
+                      title!,
+                      style: Theme.of(context).textTheme.headlineSmall
+                          ?.copyWith(fontWeight: FontWeight.w600),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
-                  textAlign: TextAlign.center,
-                ),
-              if (title != null && message != null && message!.isNotEmpty) ...[
-                const SizedBox(height: AppSpacing.l),
+                if (title != null && description != null)
+                  const SizedBox(height: AppSpacing.l),
+                if (description != null)
+                  Text(
+                    description!,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                if (title != null &&
+                    message != null &&
+                    message!.isNotEmpty) ...[
+                  const SizedBox(height: AppSpacing.l),
+                  Text(
+                    message!,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ] else if (message != null) ...[
                 Text(
                   message!,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     color: Theme.of(context).colorScheme.onSurfaceVariant,
                   ),
                   textAlign: TextAlign.center,
                 ),
               ],
-            ] else if (message != null) ...[
-              Text(
-                message!,
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  color: Theme.of(context).colorScheme.onSurfaceVariant,
-                ),
-                textAlign: TextAlign.center,
-              ),
+              if (actionLabel != null && onAction != null) ...[
+                const SizedBox(height: AppSpacing.l),
+                CButton(text: actionLabel!, onPressed: onAction!),
+              ],
             ],
-            if (actionLabel != null && onAction != null) ...[
-              const SizedBox(height: AppSpacing.l),
-              CButton(text: actionLabel!, onPressed: onAction!),
-            ],
-          ],
+          ),
         ),
       ),
     );

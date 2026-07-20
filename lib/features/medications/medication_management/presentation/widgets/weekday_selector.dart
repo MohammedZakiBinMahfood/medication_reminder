@@ -29,40 +29,48 @@ class WeekdaySelector extends StatelessWidget {
       children: List.generate(7, (index) {
         final dayNumber = index + 1;
         final isSelected = selectedWeekdays.contains(dayNumber);
-        return GestureDetector(
-          onTap: () {
-            final updated = List<int>.from(selectedWeekdays);
-            if (isSelected) {
-              updated.remove(dayNumber);
-            } else {
-              updated.add(dayNumber);
-            }
-            onWeekdaysChanged(updated);
-          },
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 150),
-            width: 40,
-            height: 40,
-            decoration: BoxDecoration(
-              color: isSelected
-                  ? Theme.of(context).colorScheme.primary
-                  : Theme.of(context).colorScheme.surface,
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(
+        final dayLabel = dayLabels[index];
+        return Semantics(
+          button: true,
+          label: isSelected
+              ? l10n.a11yDaySelected(dayLabel)
+              : l10n.a11yDayNotSelected(dayLabel),
+          selected: isSelected,
+          child: GestureDetector(
+            onTap: () {
+              final updated = List<int>.from(selectedWeekdays);
+              if (isSelected) {
+                updated.remove(dayNumber);
+              } else {
+                updated.add(dayNumber);
+              }
+              onWeekdaysChanged(updated);
+            },
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 150),
+              width: 40,
+              height: 40,
+              decoration: BoxDecoration(
                 color: isSelected
                     ? Theme.of(context).colorScheme.primary
-                    : Theme.of(context).colorScheme.outline,
+                    : Theme.of(context).colorScheme.surface,
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(
+                  color: isSelected
+                      ? Theme.of(context).colorScheme.primary
+                      : Theme.of(context).colorScheme.outline,
+                ),
               ),
-            ),
-            alignment: Alignment.center,
-            child: Text(
-              dayLabels[index],
-              style: TextStyle(
-                fontSize: 11,
-                fontWeight: FontWeight.w600,
-                color: isSelected
-                    ? Theme.of(context).colorScheme.onPrimary
-                    : Theme.of(context).colorScheme.onSurface,
+              alignment: Alignment.center,
+              child: Text(
+                dayLabels[index],
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w600,
+                  color: isSelected
+                      ? Theme.of(context).colorScheme.onPrimary
+                      : Theme.of(context).colorScheme.onSurface,
+                ),
               ),
             ),
           ),

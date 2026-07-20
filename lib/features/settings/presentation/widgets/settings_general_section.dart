@@ -40,38 +40,47 @@ class SettingsGeneralSection extends ConsumerWidget {
           ),
 
           // Language
-          ListTile(
-            leading: const Icon(Icons.language),
-            title: Text(l10n.settingsLanguage),
-            subtitle: Text(
-              settings.language == 'ar'
-                  ? l10n.settingsLanguageArabic
-                  : l10n.settingsLanguageEnglish,
+          Semantics(
+            label: l10n.settingsLanguage,
+            child: ListTile(
+              leading: const Icon(Icons.language),
+              title: Text(l10n.settingsLanguage),
+              subtitle: Text(
+                settings.language == 'ar'
+                    ? l10n.settingsLanguageArabic
+                    : l10n.settingsLanguageEnglish,
+              ),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => _showLanguagePicker(context, ref, l10n),
             ),
-            trailing: const Icon(Icons.chevron_right),
-            onTap: () => _showLanguagePicker(context, ref, l10n),
           ),
 
           const Divider(height: 1),
 
           // Theme
-          ListTile(
-            leading: const Icon(Icons.palette_outlined),
-            title: Text(l10n.settingsTheme),
-            subtitle: Text(_themeModeLabel(settings.themeMode, l10n)),
-            trailing: const Icon(Icons.chevron_right),
-            onTap: () => _showThemePicker(context, ref, l10n),
+          Semantics(
+            label: l10n.settingsTheme,
+            child: ListTile(
+              leading: const Icon(Icons.palette_outlined),
+              title: Text(l10n.settingsTheme),
+              subtitle: Text(_themeModeLabel(settings.themeMode, l10n)),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => _showThemePicker(context, ref, l10n),
+            ),
           ),
 
           const Divider(height: 1),
 
           // First Day of Week
-          ListTile(
-            leading: const Icon(Icons.calendar_today),
-            title: Text(l10n.settingsFirstDayOfWeek),
-            subtitle: Text(_dayOfWeekLabel(settings.firstDayOfWeek, l10n)),
-            trailing: const Icon(Icons.chevron_right),
-            onTap: () => _showFirstDayPicker(context, ref, l10n),
+          Semantics(
+            label: l10n.settingsFirstDayOfWeek,
+            child: ListTile(
+              leading: const Icon(Icons.calendar_today),
+              title: Text(l10n.settingsFirstDayOfWeek),
+              subtitle: Text(_dayOfWeekLabel(settings.firstDayOfWeek, l10n)),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => _showFirstDayPicker(context, ref, l10n),
+            ),
           ),
 
           const Divider(height: 1),

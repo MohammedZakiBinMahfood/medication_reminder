@@ -16,6 +16,8 @@ class CTextField extends StatefulWidget {
   final Widget? suffixIcon;
   final bool readOnly;
   final bool autofocus;
+  final List<String>? autofillHints;
+  final String? semanticsLabel;
 
   const CTextField({
     super.key,
@@ -33,6 +35,8 @@ class CTextField extends StatefulWidget {
     this.suffixIcon,
     this.readOnly = false,
     this.autofocus = false,
+    this.autofillHints,
+    this.semanticsLabel,
   });
 
   @override
@@ -62,7 +66,6 @@ class _CTextFieldState extends State<CTextField> {
         widget.controller == null) {
       final selection = _controller.selection;
       _controller.text = widget.initialValue ?? '';
-      // Preserve cursor position if possible
       if (selection.isValid && selection.end <= _controller.text.length) {
         _controller.selection = selection;
       }
@@ -79,7 +82,7 @@ class _CTextFieldState extends State<CTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    final field = Padding(
       padding: const EdgeInsets.only(bottom: AppSpacing.m),
       child: TextField(
         controller: _controller,
@@ -90,6 +93,7 @@ class _CTextFieldState extends State<CTextField> {
         onChanged: widget.onChanged,
         maxLines: widget.maxLines,
         readOnly: widget.readOnly,
+        autofillHints: widget.autofillHints,
         decoration: InputDecoration(
           labelText: widget.labelText,
           hintText: widget.hintText,
@@ -99,5 +103,10 @@ class _CTextFieldState extends State<CTextField> {
         ),
       ),
     );
+
+    if (widget.semanticsLabel != null) {
+      return Semantics(label: widget.semanticsLabel, child: field);
+    }
+    return field;
   }
 }

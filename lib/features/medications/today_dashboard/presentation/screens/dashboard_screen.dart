@@ -2,6 +2,7 @@ import 'package:app_platform_core/core.dart';
 import 'package:app_platform_state/base/base_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:medication_reminder/core/providers/first_run_provider.dart';
 import 'package:medication_reminder/features/medications/today_dashboard/models/dashboard_medication_model.dart';
 import 'package:medication_reminder/features/medications/today_dashboard/models/dashboard_state_model.dart';
 import 'package:medication_reminder/features/medications/today_dashboard/providers/dashboard_list_notifier.dart';
@@ -18,6 +19,7 @@ import 'package:medication_reminder/core/design_system/spacing/app_spacing.dart'
 import '../../../../../core/notifications/notification_providers.dart';
 import '../../../compliance_history/presentation/screens/history_screen.dart';
 import '../../../medication_management/presentation/screens/medication_form_screen.dart';
+import '../../../medication_management/presentation/widgets/first_medication_success_dialog.dart';
 import '../../../../settings/presentation/screens/settings_screen.dart';
 import '../widgets/dashboard_header.dart';
 import '../widgets/dashboard_summary_card.dart';
@@ -26,6 +28,8 @@ import '../widgets/dashboard_medication_card.dart';
 import '../widgets/dashboard_empty_view.dart';
 import '../widgets/dashboard_filters.dart';
 import '../widgets/dashboard_floating_actions.dart';
+import '../widgets/welcome_card.dart';
+import '../widgets/notification_hint_card.dart';
 
 class DashboardScreen extends ConsumerStatefulWidget {
   const DashboardScreen({super.key});
@@ -129,12 +133,15 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen>
     final data = dashboardState.data;
     if (data == null) {
       return DashboardEmptyView(
-        onAddMedication: () => CNavigator.push(const MedicationFormScreen()),
+        onAddMedication: () => _addMedication(),
+        onExploreApp: () => CNavigator.push(const SettingsScreen()),
       );
     }
 
     return Column(
       children: [
+        WelcomeCard(onExploreApp: _onExploreApp),
+        const NotificationHintCard(),
         const DashboardHeader(),
         DashboardSummaryCard(summary: data.summary),
         const DashboardFilters(),
@@ -143,8 +150,8 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen>
               ? _buildNoFilterResults(l10n)
               : data.isEmpty
               ? DashboardEmptyView(
-                  onAddMedication: () =>
-                      CNavigator.push(const MedicationFormScreen()),
+                  onAddMedication: () => _addMedication(),
+                  onExploreApp: () => _onExploreApp(),
                 )
               : RefreshIndicator(
                   onRefresh: () =>
@@ -161,11 +168,24 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen>
     );
   }
 
+  void _onExploreApp() {
+    CNavigator.push(const SettingsScreen());
+  }
+
+  Future<void> _addMedication() async {
+    await CNavigator.push<bool>(const MedicationFormScreen());
+    if (!mounted) return;
+    final firstRun = ref.read(firstRunProvider);
+    if (!firstRun.firstMedicationAdded) {
+      FirstMedicationSuccessDialog.show(context, ref);
+    }
+  }
+
   Widget _buildNoFilterResults(AppLocalizations l10n) {
     return CEmptyView(
       icon: Icons.filter_list_off,
-      title: l10n.dashboardNoFilterResults,
-      description: l10n.dashboardFilterAll,
+      title: l10n.firstRunEmptySearchTitle,
+      description: l10n.firstRunEmptySearchDescription,
     );
   }
 

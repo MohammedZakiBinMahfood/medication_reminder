@@ -70,15 +70,18 @@ class HistoryStatisticsCard extends StatelessWidget {
           ],
         ),
         const SizedBox(height: AppSpacing.xs),
-        ClipRRect(
-          borderRadius: AppRadius.borderS,
-          child: LinearProgressIndicator(
-            value: adherence / 100,
-            backgroundColor: AppColors.border,
-            valueColor: AlwaysStoppedAnimation<Color>(
-              _adherenceColor(adherence),
+        Semantics(
+          label: l10n.a11yAdherence(adherence.toStringAsFixed(1)),
+          child: ClipRRect(
+            borderRadius: AppRadius.borderS,
+            child: LinearProgressIndicator(
+              value: adherence / 100,
+              backgroundColor: AppColors.border,
+              valueColor: AlwaysStoppedAnimation<Color>(
+                _adherenceColor(adherence),
+              ),
+              minHeight: 8,
             ),
-            minHeight: 8,
           ),
         ),
       ],
@@ -169,33 +172,36 @@ class _StatItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Container(
-      padding: const EdgeInsets.all(AppSpacing.xs),
-      decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.08),
-        borderRadius: AppRadius.borderS,
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            value,
-            style: theme.textTheme.titleLarge?.copyWith(
-              fontWeight: FontWeight.w700,
-              color: color,
+    return Semantics(
+      label: '$label: $value',
+      child: Container(
+        padding: const EdgeInsets.all(AppSpacing.xs),
+        decoration: BoxDecoration(
+          color: color.withValues(alpha: 0.08),
+          borderRadius: AppRadius.borderS,
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              value,
+              style: theme.textTheme.titleLarge?.copyWith(
+                fontWeight: FontWeight.w700,
+                color: color,
+              ),
             ),
-          ),
-          const SizedBox(height: 2),
-          Text(
-            label,
-            style: theme.textTheme.labelSmall?.copyWith(
-              color: AppColors.textSecondary,
+            const SizedBox(height: 2),
+            Text(
+              label,
+              style: theme.textTheme.labelSmall?.copyWith(
+                color: AppColors.textSecondary,
+              ),
+              textAlign: TextAlign.center,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
             ),
-            textAlign: TextAlign.center,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -215,40 +221,43 @@ class _StreakItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Container(
-      padding: const EdgeInsets.all(AppSpacing.m),
-      decoration: BoxDecoration(
-        color: AppColors.primary.withValues(alpha: 0.06),
-        borderRadius: AppRadius.borderM,
-      ),
-      child: Row(
-        children: [
-          Icon(icon, color: AppColors.primary, size: 24),
-          const SizedBox(width: AppSpacing.s),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  '$value days',
-                  style: theme.textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w700,
-                    color: AppColors.primary,
+    return Semantics(
+      label: '$label: $value days',
+      child: Container(
+        padding: const EdgeInsets.all(AppSpacing.m),
+        decoration: BoxDecoration(
+          color: AppColors.primary.withValues(alpha: 0.06),
+          borderRadius: AppRadius.borderM,
+        ),
+        child: Row(
+          children: [
+            Icon(icon, color: AppColors.primary, size: 24),
+            const SizedBox(width: AppSpacing.s),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    '$value days',
+                    style: theme.textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.primary,
+                    ),
                   ),
-                ),
-                Text(
-                  label,
-                  style: theme.textTheme.labelSmall?.copyWith(
-                    color: AppColors.textSecondary,
+                  Text(
+                    label,
+                    style: theme.textTheme.labelSmall?.copyWith(
+                      color: AppColors.textSecondary,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

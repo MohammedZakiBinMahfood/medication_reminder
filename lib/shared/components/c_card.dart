@@ -23,10 +23,13 @@ class CCard extends StatelessWidget {
     );
 
     if (onTap != null) {
-      return InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(12), // Should match Theme
-        child: card,
+      return Semantics(
+        button: true,
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(12),
+          child: card,
+        ),
       );
     }
 

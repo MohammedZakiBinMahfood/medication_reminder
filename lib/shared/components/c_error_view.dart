@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medication_reminder/core/design_system/spacing/app_spacing.dart';
+import 'package:medication_reminder/l10n/app_localizations.dart';
 import 'c_button.dart';
 
 class CErrorView extends StatelessWidget {
@@ -10,16 +11,20 @@ class CErrorView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(AppSpacing.xl),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(
-              Icons.error_outline,
-              size: 64,
-              color: Theme.of(context).colorScheme.error,
+            Semantics(
+              label: l10n.a11yError,
+              child: Icon(
+                Icons.error_outline,
+                size: 64,
+                color: Theme.of(context).colorScheme.error,
+              ),
             ),
             const SizedBox(height: AppSpacing.l),
             Text(
@@ -29,7 +34,10 @@ class CErrorView extends StatelessWidget {
             ),
             if (onRetry != null) ...[
               const SizedBox(height: AppSpacing.xl),
-              CButton.outlined(text: 'Retry', onPressed: onRetry),
+              Semantics(
+                label: l10n.a11yRetry,
+                child: CButton.outlined(text: 'Retry', onPressed: onRetry),
+              ),
             ],
           ],
         ),

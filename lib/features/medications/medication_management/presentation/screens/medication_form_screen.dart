@@ -199,6 +199,7 @@ class _MedicationFormScreenState extends ConsumerState<MedicationFormScreen> {
                     labelText: l10n.medicationName,
                     hintText: l10n.medicationNameHint,
                     textInputAction: TextInputAction.next,
+                    autofillHints: [AutofillHints.name],
                     errorText: formState.field(MedicationFormField.name).error,
                     onChanged: (value) {
                       ref.read(medicationStateProvider.notifier).setName(value);
@@ -283,6 +284,7 @@ class _MedicationFormScreenState extends ConsumerState<MedicationFormScreen> {
                   _SectionLabel(label: l10n.startDate),
                   _DateTile(
                     date: medState.startDate,
+                    sectionLabel: l10n.startDate,
                     errorText: formState
                         .field(MedicationFormField.startDate)
                         .error,
@@ -292,6 +294,7 @@ class _MedicationFormScreenState extends ConsumerState<MedicationFormScreen> {
                   _SectionLabel(label: l10n.endDateOptional),
                   _DateTile(
                     date: medState.endDate,
+                    sectionLabel: l10n.endDateOptional,
                     errorText: formState
                         .field(MedicationFormField.endDate)
                         .error,
@@ -326,13 +329,16 @@ class _SectionLabel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
-      child: Text(
-        label,
-        style: Theme.of(
-          context,
-        ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w600),
+    return Semantics(
+      header: true,
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 8),
+        child: Text(
+          label,
+          style: Theme.of(
+            context,
+          ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w600),
+        ),
       ),
     );
   }
@@ -340,6 +346,7 @@ class _SectionLabel extends StatelessWidget {
 
 class _DateTile extends StatelessWidget {
   final DateTime? date;
+  final String sectionLabel;
   final String? errorText;
   final VoidCallback onTap;
   final bool isClearable;
@@ -347,6 +354,7 @@ class _DateTile extends StatelessWidget {
 
   const _DateTile({
     required this.date,
+    required this.sectionLabel,
     this.errorText,
     required this.onTap,
     this.isClearable = false,
@@ -363,31 +371,39 @@ class _DateTile extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        InkWell(
-          onTap: onTap,
-          borderRadius: BorderRadius.circular(12),
-          child: InputDecorator(
-            decoration: InputDecoration(
-              errorText: errorText,
-              suffixIcon: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  if (isClearable && date != null)
-                    IconButton(
-                      icon: const Icon(Icons.clear, size: 18),
-                      onPressed: onClear,
-                    ),
-                  const Icon(Icons.calendar_today, size: 18),
-                ],
+        Semantics(
+          button: true,
+          label: '$sectionLabel: $displayText',
+          child: InkWell(
+            onTap: onTap,
+            borderRadius: BorderRadius.circular(12),
+            child: InputDecorator(
+              decoration: InputDecoration(
+                errorText: errorText,
+                suffixIcon: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    if (isClearable && date != null)
+                      Semantics(
+                        label: l10n.a11yClearDate,
+                        button: true,
+                        child: IconButton(
+                          icon: const Icon(Icons.clear, size: 18),
+                          onPressed: onClear,
+                        ),
+                      ),
+                    const Icon(Icons.calendar_today, size: 18),
+                  ],
+                ),
               ),
-            ),
-            child: Text(
-              displayText,
-              style: date != null
-                  ? null
-                  : TextStyle(
-                      color: Theme.of(context).colorScheme.onSurfaceVariant,
-                    ),
+              child: Text(
+                displayText,
+                style: date != null
+                    ? null
+                    : TextStyle(
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
+                      ),
+              ),
             ),
           ),
         ),

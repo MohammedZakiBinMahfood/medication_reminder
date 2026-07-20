@@ -518,4 +518,473 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get formUnsavedChanges => 'You have unsaved changes';
+
+  @override
+  String a11yMedicationActive(Object name) {
+    return '$name, active';
+  }
+
+  @override
+  String a11yMedicationInactive(Object name) {
+    return '$name, inactive';
+  }
+
+  @override
+  String get a11yMedicationCardHint => 'Double tap to edit';
+
+  @override
+  String get a11ySwitchOn => 'On';
+
+  @override
+  String get a11ySwitchOff => 'Off';
+
+  @override
+  String a11yColorSelected(Object color) {
+    return '$color selected';
+  }
+
+  @override
+  String a11yColorNotSelected(Object color) {
+    return '$color';
+  }
+
+  @override
+  String a11yDaySelected(Object day) {
+    return '$day, selected';
+  }
+
+  @override
+  String a11yDayNotSelected(Object day) {
+    return '$day, not selected';
+  }
+
+  @override
+  String a11yChipSelected(Object label) {
+    return '$label, selected';
+  }
+
+  @override
+  String a11yChipNotSelected(Object label) {
+    return '$label';
+  }
+
+  @override
+  String a11yPriorityLabel(Object priority) {
+    return 'Priority: $priority';
+  }
+
+  @override
+  String a11yDoseStatus(Object status) {
+    return 'Status: $status';
+  }
+
+  @override
+  String a11yScheduledTime(Object time) {
+    return 'Scheduled at $time';
+  }
+
+  @override
+  String a11yRemainingTime(Object time) {
+    return '$time remaining';
+  }
+
+  @override
+  String get a11yOverdue => 'Overdue';
+
+  @override
+  String a11yTakeDose(Object name) {
+    return 'Take dose for $name';
+  }
+
+  @override
+  String a11ySkipDose(Object name) {
+    return 'Skip dose for $name';
+  }
+
+  @override
+  String a11ySnoozeDose(Object name) {
+    return 'Snooze dose for $name';
+  }
+
+  @override
+  String get a11yDoseTaken => 'Dose taken';
+
+  @override
+  String get a11yDoseSkipped => 'Dose skipped';
+
+  @override
+  String get a11yAddMedication => 'Add medication';
+
+  @override
+  String get a11ySearchMedications => 'Search medications';
+
+  @override
+  String get a11yClearSearch => 'Clear search';
+
+  @override
+  String get a11yLoading => 'Loading';
+
+  @override
+  String get a11yError => 'Error';
+
+  @override
+  String get a11yRetry => 'Retry loading';
+
+  @override
+  String get a11yEmptyState => 'Empty state';
+
+  @override
+  String a11yProgress(Object percent) {
+    return '$percent% completed';
+  }
+
+  @override
+  String a11yAdherence(Object percent) {
+    return 'Adherence: $percent percent';
+  }
+
+  @override
+  String a11yStreakCurrent(Object count) {
+    return 'Current streak: $count days';
+  }
+
+  @override
+  String a11yStreakLongest(Object count) {
+    return 'Longest streak: $count days';
+  }
+
+  @override
+  String a11yFilterActive(Object label) {
+    return 'Filter: $label';
+  }
+
+  @override
+  String a11ySectionCount(Object count, Object label) {
+    return '$label, $count items';
+  }
+
+  @override
+  String a11yGroupHeader(Object count, Object label) {
+    return '$label, $count doses';
+  }
+
+  @override
+  String a11yHistoryItem(Object name, Object status, Object time) {
+    return '$name, $status, $time';
+  }
+
+  @override
+  String get a11yOpenDatePicker => 'Open date picker';
+
+  @override
+  String get a11yClearDate => 'Clear date';
+
+  @override
+  String get a11yFormRequired => 'Required field';
+
+  @override
+  String get a11yDialogConfirm => 'Confirm action';
+
+  @override
+  String get a11yDialogCancel => 'Cancel action';
+
+  @override
+  String get a11yLanguageArabic => 'Arabic';
+
+  @override
+  String get a11yLanguageEnglish => 'English';
+
+  @override
+  String get a11yThemeLight => 'Light theme';
+
+  @override
+  String get a11yThemeDark => 'Dark theme';
+
+  @override
+  String get a11yThemeSystem => 'System theme';
+
+  @override
+  String get a11yNotificationsOn => 'Notifications enabled';
+
+  @override
+  String get a11yNotificationsOff => 'Notifications disabled';
+
+  @override
+  String get wizardAppLogo => 'Mudawy app logo';
+
+  @override
+  String get wizardWelcomeDescription =>
+      'Mudawy helps you remember your medications even without an internet connection, while keeping your data completely private.';
+
+  @override
+  String get wizardStart => 'Get Started';
+
+  @override
+  String get wizardSkip => 'Skip';
+
+  @override
+  String get wizardNext => 'Next';
+
+  @override
+  String get wizardNotificationIcon => 'Notification permission icon';
+
+  @override
+  String get wizardNotificationTitle => 'Notification Permission';
+
+  @override
+  String get wizardNotificationDescription =>
+      'The app relies on local notifications to remind you of your medication schedules.';
+
+  @override
+  String get wizardGrantPermission => 'Grant Permission';
+
+  @override
+  String get wizardNotificationGranted => 'Permission granted';
+
+  @override
+  String get wizardExactAlarmIcon => 'Exact alarm icon';
+
+  @override
+  String get wizardExactAlarmTitle => 'Exact Alarm Permission';
+
+  @override
+  String get wizardExactAlarmDescription =>
+      'Allowing exact alarms ensures your reminders arrive precisely on time, even Doze mode cannot delay them.';
+
+  @override
+  String get wizardEnableExactAlarm => 'Enable Exact Alarms';
+
+  @override
+  String get wizardExactAlarmGranted => 'Exact alarms enabled';
+
+  @override
+  String get wizardExactAlarmNotRequired => 'Not Required';
+
+  @override
+  String get wizardExactAlarmNotRequiredDescription =>
+      'Your device does not require additional alarm permissions. You can proceed.';
+
+  @override
+  String get wizardBatteryIcon => 'Battery optimization icon';
+
+  @override
+  String get wizardBatteryTitle => 'Battery Optimization';
+
+  @override
+  String get wizardBatteryDescription =>
+      'Some manufacturers restrict background activity, which may prevent reminders from appearing on time. Disable battery optimization for Mudawy to ensure reliable notifications.';
+
+  @override
+  String get wizardBatteryGranted => 'Battery optimization disabled';
+
+  @override
+  String get wizardOpenSettings => 'Open Settings';
+
+  @override
+  String get wizardCompletionIcon => 'Setup complete icon';
+
+  @override
+  String get wizardCompletionTitle => 'All Set!';
+
+  @override
+  String get wizardCompletionDescription =>
+      'Everything is ready. You can now add your first medication.';
+
+  @override
+  String get wizardAddFirstMedication => 'Add Medication';
+
+  @override
+  String get wizardGoHome => 'Go to Home';
+
+  @override
+  String get firstRunWelcomeTitle => 'Welcome to Mudawy';
+
+  @override
+  String get firstRunWelcomeDescription =>
+      'Start by adding your first medication to receive timely reminders and track your doses.';
+
+  @override
+  String get firstRunExploreApp => 'Explore the app';
+
+  @override
+  String get firstRunDismiss => 'Dismiss';
+
+  @override
+  String get firstRunNotificationHintTitle => 'Enable Notifications';
+
+  @override
+  String get firstRunNotificationHintDescription =>
+      'Don\'t forget to enable notifications to receive timely medication reminders.';
+
+  @override
+  String get firstRunNotificationHintEnable => 'Enable';
+
+  @override
+  String get firstRunSuccessTitle => 'Medication Added!';
+
+  @override
+  String get firstRunSuccessDescription =>
+      'Your first medication has been added successfully. You will receive reminders at the scheduled times.';
+
+  @override
+  String get firstRunSuccessContinue => 'Start Tracking';
+
+  @override
+  String get firstRunEmptyHistoryTitle => 'No dose history yet';
+
+  @override
+  String get firstRunEmptyHistoryDescription =>
+      'Your compliance history will appear here once you start taking doses.';
+
+  @override
+  String get firstRunEmptySearchTitle => 'No matching medications';
+
+  @override
+  String get firstRunEmptySearchDescription =>
+      'Try a different search term or clear filters.';
+
+  @override
+  String get healthSystemHealthTitle => 'System Health';
+
+  @override
+  String get healthNotificationPermissionTitle => 'Notification Permission';
+
+  @override
+  String get healthExactAlarmTitle => 'Exact Alarm Permission';
+
+  @override
+  String get healthBatteryTitle => 'Battery Optimization';
+
+  @override
+  String get healthNotificationServiceTitle => 'Notification Service';
+
+  @override
+  String get healthPendingNotificationsTitle => 'Pending Notifications';
+
+  @override
+  String get healthDatabaseTitle => 'Database';
+
+  @override
+  String get healthTimeZoneTitle => 'Time Zone';
+
+  @override
+  String get healthApplicationTitle => 'Application';
+
+  @override
+  String get healthNotificationGranted => 'Notifications are enabled';
+
+  @override
+  String get healthNotificationDenied => 'Notifications are disabled';
+
+  @override
+  String get healthNotificationUnknown => 'Notification status unknown';
+
+  @override
+  String get healthExactAlarmGranted => 'Exact alarms are enabled';
+
+  @override
+  String get healthExactAlarmDenied => 'Exact alarms are disabled';
+
+  @override
+  String get healthExactAlarmUnknown => 'Exact alarm status unknown';
+
+  @override
+  String get healthExactAlarmUnavailable => 'Not required on this platform';
+
+  @override
+  String get healthBatteryOptimized =>
+      'Battery optimization may restrict reminders';
+
+  @override
+  String get healthBatteryIgnored => 'Battery optimization is disabled';
+
+  @override
+  String get healthBatteryUnknown => 'Battery optimization status unknown';
+
+  @override
+  String get healthServiceReady => 'Notification service is ready';
+
+  @override
+  String get healthServiceError => 'Notification service encountered an error';
+
+  @override
+  String get healthDatabaseHealthy => 'Database is open and healthy';
+
+  @override
+  String get healthDatabaseError => 'Database encountered an error';
+
+  @override
+  String get healthTimeZoneInfo => 'Time zone is configured correctly';
+
+  @override
+  String get healthTimeZoneError => 'Time zone detection failed';
+
+  @override
+  String get healthPendingNotificationsInfo => 'Notification slots available';
+
+  @override
+  String get healthPendingNotificationsError =>
+      'Failed to query pending notifications';
+
+  @override
+  String get healthApplicationInfo => 'Application information loaded';
+
+  @override
+  String get healthApplicationError => 'Failed to load application info';
+
+  @override
+  String get healthActionEnableNotifications => 'Enable Notifications';
+
+  @override
+  String get healthActionGrantExactAlarm => 'Grant Exact Alarm';
+
+  @override
+  String get healthActionOpenBatterySettings => 'Open Battery Settings';
+
+  @override
+  String get healthQuickFixes => 'Quick Fixes';
+
+  @override
+  String get healthQuickFixesDescription =>
+      'Fix issues that may prevent reminders';
+
+  @override
+  String get healthRefresh => 'Refresh';
+
+  @override
+  String get healthScoreExcellent => 'Excellent';
+
+  @override
+  String get healthScoreGood => 'Good';
+
+  @override
+  String get healthScoreNeedsAttention => 'Needs Attention';
+
+  @override
+  String get healthScoreCritical => 'Critical';
+
+  @override
+  String healthScorePassed(Object count) {
+    return '$count passed';
+  }
+
+  @override
+  String healthScoreFailed(Object count) {
+    return '$count failed';
+  }
+
+  @override
+  String a11yHealthCheckStatus(Object status) {
+    return 'Status: $status';
+  }
+
+  @override
+  String a11yHealthScore(Object percent) {
+    return 'Score: $percent percent';
+  }
+
+  @override
+  String a11yHealthOverall(Object label) {
+    return 'Overall health: $label';
+  }
 }
