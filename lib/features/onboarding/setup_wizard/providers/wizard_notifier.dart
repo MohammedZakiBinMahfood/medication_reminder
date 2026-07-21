@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:app_platform_core/core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 import 'package:medication_reminder/core/notifications/notification_providers.dart';
 import '../models/models.dart';
@@ -87,12 +86,8 @@ class WizardNotifier extends Notifier<WizardState> {
       return;
     }
     try {
-      final plugin = FlutterLocalNotificationsPlugin();
-      final android =
-          plugin.resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin
-          >();
-      final canSchedule = await android?.canScheduleExactNotifications() ?? false;
+      final manager = ref.read(notificationManagerProvider);
+      final canSchedule = await manager.canScheduleExactNotifications();
       state = state.copyWith(exactAlarmGranted: canSchedule);
     } catch (e) {
       state = state.copyWith(exactAlarmAvailable: false);
@@ -103,13 +98,9 @@ class WizardNotifier extends Notifier<WizardState> {
     if (!Platform.isAndroid) return;
     state = state.copyWith(isLoading: true);
     try {
-      final plugin = FlutterLocalNotificationsPlugin();
-      final android =
-          plugin.resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin
-          >();
-      await android?.requestExactAlarmsPermission();
-      final canSchedule = await android?.canScheduleExactNotifications() ?? false;
+      final manager = ref.read(notificationManagerProvider);
+      await manager.requestExactAlarmsPermission();
+      final canSchedule = await manager.canScheduleExactNotifications();
       state = state.copyWith(
         exactAlarmGranted: canSchedule,
         isLoading: false,

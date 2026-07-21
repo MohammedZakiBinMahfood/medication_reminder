@@ -1,4 +1,5 @@
 import 'package:app_platform_core/core.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 import '../../features/medications/medication_management/models/enums/medication_enums.dart';
 import 'notification_action_handler.dart';
@@ -171,5 +172,29 @@ class NotificationManager {
     } catch (e) {
       return Failure(UnknownError('Failed to get available slots: $e'));
     }
+  }
+
+  // ── Exact Alarm ─────────────────────────────────────────────────────────
+
+  Future<bool> canScheduleExactNotifications() async {
+    try {
+      final android =
+          _service.plugin.resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin
+          >();
+      return await android?.canScheduleExactNotifications() ?? false;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  Future<void> requestExactAlarmsPermission() async {
+    try {
+      final android =
+          _service.plugin.resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin
+          >();
+      await android?.requestExactAlarmsPermission();
+    } catch (_) {}
   }
 }

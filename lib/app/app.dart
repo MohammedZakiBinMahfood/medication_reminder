@@ -9,6 +9,7 @@ import '../features/settings/models/settings_enums.dart';
 import '../features/settings/providers/providers.dart';
 import '../l10n/app_localizations.dart';
 import '../shared/navigation/c_navigator.dart';
+import 'screens/splash_screen.dart';
 
 class App extends ConsumerWidget {
   const App({super.key});
@@ -91,9 +92,7 @@ class _WizardOrHomeState extends ConsumerState<_WizardOrHome> {
   @override
   Widget build(BuildContext context) {
     if (_loading) {
-      return const Scaffold(
-        body: Center(child: CircularProgressIndicator()),
-      );
+      return const SplashScreen();
     }
 
     if (_wizardCompleted == false) {

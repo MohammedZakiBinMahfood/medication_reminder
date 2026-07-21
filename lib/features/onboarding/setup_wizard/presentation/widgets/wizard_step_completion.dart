@@ -27,15 +27,15 @@ class WizardStepCompletion extends StatelessWidget {
           Semantics(
             label: l10n.wizardCompletionIcon,
             child: Container(
-              width: 80,
-              height: 80,
+              width: 96,
+              height: 96,
               decoration: BoxDecoration(
                 color: AppColors.success.withValues(alpha: 0.1),
                 shape: BoxShape.circle,
               ),
-              child: Icon(
+              child: const Icon(
                 Icons.check_circle_outline,
-                size: 40,
+                size: 48,
                 color: AppColors.success,
               ),
             ),

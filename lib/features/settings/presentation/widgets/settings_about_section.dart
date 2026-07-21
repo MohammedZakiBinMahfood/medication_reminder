@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:medication_reminder/l10n/app_localizations.dart';
 import 'package:medication_reminder/shared/components/c_card.dart';
@@ -105,6 +106,22 @@ class SettingsAboutSection extends ConsumerWidget {
             ),
           ),
 
+          const Divider(height: 1),
+
+          // Contact Developer
+          Semantics(
+            label: l10n.settingsContactDeveloper,
+            child: ListTile(
+              leading: const Icon(Icons.support_agent),
+              title: Text(l10n.settingsContactDeveloper),
+              subtitle: const Text('00967770603656'),
+              trailing: const Icon(Icons.copy, size: 20),
+              onTap: () {
+                _copyToClipboard(context, '00967770603656');
+              },
+            ),
+          ),
+
           const SizedBox(height: AppSpacing.m),
 
           // Reset to Defaults
@@ -146,5 +163,13 @@ class SettingsAboutSection extends ConsumerWidget {
         CSnackbar.success(context, l10n.settingsResetDone);
       }
     });
+  }
+
+  void _copyToClipboard(BuildContext context, String text) {
+    Clipboard.setData(ClipboardData(text: text));
+    CSnackbar.success(
+      context,
+      AppLocalizations.of(context).settingsCopiedToClipboard,
+    );
   }
 }

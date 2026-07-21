@@ -6,10 +6,12 @@ import 'package:medication_reminder/shared/components/c_button.dart';
 
 class WizardStepBattery extends StatelessWidget {
   final VoidCallback onNext;
+  final VoidCallback? onOpenSettings;
 
   const WizardStepBattery({
     super.key,
     required this.onNext,
+    this.onOpenSettings,
   });
 
   @override
@@ -25,15 +27,15 @@ class WizardStepBattery extends StatelessWidget {
           Semantics(
             label: l10n.wizardBatteryIcon,
             child: Container(
-              width: 80,
-              height: 80,
+              width: 96,
+              height: 96,
               decoration: BoxDecoration(
                 color: AppColors.warning.withValues(alpha: 0.1),
                 shape: BoxShape.circle,
               ),
-              child: Icon(
-                Icons.battery_saver_outlined,
-                size: 40,
+              child: const Icon(
+                Icons.battery_charging_full_outlined,
+                size: 48,
                 color: AppColors.warning,
               ),
             ),
@@ -59,10 +61,21 @@ class WizardStepBattery extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           const Spacer(flex: 3),
+          if (onOpenSettings != null) ...[
+            Semantics(
+              button: true,
+              label: l10n.wizardOpenSettings,
+              child: CButton(
+                text: l10n.wizardOpenSettings,
+                onPressed: onOpenSettings,
+              ),
+            ),
+            const SizedBox(height: AppSpacing.m),
+          ],
           Semantics(
             button: true,
             label: l10n.wizardNext,
-            child: CButton(
+            child: CButton.text(
               text: l10n.wizardNext,
               onPressed: onNext,
             ),

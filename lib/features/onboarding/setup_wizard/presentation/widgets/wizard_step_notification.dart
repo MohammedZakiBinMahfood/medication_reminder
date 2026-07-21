@@ -30,17 +30,17 @@ class WizardStepNotification extends StatelessWidget {
         children: [
           const Spacer(flex: 2),
           Semantics(
-            label: l10n.wizardNotificationIcon,
+            label: l10n.wizardAppLogo,
             child: Container(
-              width: 80,
-              height: 80,
+              width: 96,
+              height: 96,
               decoration: BoxDecoration(
-                color: AppColors.primary.withValues(alpha: 0.1),
+                color: AppColors.info.withValues(alpha: 0.1),
                 shape: BoxShape.circle,
               ),
-              child: Icon(
+              child: const Icon(
                 Icons.notifications_outlined,
-                size: 40,
+                size: 48,
                 color: AppColors.primary,
               ),
             ),

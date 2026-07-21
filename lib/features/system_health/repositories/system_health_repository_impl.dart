@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:app_platform_core/core.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:isar_community/isar.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -73,11 +72,8 @@ class SystemHealthRepositoryImpl implements SystemHealthRepository {
       ));
     }
     try {
-      final plugin = FlutterLocalNotificationsPlugin();
-      final android = plugin.resolvePlatformSpecificImplementation<
-          AndroidFlutterLocalNotificationsPlugin>();
       final canSchedule =
-          await android?.canScheduleExactNotifications() ?? false;
+          await _notificationManager.canScheduleExactNotifications();
       return Success(HealthCheckModel(
         type: HealthCheckType.exactAlarmPermission,
         status: canSchedule ? HealthStatus.granted : HealthStatus.denied,
@@ -265,10 +261,7 @@ class SystemHealthRepositoryImpl implements SystemHealthRepository {
   Future<Result<void>> openExactAlarmSettings() async {
     if (!Platform.isAndroid) return const Success(null);
     try {
-      final plugin = FlutterLocalNotificationsPlugin();
-      final android = plugin.resolvePlatformSpecificImplementation<
-          AndroidFlutterLocalNotificationsPlugin>();
-      await android?.requestExactAlarmsPermission();
+      await _notificationManager.requestExactAlarmsPermission();
       return const Success(null);
     } catch (e) {
       return Failure(UnknownError('Failed to open exact alarm settings: $e'));

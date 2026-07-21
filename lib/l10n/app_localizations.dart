@@ -1891,6 +1891,174 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Overall health: {label}'**
   String a11yHealthOverall(Object label);
+
+  /// No description provided for @settingsContactDeveloper.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact Developer'**
+  String get settingsContactDeveloper;
+
+  /// No description provided for @settingsCopiedToClipboard.
+  ///
+  /// In en, this message translates to:
+  /// **'Copied to clipboard'**
+  String get settingsCopiedToClipboard;
+
+  /// No description provided for @backupExportTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Export Backup'**
+  String get backupExportTitle;
+
+  /// No description provided for @backupExportDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a full backup of all your medications, schedules, and dose logs.'**
+  String get backupExportDesc;
+
+  /// No description provided for @backupSaveToDevice.
+  ///
+  /// In en, this message translates to:
+  /// **'Export'**
+  String get backupSaveToDevice;
+
+  /// No description provided for @backupImportTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Import Backup'**
+  String get backupImportTitle;
+
+  /// No description provided for @backupImportDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore your data from a backup file.'**
+  String get backupImportDesc;
+
+  /// No description provided for @backupChooseFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose File'**
+  String get backupChooseFile;
+
+  /// No description provided for @backupValidFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Valid backup file'**
+  String get backupValidFile;
+
+  /// No description provided for @backupInvalidFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid backup file'**
+  String get backupInvalidFile;
+
+  /// No description provided for @backupRestoreNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore Now'**
+  String get backupRestoreNow;
+
+  /// No description provided for @backupRestoreConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore Backup'**
+  String get backupRestoreConfirmTitle;
+
+  /// No description provided for @backupRestoreConfirmDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'This will overwrite existing data based on the selected restore mode. Are you sure you want to continue?'**
+  String get backupRestoreConfirmDesc;
+
+  /// No description provided for @backupRestoreSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Backup restored successfully'**
+  String get backupRestoreSuccess;
+
+  /// No description provided for @backupRestoreMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore Mode'**
+  String get backupRestoreMode;
+
+  /// No description provided for @backupRestoreModeDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose how you want to restore your data'**
+  String get backupRestoreModeDesc;
+
+  /// No description provided for @backupModeMerge.
+  ///
+  /// In en, this message translates to:
+  /// **'Merge'**
+  String get backupModeMerge;
+
+  /// No description provided for @backupModeMergeDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Add imported data while keeping existing records'**
+  String get backupModeMergeDesc;
+
+  /// No description provided for @backupModeReplace.
+  ///
+  /// In en, this message translates to:
+  /// **'Replace'**
+  String get backupModeReplace;
+
+  /// No description provided for @backupModeReplaceDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear all existing data before restoring'**
+  String get backupModeReplaceDesc;
+
+  /// No description provided for @backupLastExport.
+  ///
+  /// In en, this message translates to:
+  /// **'Last Export Info'**
+  String get backupLastExport;
+
+  /// No description provided for @backupVersion.
+  ///
+  /// In en, this message translates to:
+  /// **'Version'**
+  String get backupVersion;
+
+  /// No description provided for @backupDevice.
+  ///
+  /// In en, this message translates to:
+  /// **'Device'**
+  String get backupDevice;
+
+  /// No description provided for @backupExported.
+  ///
+  /// In en, this message translates to:
+  /// **'Exported'**
+  String get backupExported;
+
+  /// No description provided for @backupMedicationsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Medications'**
+  String get backupMedicationsCount;
+
+  /// No description provided for @backupSchedulesCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Schedules'**
+  String get backupSchedulesCount;
+
+  /// No description provided for @backupDoseLogsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Dose Logs'**
+  String get backupDoseLogsCount;
+
+  /// No description provided for @backupIncludesSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Includes settings'**
+  String get backupIncludesSettings;
 }
 
 class _AppLocalizationsDelegate

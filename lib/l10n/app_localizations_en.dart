@@ -987,4 +987,93 @@ class AppLocalizationsEn extends AppLocalizations {
   String a11yHealthOverall(Object label) {
     return 'Overall health: $label';
   }
+
+  @override
+  String get settingsContactDeveloper => 'Contact Developer';
+
+  @override
+  String get settingsCopiedToClipboard => 'Copied to clipboard';
+
+  @override
+  String get backupExportTitle => 'Export Backup';
+
+  @override
+  String get backupExportDesc =>
+      'Create a full backup of all your medications, schedules, and dose logs.';
+
+  @override
+  String get backupSaveToDevice => 'Export';
+
+  @override
+  String get backupImportTitle => 'Import Backup';
+
+  @override
+  String get backupImportDesc => 'Restore your data from a backup file.';
+
+  @override
+  String get backupChooseFile => 'Choose File';
+
+  @override
+  String get backupValidFile => 'Valid backup file';
+
+  @override
+  String get backupInvalidFile => 'Invalid backup file';
+
+  @override
+  String get backupRestoreNow => 'Restore Now';
+
+  @override
+  String get backupRestoreConfirmTitle => 'Restore Backup';
+
+  @override
+  String get backupRestoreConfirmDesc =>
+      'This will overwrite existing data based on the selected restore mode. Are you sure you want to continue?';
+
+  @override
+  String get backupRestoreSuccess => 'Backup restored successfully';
+
+  @override
+  String get backupRestoreMode => 'Restore Mode';
+
+  @override
+  String get backupRestoreModeDesc =>
+      'Choose how you want to restore your data';
+
+  @override
+  String get backupModeMerge => 'Merge';
+
+  @override
+  String get backupModeMergeDesc =>
+      'Add imported data while keeping existing records';
+
+  @override
+  String get backupModeReplace => 'Replace';
+
+  @override
+  String get backupModeReplaceDesc =>
+      'Clear all existing data before restoring';
+
+  @override
+  String get backupLastExport => 'Last Export Info';
+
+  @override
+  String get backupVersion => 'Version';
+
+  @override
+  String get backupDevice => 'Device';
+
+  @override
+  String get backupExported => 'Exported';
+
+  @override
+  String get backupMedicationsCount => 'Medications';
+
+  @override
+  String get backupSchedulesCount => 'Schedules';
+
+  @override
+  String get backupDoseLogsCount => 'Dose Logs';
+
+  @override
+  String get backupIncludesSettings => 'Includes settings';
 }

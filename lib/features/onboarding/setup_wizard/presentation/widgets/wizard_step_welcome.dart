@@ -28,7 +28,7 @@ class WizardStepWelcome extends StatelessWidget {
           Semantics(
             label: l10n.wizardAppLogo,
             child: Image.asset(
-              'assets/images/logo.png',
+              'assets/icons/logo-removebg.png',
               width: 120,
               height: 120,
               fit: BoxFit.contain,

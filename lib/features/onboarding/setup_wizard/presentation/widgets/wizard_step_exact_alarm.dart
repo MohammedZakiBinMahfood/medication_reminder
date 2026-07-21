@@ -35,15 +35,15 @@ class WizardStepExactAlarm extends StatelessWidget {
             Semantics(
               label: l10n.wizardExactAlarmIcon,
               child: Container(
-                width: 80,
-                height: 80,
+                width: 96,
+                height: 96,
                 decoration: BoxDecoration(
                   color: AppColors.info.withValues(alpha: 0.1),
                   shape: BoxShape.circle,
                 ),
-                child: Icon(
-                  Icons.access_time_outlined,
-                  size: 40,
+                child: const Icon(
+                  Icons.alarm_off_outlined,
+                  size: 48,
                   color: AppColors.info,
                 ),
               ),
@@ -84,22 +84,22 @@ class WizardStepExactAlarm extends StatelessWidget {
       child: Column(
         children: [
           const Spacer(flex: 2),
-          Semantics(
-            label: l10n.wizardExactAlarmIcon,
-            child: Container(
-              width: 80,
-              height: 80,
-              decoration: BoxDecoration(
-                color: AppColors.warning.withValues(alpha: 0.1),
-                shape: BoxShape.circle,
-              ),
-              child: Icon(
-                Icons.access_time_outlined,
-                size: 40,
-                color: AppColors.warning,
+            Semantics(
+              label: l10n.wizardExactAlarmIcon,
+              child: Container(
+                width: 96,
+                height: 96,
+                decoration: BoxDecoration(
+                  color: AppColors.warning.withValues(alpha: 0.1),
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(
+                  Icons.alarm_outlined,
+                  size: 48,
+                  color: AppColors.warning,
+                ),
               ),
             ),
-          ),
           const SizedBox(height: AppSpacing.xl),
           Semantics(
             header: true,

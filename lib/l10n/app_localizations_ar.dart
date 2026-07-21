@@ -983,4 +983,91 @@ class AppLocalizationsAr extends AppLocalizations {
   String a11yHealthOverall(Object label) {
     return 'الصحة العامة: $label';
   }
+
+  @override
+  String get settingsContactDeveloper => 'تواصل مع المطور';
+
+  @override
+  String get settingsCopiedToClipboard => 'تم النسخ إلى الحافظة';
+
+  @override
+  String get backupExportTitle => 'تصدير نسخة احتياطية';
+
+  @override
+  String get backupExportDesc =>
+      'إنشاء نسخة احتياطية كاملة لجميع أدويتك وجداول الجرعات وسجل الجرعات.';
+
+  @override
+  String get backupSaveToDevice => 'تصدير';
+
+  @override
+  String get backupImportTitle => 'استيراد نسخة احتياطية';
+
+  @override
+  String get backupImportDesc => 'استعادة بياناتك من ملف نسخة احتياطية.';
+
+  @override
+  String get backupChooseFile => 'اختيار ملف';
+
+  @override
+  String get backupValidFile => 'ملف نسخة احتياطية صالح';
+
+  @override
+  String get backupInvalidFile => 'ملف نسخة احتياطية غير صالح';
+
+  @override
+  String get backupRestoreNow => 'استعادة الآن';
+
+  @override
+  String get backupRestoreConfirmTitle => 'استعادة النسخة الاحتياطية';
+
+  @override
+  String get backupRestoreConfirmDesc =>
+      'سيتم استبدال البيانات الحالية بناءً على وضع الاستعادة المحدد. هل أنت متأكد من الاستمرار؟';
+
+  @override
+  String get backupRestoreSuccess => 'تمت استعادة النسخة الاحتياطية بنجاح';
+
+  @override
+  String get backupRestoreMode => 'وضع الاستعادة';
+
+  @override
+  String get backupRestoreModeDesc => 'اختر كيفية استعادة بياناتك';
+
+  @override
+  String get backupModeMerge => 'دمج';
+
+  @override
+  String get backupModeMergeDesc =>
+      'إضافة البيانات المستوردة مع الاحتفاظ بالسجلات الحالية';
+
+  @override
+  String get backupModeReplace => 'استبدال';
+
+  @override
+  String get backupModeReplaceDesc => 'مسح جميع البيانات الحالية قبل الاستعادة';
+
+  @override
+  String get backupLastExport => 'معلومات آخر تصدير';
+
+  @override
+  String get backupVersion => 'الإصدار';
+
+  @override
+  String get backupDevice => 'الجهاز';
+
+  @override
+  String get backupExported => 'تم التصدير';
+
+  @override
+  String get backupMedicationsCount => 'الأدوية';
+
+  @override
+  String get backupSchedulesCount => 'الجداول';
+
+  @override
+  String get backupDoseLogsCount => 'سجل الجرعات';
+
+  @override
+  String get backupIncludesSettings => 'يتضمن الإعدادات';
 }

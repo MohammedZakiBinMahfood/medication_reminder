@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:medication_reminder/core/design_system/spacing/app_spacing.dart';
 import 'package:medication_reminder/features/medications/medication_management/presentation/screens/medication_form_screen.dart';
 import 'package:medication_reminder/features/medications/today_dashboard/presentation/screens/dashboard_screen.dart';
@@ -69,6 +70,16 @@ class _WizardScreenState extends ConsumerState<WizardScreen> {
     });
   }
 
+  Future<void> _openBatterySettings() async {
+    if (!Platform.isAndroid) return;
+    try {
+      final uri = Uri.parse('package:com.medication_reminder.app');
+      if (await canLaunchUrl(uri)) {
+        await launchUrl(uri);
+      }
+    } catch (_) {}
+  }
+
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(wizardProvider);
@@ -121,6 +132,7 @@ class _WizardScreenState extends ConsumerState<WizardScreen> {
       ),
       WizardStep.battery => WizardStepBattery(
         onNext: notifier.nextStep,
+        onOpenSettings: _openBatterySettings,
       ),
       WizardStep.completion => WizardStepCompletion(
         onAddMedication: () async {

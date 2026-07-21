@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:medication_reminder/l10n/app_localizations.dart';
 import 'package:medication_reminder/shared/components/c_card.dart';
+import 'package:medication_reminder/shared/navigation/c_navigator.dart';
 import 'package:medication_reminder/core/design_system/spacing/app_spacing.dart';
+import 'package:medication_reminder/features/backup/presentation/screens/backup_screen.dart';
 import '../../models/settings_model.dart';
 import '../../providers/providers.dart';
 
@@ -49,24 +51,22 @@ class SettingsBackupSection extends ConsumerWidget {
 
           const Divider(height: 1),
 
-          // Manual Backup (disabled placeholder)
+          // Full Backup screen
           ListTile(
-            leading: const Icon(Icons.save_alt),
+            leading: const Icon(Icons.backup_outlined),
             title: Text(l10n.settingsManualBackup),
-            subtitle: Text(l10n.settingsComingSoon),
-            enabled: false,
             trailing: const Icon(Icons.chevron_right),
+            onTap: () => CNavigator.push(const BackupScreen()),
           ),
 
           const Divider(height: 1),
 
-          // Restore Backup (disabled placeholder)
+          // Restore Backup
           ListTile(
             leading: const Icon(Icons.restore),
             title: Text(l10n.settingsRestoreBackup),
-            subtitle: Text(l10n.settingsComingSoon),
-            enabled: false,
             trailing: const Icon(Icons.chevron_right),
+            onTap: () => CNavigator.push(const BackupScreen()),
           ),
         ],
       ),
