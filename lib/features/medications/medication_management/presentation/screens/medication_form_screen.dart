@@ -94,6 +94,7 @@ class _MedicationFormScreenState extends ConsumerState<MedicationFormScreen> {
       interval: schedule?.interval ?? 1,
       startDate: schedule?.startDate ?? DateTime.now(),
       endDate: schedule?.endDate,
+      minutesFromMidnight: schedule?.minutesFromMidnight ?? 480,
       isActive: med.isActive,
     );
   }
@@ -127,6 +128,22 @@ class _MedicationFormScreenState extends ConsumerState<MedicationFormScreen> {
     if (picked != null) {
       ref.read(medicationStateProvider.notifier).setEndDate(picked);
       ref.read(medicationFormProvider.notifier).validateEndDate();
+    }
+  }
+
+  Future<void> _pickTime() async {
+    final state = ref.read(medicationStateProvider);
+    final minutes = state.minutesFromMidnight;
+    final initial = TimeOfDay(hour: minutes ~/ 60, minute: minutes % 60);
+    final picked = await showTimePicker(
+      context: context,
+      initialTime: initial,
+    );
+    if (picked != null) {
+      final total = picked.hour * 60 + picked.minute;
+      ref
+          .read(medicationStateProvider.notifier)
+          .setMinutesFromMidnight(total);
     }
   }
 
@@ -291,6 +308,12 @@ class _MedicationFormScreenState extends ConsumerState<MedicationFormScreen> {
                     onTap: _pickStartDate,
                   ),
                   const SizedBox(height: 12),
+                  _SectionLabel(label: l10n.time),
+                  _TimeTile(
+                    minutesFromMidnight: medState.minutesFromMidnight,
+                    onTap: _pickTime,
+                  ),
+                  const SizedBox(height: 12),
                   _SectionLabel(label: l10n.endDateOptional),
                   _DateTile(
                     date: medState.endDate,
@@ -404,6 +427,44 @@ class _DateTile extends StatelessWidget {
                         color: Theme.of(context).colorScheme.onSurfaceVariant,
                       ),
               ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _TimeTile extends StatelessWidget {
+  final int minutesFromMidnight;
+  final VoidCallback onTap;
+
+  const _TimeTile({
+    required this.minutesFromMidnight,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final hour = minutesFromMidnight ~/ 60;
+    final minute = minutesFromMidnight % 60;
+    final displayText =
+        '${hour.toString().padLeft(2, '0')}:${minute.toString().padLeft(2, '0')}';
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Semantics(
+          button: true,
+          label: displayText,
+          child: InkWell(
+            onTap: onTap,
+            borderRadius: BorderRadius.circular(12),
+            child: InputDecorator(
+              decoration: const InputDecoration(
+                suffixIcon: Icon(Icons.access_time, size: 18),
+              ),
+              child: Text(displayText),
             ),
           ),
         ),

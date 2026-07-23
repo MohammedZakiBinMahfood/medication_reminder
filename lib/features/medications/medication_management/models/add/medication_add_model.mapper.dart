@@ -68,6 +68,14 @@ class MedicationAddModelMapper extends ClassMapperBase<MedicationAddModel> {
     _$endDate,
     opt: true,
   );
+  static int _$minutesFromMidnight(MedicationAddModel v) =>
+      v.minutesFromMidnight;
+  static const Field<MedicationAddModel, int> _f$minutesFromMidnight = Field(
+    'minutesFromMidnight',
+    _$minutesFromMidnight,
+    opt: true,
+    def: 480,
+  );
   static bool _$isActive(MedicationAddModel v) => v.isActive;
   static const Field<MedicationAddModel, bool> _f$isActive = Field(
     'isActive',
@@ -85,6 +93,7 @@ class MedicationAddModelMapper extends ClassMapperBase<MedicationAddModel> {
     #interval: _f$interval,
     #startDate: _f$startDate,
     #endDate: _f$endDate,
+    #minutesFromMidnight: _f$minutesFromMidnight,
     #isActive: _f$isActive,
   };
 
@@ -99,6 +108,7 @@ class MedicationAddModelMapper extends ClassMapperBase<MedicationAddModel> {
       interval: data.dec(_f$interval),
       startDate: data.dec(_f$startDate),
       endDate: data.dec(_f$endDate),
+      minutesFromMidnight: data.dec(_f$minutesFromMidnight),
       isActive: data.dec(_f$isActive),
     );
   }
@@ -185,6 +195,7 @@ abstract class MedicationAddModelCopyWith<
     int? interval,
     DateTime? startDate,
     DateTime? endDate,
+    int? minutesFromMidnight,
     bool? isActive,
   });
   MedicationAddModelCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
@@ -218,6 +229,7 @@ class _MedicationAddModelCopyWithImpl<$R, $Out>
     int? interval,
     DateTime? startDate,
     Object? endDate = $none,
+    int? minutesFromMidnight,
     bool? isActive,
   }) => $apply(
     FieldCopyWithData({
@@ -230,6 +242,8 @@ class _MedicationAddModelCopyWithImpl<$R, $Out>
       if (interval != null) #interval: interval,
       if (startDate != null) #startDate: startDate,
       if (endDate != $none) #endDate: endDate,
+      if (minutesFromMidnight != null)
+        #minutesFromMidnight: minutesFromMidnight,
       if (isActive != null) #isActive: isActive,
     }),
   );
@@ -244,6 +258,10 @@ class _MedicationAddModelCopyWithImpl<$R, $Out>
     interval: data.get(#interval, or: $value.interval),
     startDate: data.get(#startDate, or: $value.startDate),
     endDate: data.get(#endDate, or: $value.endDate),
+    minutesFromMidnight: data.get(
+      #minutesFromMidnight,
+      or: $value.minutesFromMidnight,
+    ),
     isActive: data.get(#isActive, or: $value.isActive),
   );
 

@@ -8,6 +8,7 @@ import 'package:medication_reminder/shared/components/c_dialog.dart';
 import 'package:medication_reminder/shared/components/c_snackbar.dart';
 import 'package:medication_reminder/shared/navigation/c_navigator.dart';
 import 'package:medication_reminder/core/design_system/spacing/app_spacing.dart';
+import 'package:medication_reminder/core/version/update_dialog.dart';
 import '../../models/settings_model.dart';
 import '../../providers/providers.dart';
 import '../../../system_health/presentation/screens/system_health_screen.dart';
@@ -62,6 +63,20 @@ class SettingsAboutSection extends ConsumerWidget {
               leading: const Icon(Icons.build),
               title: Text(l10n.settingsBuildNumber),
               subtitle: Text(settings.buildNumber),
+            ),
+          ),
+
+          const Divider(height: 1),
+
+          // Check for Updates
+          Semantics(
+            label: l10n.settingsUpdate,
+            child: ListTile(
+              leading: const Icon(Icons.system_update),
+              title: Text(l10n.settingsUpdate),
+              subtitle: Text(l10n.settingsUpdateDesc),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => checkForUpdateAndNotify(context, ref),
             ),
           ),
 

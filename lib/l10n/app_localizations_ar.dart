@@ -64,6 +64,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get endDateOptional => 'تاريخ الانتهاء (اختياري)';
 
   @override
+  String get time => 'الوقت';
+
+  @override
   String get save => 'حفظ';
 
   @override
@@ -403,6 +406,36 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get settingsBuildNumber => 'رقم البناء';
+
+  @override
+  String get settingsUpdate => 'التحقق من التحديثات';
+
+  @override
+  String get settingsUpdateDesc => 'التحقق من وجود إصدار أحدث';
+
+  @override
+  String get settingsUpdateAvailable => 'يتوفر تحديث';
+
+  @override
+  String get settingsUpdateCurrentVersion => 'الإصدار الحالي';
+
+  @override
+  String get settingsUpdateChecking => 'جارٍ التحقق من التحديثات...';
+
+  @override
+  String get settingsUpdateUpToDate => 'أنت تستخدم أحدث إصدار';
+
+  @override
+  String get settingsUpdateError => 'فشل التحقق من التحديثات';
+
+  @override
+  String get settingsUpdateNotPublished => 'التطبيق غير متاح حالياً على متجر Google Play';
+
+  @override
+  String get settingsUpdateNow => 'تحديث';
+
+  @override
+  String get settingsUpdateLater => 'لاحقاً';
 
   @override
   String get settingsLicenses => 'التراخيص';

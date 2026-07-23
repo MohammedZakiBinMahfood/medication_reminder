@@ -37,7 +37,7 @@ class MedicationRepositoryImpl implements MedicationRepository {
       final schedule = MedicationScheduleMapper.fromAddModel(
         uuid: scheduleUuid,
         medicationUuid: uuid,
-        minutesFromMidnight: model.startDate.hour * 60 + model.startDate.minute,
+        minutesFromMidnight: model.minutesFromMidnight,
         repeatType: model.repeatType,
         weekdays: model.weekdays,
         interval: model.interval,
@@ -91,7 +91,7 @@ class MedicationRepositoryImpl implements MedicationRepository {
       final schedule = MedicationScheduleMapper.fromAddModel(
         uuid: scheduleUuid,
         medicationUuid: model.id,
-        minutesFromMidnight: model.startDate.hour * 60 + model.startDate.minute,
+        minutesFromMidnight: model.minutesFromMidnight,
         repeatType: model.repeatType,
         weekdays: model.weekdays,
         interval: model.interval,
@@ -226,6 +226,7 @@ class MedicationRepositoryImpl implements MedicationRepository {
         interval: state.interval,
         startDate: state.startDate ?? DateTime.now(),
         endDate: state.endDate,
+        minutesFromMidnight: state.minutesFromMidnight,
         isActive: state.isActive,
       );
       return updateMedication(editModel);
@@ -240,6 +241,7 @@ class MedicationRepositoryImpl implements MedicationRepository {
         interval: state.interval,
         startDate: state.startDate ?? DateTime.now(),
         endDate: state.endDate,
+        minutesFromMidnight: state.minutesFromMidnight,
         isActive: state.isActive,
       );
       return createMedication(addModel);

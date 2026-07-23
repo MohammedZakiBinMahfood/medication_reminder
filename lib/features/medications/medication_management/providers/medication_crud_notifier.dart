@@ -126,6 +126,7 @@ class MedicationCrudNotifier extends Notifier<ActionStore> {
       interval: data.interval,
       startDate: data.startDate ?? DateTime.now(),
       endDate: data.endDate,
+      minutesFromMidnight: data.minutesFromMidnight,
       isActive: data.isActive,
     );
   }
@@ -142,6 +143,7 @@ class MedicationCrudNotifier extends Notifier<ActionStore> {
       interval: data.interval,
       startDate: data.startDate ?? DateTime.now(),
       endDate: data.endDate,
+      minutesFromMidnight: data.minutesFromMidnight,
       isActive: data.isActive,
     );
   }

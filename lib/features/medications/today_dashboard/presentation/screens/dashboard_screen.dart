@@ -3,6 +3,8 @@ import 'package:app_platform_state/base/base_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:medication_reminder/core/providers/first_run_provider.dart';
+import 'package:medication_reminder/core/version/version_providers.dart';
+import 'package:medication_reminder/core/version/update_dialog.dart';
 import 'package:medication_reminder/features/medications/today_dashboard/models/dashboard_medication_model.dart';
 import 'package:medication_reminder/features/medications/today_dashboard/models/dashboard_state_model.dart';
 import 'package:medication_reminder/features/medications/today_dashboard/providers/dashboard_list_notifier.dart';
@@ -48,7 +50,15 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen>
     WidgetsBinding.instance.addObserver(this);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref.read(dashboardListProvider.notifier).refresh();
+      _checkForUpdate();
     });
+  }
+
+  void _checkForUpdate() async {
+    final result = await ref.read(updateCheckProvider.future);
+    if (mounted && result.hasUpdate) {
+      UpdateDialog.show(context, ref, result);
+    }
   }
 
   @override

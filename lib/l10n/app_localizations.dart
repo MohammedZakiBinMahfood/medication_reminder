@@ -206,6 +206,12 @@ abstract class AppLocalizations {
   /// **'End Date (Optional)'**
   String get endDateOptional;
 
+  /// No description provided for @time.
+  ///
+  /// In en, this message translates to:
+  /// **'Time'**
+  String get time;
+
   /// No description provided for @save.
   ///
   /// In en, this message translates to:
@@ -883,6 +889,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Build Number'**
   String get settingsBuildNumber;
+
+  /// No description provided for @settingsUpdate.
+  ///
+  /// In en, this message translates to:
+  /// **'Check for Updates'**
+  String get settingsUpdate;
+
+  /// No description provided for @settingsUpdateDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Check if a newer version is available'**
+  String get settingsUpdateDesc;
+
+  /// No description provided for @settingsUpdateAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Available'**
+  String get settingsUpdateAvailable;
+
+  /// No description provided for @settingsUpdateCurrentVersion.
+  ///
+  /// In en, this message translates to:
+  /// **'Current version'**
+  String get settingsUpdateCurrentVersion;
+
+  /// No description provided for @settingsUpdateChecking.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking for updates...'**
+  String get settingsUpdateChecking;
+
+  /// No description provided for @settingsUpdateUpToDate.
+  ///
+  /// In en, this message translates to:
+  /// **'You are using the latest version'**
+  String get settingsUpdateUpToDate;
+
+  /// No description provided for @settingsUpdateError.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to check for updates'**
+  String get settingsUpdateError;
+
+  /// No description provided for @settingsUpdateNotPublished.
+  ///
+  /// In en, this message translates to:
+  /// **'App not yet available on Play Store'**
+  String get settingsUpdateNotPublished;
+
+  /// No description provided for @settingsUpdateNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Update'**
+  String get settingsUpdateNow;
+
+  /// No description provided for @settingsUpdateLater.
+  ///
+  /// In en, this message translates to:
+  /// **'Later'**
+  String get settingsUpdateLater;
 
   /// No description provided for @settingsLicenses.
   ///

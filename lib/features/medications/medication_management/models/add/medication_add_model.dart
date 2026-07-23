@@ -14,6 +14,7 @@ class MedicationAddModel with MedicationAddModelMappable {
   final int interval;
   final DateTime startDate;
   final DateTime? endDate;
+  final int minutesFromMidnight;
   final bool isActive;
 
   const MedicationAddModel({
@@ -26,6 +27,7 @@ class MedicationAddModel with MedicationAddModelMappable {
     required this.interval,
     required this.startDate,
     this.endDate,
+    this.minutesFromMidnight = 480,
     required this.isActive,
   });
 }

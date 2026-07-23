@@ -20,6 +20,8 @@ class MedicationStateNotifier extends Notifier<MedicationStateModel> {
   void setInterval(int v) => state = state.copyWith(interval: v);
   void setStartDate(DateTime? v) => state = state.copyWith(startDate: v);
   void setEndDate(DateTime? v) => state = state.copyWith(endDate: v);
+  void setMinutesFromMidnight(int v) =>
+      state = state.copyWith(minutesFromMidnight: v);
   void setIsActive(bool v) => state = state.copyWith(isActive: v);
 
   void reset() => state = MedicationStateModel.empty();
@@ -36,6 +38,7 @@ class MedicationStateNotifier extends Notifier<MedicationStateModel> {
       interval: field.interval,
       startDate: field.startDate,
       endDate: field.endDate,
+      minutesFromMidnight: field.minutesFromMidnight,
       isActive: field.isActive,
     );
   }

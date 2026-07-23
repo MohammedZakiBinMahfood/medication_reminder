@@ -63,6 +63,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get endDateOptional => 'End Date (Optional)';
 
   @override
+  String get time => 'Time';
+
+  @override
   String get save => 'Save';
 
   @override
@@ -404,6 +407,36 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settingsBuildNumber => 'Build Number';
+
+  @override
+  String get settingsUpdate => 'Check for Updates';
+
+  @override
+  String get settingsUpdateDesc => 'Check if a newer version is available';
+
+  @override
+  String get settingsUpdateAvailable => 'Update Available';
+
+  @override
+  String get settingsUpdateCurrentVersion => 'Current version';
+
+  @override
+  String get settingsUpdateChecking => 'Checking for updates...';
+
+  @override
+  String get settingsUpdateUpToDate => 'You are using the latest version';
+
+  @override
+  String get settingsUpdateError => 'Failed to check for updates';
+
+  @override
+  String get settingsUpdateNotPublished => 'App not yet available on Play Store';
+
+  @override
+  String get settingsUpdateNow => 'Update';
+
+  @override
+  String get settingsUpdateLater => 'Later';
 
   @override
   String get settingsLicenses => 'Licenses';
