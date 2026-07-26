@@ -1279,6 +1279,20 @@ class AppLocalizationsEn extends AppLocalizations {
   String get medicationStockAndPhotoHeading => 'Stock & Photo';
 
   @override
+  String get settingsClearAllData => 'Delete All App Data';
+
+  @override
+  String get settingsClearAllDataDesc =>
+      'Permanently wipe all medications, logs, and profiles';
+
+  @override
+  String get settingsClearAllDataConfirm =>
+      'Are you sure you want to permanently wipe all app data? All medications, history logs, profiles, and preferences will be erased. This action cannot be undone.';
+
+  @override
+  String get settingsClearAllDataDone => 'All app data erased successfully';
+
+  @override
   String get celebrationTitle => 'All Doses Completed! 🎉';
 
   @override

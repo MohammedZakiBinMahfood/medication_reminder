@@ -1279,6 +1279,20 @@ class AppLocalizationsAr extends AppLocalizations {
   String get medicationStockAndPhotoHeading => 'المخزون والصورة';
 
   @override
+  String get settingsClearAllData => 'حذف جميع البيانات';
+
+  @override
+  String get settingsClearAllDataDesc =>
+      'مسح كافة الأدوية، السجلات، والملفات الشخصية نهائياً';
+
+  @override
+  String get settingsClearAllDataConfirm =>
+      'هل أنت متاكد من إرادتك لمسح كافة بيانات التطبيق نهائياً؟ سيتم حذف جميع الأدوية، السجلات، الملفات الشخصية، والتفضيلات ولا يمكن التراجع عن هذا الإجراء.';
+
+  @override
+  String get settingsClearAllDataDone => 'تم حذف جميع البيانات بنجاح';
+
+  @override
   String get celebrationTitle => 'أحسنت! أكملت جميع جرعات اليوم 🎉';
 
   @override

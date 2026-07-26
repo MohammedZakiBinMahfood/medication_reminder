@@ -387,6 +387,10 @@
   "medicationBasicInfo": "البيانات الأساسية",
   "medicationScheduleHeading": "جدول التناول والتوقيت",
   "medicationStockAndPhotoHeading": "المخزون والصورة",
+  "settingsClearAllData": "حذف جميع البيانات",
+  "settingsClearAllDataDesc": "مسح كافة الأدوية، السجلات، والملفات الشخصية نهائياً",
+  "settingsClearAllDataConfirm": "هل أنت متاكد من إرادتك لمسح كافة بيانات التطبيق نهائياً؟ سيتم حذف جميع الأدوية، السجلات، الملفات الشخصية، والتفضيلات ولا يمكن التراجع عن هذا الإجراء.",
+  "settingsClearAllDataDone": "تم حذف جميع البيانات بنجاح",
   "celebrationTitle": "أحسنت! أكملت جميع جرعات اليوم 🎉",
   "celebrationSubtitle": "ممتاز! واصل الالتزام بجدول أدويتك لصحة أفضل."
 }

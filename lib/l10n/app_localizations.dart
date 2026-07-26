@@ -2414,6 +2414,30 @@ abstract class AppLocalizations {
   /// **'Stock & Photo'**
   String get medicationStockAndPhotoHeading;
 
+  /// No description provided for @settingsClearAllData.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete All App Data'**
+  String get settingsClearAllData;
+
+  /// No description provided for @settingsClearAllDataDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Permanently wipe all medications, logs, and profiles'**
+  String get settingsClearAllDataDesc;
+
+  /// No description provided for @settingsClearAllDataConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to permanently wipe all app data? All medications, history logs, profiles, and preferences will be erased. This action cannot be undone.'**
+  String get settingsClearAllDataConfirm;
+
+  /// No description provided for @settingsClearAllDataDone.
+  ///
+  /// In en, this message translates to:
+  /// **'All app data erased successfully'**
+  String get settingsClearAllDataDone;
+
   /// No description provided for @celebrationTitle.
   ///
   /// In en, this message translates to:

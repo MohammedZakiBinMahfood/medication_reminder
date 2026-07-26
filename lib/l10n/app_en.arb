@@ -386,6 +386,10 @@
   "medicationBasicInfo": "Basic Information",
   "medicationScheduleHeading": "Schedule & Timing",
   "medicationStockAndPhotoHeading": "Stock & Photo",
+  "settingsClearAllData": "Delete All App Data",
+  "settingsClearAllDataDesc": "Permanently wipe all medications, logs, and profiles",
+  "settingsClearAllDataConfirm": "Are you sure you want to permanently wipe all app data? All medications, history logs, profiles, and preferences will be erased. This action cannot be undone.",
+  "settingsClearAllDataDone": "All app data erased successfully",
   "celebrationTitle": "All Doses Completed! 🎉",
   "celebrationSubtitle": "Great job maintaining your medication schedule today."
 }
