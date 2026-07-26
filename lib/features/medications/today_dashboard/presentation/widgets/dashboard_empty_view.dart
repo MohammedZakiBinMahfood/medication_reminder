@@ -22,7 +22,6 @@ class DashboardEmptyView extends StatelessWidget {
         padding: const EdgeInsets.all(AppSpacing.xl),
         child: Semantics(
           container: true,
-          header: true,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -32,10 +31,13 @@ class DashboardEmptyView extends StatelessWidget {
                 color: Theme.of(context).colorScheme.outline,
               ),
               const SizedBox(height: AppSpacing.xl),
-              Text(
-                l10n.dashboardEmptyTitle,
-                style: Theme.of(context).textTheme.titleLarge,
-                textAlign: TextAlign.center,
+              Semantics(
+                header: true,
+                child: Text(
+                  l10n.dashboardEmptyTitle,
+                  style: Theme.of(context).textTheme.titleLarge,
+                  textAlign: TextAlign.center,
+                ),
               ),
               const SizedBox(height: AppSpacing.s),
               Text(

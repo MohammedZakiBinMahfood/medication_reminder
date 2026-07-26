@@ -26,6 +26,11 @@ class MedicationEditModelMapper extends ClassMapperBase<MedicationEditModel> {
 
   static String _$id(MedicationEditModel v) => v.id;
   static const Field<MedicationEditModel, String> _f$id = Field('id', _$id);
+  static String _$profileUuid(MedicationEditModel v) => v.profileUuid;
+  static const Field<MedicationEditModel, String> _f$profileUuid = Field(
+    'profileUuid',
+    _$profileUuid,
+  );
   static String _$name(MedicationEditModel v) => v.name;
   static const Field<MedicationEditModel, String> _f$name = Field(
     'name',
@@ -83,10 +88,23 @@ class MedicationEditModelMapper extends ClassMapperBase<MedicationEditModel> {
     'isActive',
     _$isActive,
   );
+  static int? _$stockQuantity(MedicationEditModel v) => v.stockQuantity;
+  static const Field<MedicationEditModel, int> _f$stockQuantity = Field(
+    'stockQuantity',
+    _$stockQuantity,
+    opt: true,
+  );
+  static int? _$reorderThreshold(MedicationEditModel v) => v.reorderThreshold;
+  static const Field<MedicationEditModel, int> _f$reorderThreshold = Field(
+    'reorderThreshold',
+    _$reorderThreshold,
+    opt: true,
+  );
 
   @override
   final MappableFields<MedicationEditModel> fields = const {
     #id: _f$id,
+    #profileUuid: _f$profileUuid,
     #name: _f$name,
     #dosage: _f$dosage,
     #color: _f$color,
@@ -98,11 +116,14 @@ class MedicationEditModelMapper extends ClassMapperBase<MedicationEditModel> {
     #endDate: _f$endDate,
     #minutesFromMidnight: _f$minutesFromMidnight,
     #isActive: _f$isActive,
+    #stockQuantity: _f$stockQuantity,
+    #reorderThreshold: _f$reorderThreshold,
   };
 
   static MedicationEditModel _instantiate(DecodingData data) {
     return MedicationEditModel(
       id: data.dec(_f$id),
+      profileUuid: data.dec(_f$profileUuid),
       name: data.dec(_f$name),
       dosage: data.dec(_f$dosage),
       color: data.dec(_f$color),
@@ -114,6 +135,8 @@ class MedicationEditModelMapper extends ClassMapperBase<MedicationEditModel> {
       endDate: data.dec(_f$endDate),
       minutesFromMidnight: data.dec(_f$minutesFromMidnight),
       isActive: data.dec(_f$isActive),
+      stockQuantity: data.dec(_f$stockQuantity),
+      reorderThreshold: data.dec(_f$reorderThreshold),
     );
   }
 
@@ -190,6 +213,7 @@ abstract class MedicationEditModelCopyWith<
   ListCopyWith<$R, int, ObjectCopyWith<$R, int, int>> get weekdays;
   $R call({
     String? id,
+    String? profileUuid,
     String? name,
     String? dosage,
     String? color,
@@ -201,6 +225,8 @@ abstract class MedicationEditModelCopyWith<
     DateTime? endDate,
     int? minutesFromMidnight,
     bool? isActive,
+    int? stockQuantity,
+    int? reorderThreshold,
   });
   MedicationEditModelCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
     Then<$Out2, $R2> t,
@@ -225,6 +251,7 @@ class _MedicationEditModelCopyWithImpl<$R, $Out>
   @override
   $R call({
     String? id,
+    String? profileUuid,
     String? name,
     String? dosage,
     String? color,
@@ -236,9 +263,12 @@ class _MedicationEditModelCopyWithImpl<$R, $Out>
     Object? endDate = $none,
     int? minutesFromMidnight,
     bool? isActive,
+    Object? stockQuantity = $none,
+    Object? reorderThreshold = $none,
   }) => $apply(
     FieldCopyWithData({
       if (id != null) #id: id,
+      if (profileUuid != null) #profileUuid: profileUuid,
       if (name != null) #name: name,
       if (dosage != null) #dosage: dosage,
       if (color != null) #color: color,
@@ -251,11 +281,14 @@ class _MedicationEditModelCopyWithImpl<$R, $Out>
       if (minutesFromMidnight != null)
         #minutesFromMidnight: minutesFromMidnight,
       if (isActive != null) #isActive: isActive,
+      if (stockQuantity != $none) #stockQuantity: stockQuantity,
+      if (reorderThreshold != $none) #reorderThreshold: reorderThreshold,
     }),
   );
   @override
   MedicationEditModel $make(CopyWithData data) => MedicationEditModel(
     id: data.get(#id, or: $value.id),
+    profileUuid: data.get(#profileUuid, or: $value.profileUuid),
     name: data.get(#name, or: $value.name),
     dosage: data.get(#dosage, or: $value.dosage),
     color: data.get(#color, or: $value.color),
@@ -270,6 +303,8 @@ class _MedicationEditModelCopyWithImpl<$R, $Out>
       or: $value.minutesFromMidnight,
     ),
     isActive: data.get(#isActive, or: $value.isActive),
+    stockQuantity: data.get(#stockQuantity, or: $value.stockQuantity),
+    reorderThreshold: data.get(#reorderThreshold, or: $value.reorderThreshold),
   );
 
   @override

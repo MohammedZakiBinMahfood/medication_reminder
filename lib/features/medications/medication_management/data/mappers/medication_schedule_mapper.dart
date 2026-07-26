@@ -11,6 +11,7 @@ class MedicationScheduleMapper {
   ) {
     return MedicationScheduleModel(
       uuid: collection.uuid,
+      profileUuid: collection.profileUuid,
       medicationUuid: collection.medicationUuid,
       minutesFromMidnight: collection.minutesFromMidnight,
       repeatType: _repeatTypeFromInt(collection.repeatType),
@@ -30,6 +31,7 @@ class MedicationScheduleMapper {
     return MedicationScheduleCollection()
       ..id = isarId
       ..uuid = model.uuid
+      ..profileUuid = model.profileUuid
       ..medicationUuid = model.medicationUuid
       ..minutesFromMidnight = model.minutesFromMidnight
       ..repeatType = model.repeatType.index
@@ -44,6 +46,7 @@ class MedicationScheduleMapper {
 
   static MedicationScheduleCollection fromAddModel({
     required String uuid,
+    required String profileUuid,
     required String medicationUuid,
     required int minutesFromMidnight,
     required RepeatType repeatType,
@@ -55,6 +58,7 @@ class MedicationScheduleMapper {
   }) {
     return MedicationScheduleCollection()
       ..uuid = uuid
+      ..profileUuid = profileUuid
       ..medicationUuid = medicationUuid
       ..minutesFromMidnight = minutesFromMidnight
       ..repeatType = repeatType.index

@@ -23,6 +23,7 @@ void main() {
   }) {
     return MedicationScheduleModel(
       uuid: 'sch-001',
+      profileUuid: 'test-profile',
       medicationUuid: 'med-001',
       minutesFromMidnight: minutesFromMidnight,
       repeatType: RepeatType.daily,
@@ -42,6 +43,7 @@ void main() {
   }) {
     return MedicationScheduleModel(
       uuid: 'sch-003',
+      profileUuid: 'test-profile',
       medicationUuid: 'med-001',
       minutesFromMidnight: 0,
       repeatType: RepeatType.interval,
@@ -57,6 +59,7 @@ void main() {
   MedicationScheduleModel _asNeededSchedule() {
     return MedicationScheduleModel(
       uuid: 'sch-004',
+      profileUuid: 'test-profile',
       medicationUuid: 'med-001',
       minutesFromMidnight: 0,
       repeatType: RepeatType.asNeeded,

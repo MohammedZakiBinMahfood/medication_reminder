@@ -61,22 +61,14 @@ class WizardStepCompletion extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           const Spacer(flex: 3),
-          Semantics(
-            button: true,
-            label: l10n.wizardAddFirstMedication,
-            child: CButton(
-              text: l10n.wizardAddFirstMedication,
-              onPressed: onAddMedication,
-            ),
+          CButton(
+            text: l10n.wizardAddFirstMedication,
+            onPressed: onAddMedication,
           ),
           const SizedBox(height: AppSpacing.m),
-          Semantics(
-            button: true,
-            label: l10n.wizardGoHome,
-            child: CButton.text(
-              text: l10n.wizardGoHome,
-              onPressed: onGoHome,
-            ),
+          CButton.text(
+            text: l10n.wizardGoHome,
+            onPressed: onGoHome,
           ),
           const SizedBox(height: AppSpacing.xl),
         ],

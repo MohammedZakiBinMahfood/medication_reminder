@@ -108,6 +108,7 @@ void main() {
     test('loadFromField populates state from MedicationField', () {
       final field = MedicationField(
         id: 'field-id',
+        profileUuid: 'test-profile',
         name: 'Aspirin',
         dosage: '100mg',
         color: '#FF0000',

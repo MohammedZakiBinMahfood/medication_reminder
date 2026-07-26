@@ -1,6 +1,7 @@
 import 'package:app_platform_core/core.dart';
 import 'package:app_platform_state/state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../profiles/providers/profile_providers.dart';
 import '../models/models.dart';
 import '../repositories/medication_repository.dart';
 import 'medication_filters_provider.dart';
@@ -20,6 +21,16 @@ class MedicationListNotifier
   @override
   BaseState<Paginated<MedicationListModel>> build() {
     repository = ref.read(medicationRepositoryProvider);
+
+    ref.listen<AsyncValue<String>>(activeProfileUuidProvider, (prev, next) {
+      final prevUuid = prev?.value;
+      final nextUuid = next.value;
+      if (prevUuid != nextUuid) {
+        repository = ref.read(medicationRepositoryProvider);
+        loadFirstPage();
+      }
+    });
+
     Future.microtask(loadFirstPage);
     return const BaseState();
   }

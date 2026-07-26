@@ -35,7 +35,12 @@ class MedicationFormNotifier extends ValidationController<MedicationFormField> {
             customMessage: 'Dosage is required',
           );
         },
-        MedicationFormField.schedule: (_) {
+        MedicationFormField.schedule: (context) {
+          final data = context.read(medicationStateProvider);
+          if (data.repeatType == RepeatType.specificDays &&
+              data.weekdays.isEmpty) {
+            return 'Please select at least one day';
+          }
           return null;
         },
         MedicationFormField.startDate: (context) {

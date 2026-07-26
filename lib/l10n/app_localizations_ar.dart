@@ -321,6 +321,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get settingsTitle => 'الإعدادات';
 
   @override
+  String get settingsProfiles => 'الحسابات';
+
+  @override
   String get settingsGeneral => 'عام';
 
   @override
@@ -429,7 +432,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get settingsUpdateError => 'فشل التحقق من التحديثات';
 
   @override
-  String get settingsUpdateNotPublished => 'التطبيق غير متاح حالياً على متجر Google Play';
+  String get settingsUpdateNotPublished =>
+      'التطبيق غير متاح حالياً على متجر Google Play';
 
   @override
   String get settingsUpdateNow => 'تحديث';

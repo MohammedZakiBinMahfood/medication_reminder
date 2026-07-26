@@ -44,24 +44,29 @@ const MedicationScheduleCollectionSchema = CollectionSchema(
       name: r'minutesFromMidnight',
       type: IsarType.int,
     ),
-    r'repeatType': PropertySchema(
+    r'profileUuid': PropertySchema(
       id: 6,
+      name: r'profileUuid',
+      type: IsarType.string,
+    ),
+    r'repeatType': PropertySchema(
+      id: 7,
       name: r'repeatType',
       type: IsarType.int,
     ),
     r'startDate': PropertySchema(
-      id: 7,
+      id: 8,
       name: r'startDate',
       type: IsarType.dateTime,
     ),
     r'updatedAt': PropertySchema(
-      id: 8,
+      id: 9,
       name: r'updatedAt',
       type: IsarType.dateTime,
     ),
-    r'uuid': PropertySchema(id: 9, name: r'uuid', type: IsarType.string),
+    r'uuid': PropertySchema(id: 10, name: r'uuid', type: IsarType.string),
     r'weekdays': PropertySchema(
-      id: 10,
+      id: 11,
       name: r'weekdays',
       type: IsarType.byteList,
     ),
@@ -81,6 +86,19 @@ const MedicationScheduleCollectionSchema = CollectionSchema(
       properties: [
         IndexPropertySchema(
           name: r'uuid',
+          type: IndexType.hash,
+          caseSensitive: true,
+        ),
+      ],
+    ),
+    r'profileUuid': IndexSchema(
+      id: 1129968050600041444,
+      name: r'profileUuid',
+      unique: false,
+      replace: false,
+      properties: [
+        IndexPropertySchema(
+          name: r'profileUuid',
           type: IndexType.hash,
           caseSensitive: true,
         ),
@@ -142,6 +160,7 @@ int _medicationScheduleCollectionEstimateSize(
 ) {
   var bytesCount = offsets.last;
   bytesCount += 3 + object.medicationUuid.length * 3;
+  bytesCount += 3 + object.profileUuid.length * 3;
   bytesCount += 3 + object.uuid.length * 3;
   bytesCount += 3 + object.weekdays.length;
   return bytesCount;
@@ -159,11 +178,12 @@ void _medicationScheduleCollectionSerialize(
   writer.writeBool(offsets[3], object.isDeleted);
   writer.writeString(offsets[4], object.medicationUuid);
   writer.writeInt(offsets[5], object.minutesFromMidnight);
-  writer.writeInt(offsets[6], object.repeatType);
-  writer.writeDateTime(offsets[7], object.startDate);
-  writer.writeDateTime(offsets[8], object.updatedAt);
-  writer.writeString(offsets[9], object.uuid);
-  writer.writeByteList(offsets[10], object.weekdays);
+  writer.writeString(offsets[6], object.profileUuid);
+  writer.writeInt(offsets[7], object.repeatType);
+  writer.writeDateTime(offsets[8], object.startDate);
+  writer.writeDateTime(offsets[9], object.updatedAt);
+  writer.writeString(offsets[10], object.uuid);
+  writer.writeByteList(offsets[11], object.weekdays);
 }
 
 MedicationScheduleCollection _medicationScheduleCollectionDeserialize(
@@ -180,11 +200,12 @@ MedicationScheduleCollection _medicationScheduleCollectionDeserialize(
   object.isDeleted = reader.readBool(offsets[3]);
   object.medicationUuid = reader.readString(offsets[4]);
   object.minutesFromMidnight = reader.readInt(offsets[5]);
-  object.repeatType = reader.readInt(offsets[6]);
-  object.startDate = reader.readDateTime(offsets[7]);
-  object.updatedAt = reader.readDateTime(offsets[8]);
-  object.uuid = reader.readString(offsets[9]);
-  object.weekdays = reader.readByteList(offsets[10]) ?? [];
+  object.profileUuid = reader.readString(offsets[6]);
+  object.repeatType = reader.readInt(offsets[7]);
+  object.startDate = reader.readDateTime(offsets[8]);
+  object.updatedAt = reader.readDateTime(offsets[9]);
+  object.uuid = reader.readString(offsets[10]);
+  object.weekdays = reader.readByteList(offsets[11]) ?? [];
   return object;
 }
 
@@ -208,14 +229,16 @@ P _medicationScheduleCollectionDeserializeProp<P>(
     case 5:
       return (reader.readInt(offset)) as P;
     case 6:
-      return (reader.readInt(offset)) as P;
+      return (reader.readString(offset)) as P;
     case 7:
-      return (reader.readDateTime(offset)) as P;
+      return (reader.readInt(offset)) as P;
     case 8:
       return (reader.readDateTime(offset)) as P;
     case 9:
-      return (reader.readString(offset)) as P;
+      return (reader.readDateTime(offset)) as P;
     case 10:
+      return (reader.readString(offset)) as P;
+    case 11:
       return (reader.readByteList(offset) ?? []) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -497,6 +520,69 @@ extension MedicationScheduleCollectionQueryWhere
                 indexName: r'uuid',
                 lower: [],
                 upper: [uuid],
+                includeUpper: false,
+              ),
+            );
+      }
+    });
+  }
+
+  QueryBuilder<
+    MedicationScheduleCollection,
+    MedicationScheduleCollection,
+    QAfterWhereClause
+  >
+  profileUuidEqualTo(String profileUuid) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(
+        IndexWhereClause.equalTo(
+          indexName: r'profileUuid',
+          value: [profileUuid],
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<
+    MedicationScheduleCollection,
+    MedicationScheduleCollection,
+    QAfterWhereClause
+  >
+  profileUuidNotEqualTo(String profileUuid) {
+    return QueryBuilder.apply(this, (query) {
+      if (query.whereSort == Sort.asc) {
+        return query
+            .addWhereClause(
+              IndexWhereClause.between(
+                indexName: r'profileUuid',
+                lower: [],
+                upper: [profileUuid],
+                includeUpper: false,
+              ),
+            )
+            .addWhereClause(
+              IndexWhereClause.between(
+                indexName: r'profileUuid',
+                lower: [profileUuid],
+                includeLower: false,
+                upper: [],
+              ),
+            );
+      } else {
+        return query
+            .addWhereClause(
+              IndexWhereClause.between(
+                indexName: r'profileUuid',
+                lower: [profileUuid],
+                includeLower: false,
+                upper: [],
+              ),
+            )
+            .addWhereClause(
+              IndexWhereClause.between(
+                indexName: r'profileUuid',
+                lower: [],
+                upper: [profileUuid],
                 includeUpper: false,
               ),
             );
@@ -1426,6 +1512,187 @@ extension MedicationScheduleCollectionQueryFilter
     MedicationScheduleCollection,
     QAfterFilterCondition
   >
+  profileUuidEqualTo(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'profileUuid',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<
+    MedicationScheduleCollection,
+    MedicationScheduleCollection,
+    QAfterFilterCondition
+  >
+  profileUuidGreaterThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'profileUuid',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<
+    MedicationScheduleCollection,
+    MedicationScheduleCollection,
+    QAfterFilterCondition
+  >
+  profileUuidLessThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'profileUuid',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<
+    MedicationScheduleCollection,
+    MedicationScheduleCollection,
+    QAfterFilterCondition
+  >
+  profileUuidBetween(
+    String lower,
+    String upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'profileUuid',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<
+    MedicationScheduleCollection,
+    MedicationScheduleCollection,
+    QAfterFilterCondition
+  >
+  profileUuidStartsWith(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.startsWith(
+          property: r'profileUuid',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<
+    MedicationScheduleCollection,
+    MedicationScheduleCollection,
+    QAfterFilterCondition
+  >
+  profileUuidEndsWith(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.endsWith(
+          property: r'profileUuid',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<
+    MedicationScheduleCollection,
+    MedicationScheduleCollection,
+    QAfterFilterCondition
+  >
+  profileUuidContains(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.contains(
+          property: r'profileUuid',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<
+    MedicationScheduleCollection,
+    MedicationScheduleCollection,
+    QAfterFilterCondition
+  >
+  profileUuidMatches(String pattern, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.matches(
+          property: r'profileUuid',
+          wildcard: pattern,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<
+    MedicationScheduleCollection,
+    MedicationScheduleCollection,
+    QAfterFilterCondition
+  >
+  profileUuidIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'profileUuid', value: ''),
+      );
+    });
+  }
+
+  QueryBuilder<
+    MedicationScheduleCollection,
+    MedicationScheduleCollection,
+    QAfterFilterCondition
+  >
+  profileUuidIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(property: r'profileUuid', value: ''),
+      );
+    });
+  }
+
+  QueryBuilder<
+    MedicationScheduleCollection,
+    MedicationScheduleCollection,
+    QAfterFilterCondition
+  >
   repeatTypeEqualTo(int value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
@@ -2124,6 +2391,28 @@ extension MedicationScheduleCollectionQuerySortBy
     MedicationScheduleCollection,
     QAfterSortBy
   >
+  sortByProfileUuid() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'profileUuid', Sort.asc);
+    });
+  }
+
+  QueryBuilder<
+    MedicationScheduleCollection,
+    MedicationScheduleCollection,
+    QAfterSortBy
+  >
+  sortByProfileUuidDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'profileUuid', Sort.desc);
+    });
+  }
+
+  QueryBuilder<
+    MedicationScheduleCollection,
+    MedicationScheduleCollection,
+    QAfterSortBy
+  >
   sortByRepeatType() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'repeatType', Sort.asc);
@@ -2374,6 +2663,28 @@ extension MedicationScheduleCollectionQuerySortThenBy
     MedicationScheduleCollection,
     QAfterSortBy
   >
+  thenByProfileUuid() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'profileUuid', Sort.asc);
+    });
+  }
+
+  QueryBuilder<
+    MedicationScheduleCollection,
+    MedicationScheduleCollection,
+    QAfterSortBy
+  >
+  thenByProfileUuidDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'profileUuid', Sort.desc);
+    });
+  }
+
+  QueryBuilder<
+    MedicationScheduleCollection,
+    MedicationScheduleCollection,
+    QAfterSortBy
+  >
   thenByRepeatType() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'repeatType', Sort.asc);
@@ -2539,6 +2850,17 @@ extension MedicationScheduleCollectionQueryWhereDistinct
     MedicationScheduleCollection,
     QDistinct
   >
+  distinctByProfileUuid({bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'profileUuid', caseSensitive: caseSensitive);
+    });
+  }
+
+  QueryBuilder<
+    MedicationScheduleCollection,
+    MedicationScheduleCollection,
+    QDistinct
+  >
   distinctByRepeatType() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'repeatType');
@@ -2643,6 +2965,13 @@ extension MedicationScheduleCollectionQueryProperty
   minutesFromMidnightProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'minutesFromMidnight');
+    });
+  }
+
+  QueryBuilder<MedicationScheduleCollection, String, QQueryOperations>
+  profileUuidProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'profileUuid');
     });
   }
 

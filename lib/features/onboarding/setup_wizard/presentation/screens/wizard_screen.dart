@@ -41,7 +41,6 @@ class _WizardScreenState extends ConsumerState<WizardScreen> {
 
     final state = ref.read(wizardProvider);
     if (state.isCompleted) {
-      _navigateToDashboard();
       return;
     }
 
@@ -49,25 +48,6 @@ class _WizardScreenState extends ConsumerState<WizardScreen> {
     if (Platform.isAndroid) {
       await notifier.checkExactAlarmAvailability();
     }
-  }
-
-  void _navigateToDashboard() {
-    CNavigator.pushAndRemoveUntil(
-      const DashboardScreen(),
-      (route) => false,
-    );
-  }
-
-  void _navigateToAddMedication() {
-    CNavigator.pushAndRemoveUntil(
-      const MedicationFormScreen(),
-      (route) => false,
-    ).then((_) {
-      CNavigator.pushAndRemoveUntil(
-        const DashboardScreen(),
-        (route) => false,
-      );
-    });
   }
 
   Future<void> _openBatterySettings() async {
@@ -114,7 +94,6 @@ class _WizardScreenState extends ConsumerState<WizardScreen> {
         onStart: notifier.nextStep,
         onSkip: () async {
           await notifier.skipWizard();
-          _navigateToDashboard();
         },
       ),
       WizardStep.notification => WizardStepNotification(
@@ -137,11 +116,12 @@ class _WizardScreenState extends ConsumerState<WizardScreen> {
       WizardStep.completion => WizardStepCompletion(
         onAddMedication: () async {
           await notifier.completeWizard();
-          _navigateToAddMedication();
+          if (mounted) {
+            CNavigator.push(const MedicationFormScreen());
+          }
         },
         onGoHome: () async {
           await notifier.completeWizard();
-          _navigateToDashboard();
         },
       ),
     };

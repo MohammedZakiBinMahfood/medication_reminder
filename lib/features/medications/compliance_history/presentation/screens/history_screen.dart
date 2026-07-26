@@ -5,9 +5,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:medication_reminder/core/notifications/notification_providers.dart';
 import 'package:medication_reminder/l10n/app_localizations.dart';
 import 'package:medication_reminder/core/design_system/spacing/app_spacing.dart';
+import 'package:medication_reminder/core/design_system/colors/app_colors.dart';
 import 'package:medication_reminder/shared/components/c_scaffold.dart';
 import 'package:medication_reminder/shared/components/c_loading.dart';
 import 'package:medication_reminder/shared/components/c_error_view.dart';
+import '../../../../profiles/providers/profile_providers.dart';
 import '../../providers/providers.dart';
 import '../../models/history_state_model.dart';
 import '../widgets/history_statistics_card.dart';
@@ -24,20 +26,24 @@ class HistoryScreen extends ConsumerStatefulWidget {
 }
 
 class _HistoryScreenState extends ConsumerState<HistoryScreen>
-    with WidgetsBindingObserver {
+    with WidgetsBindingObserver, SingleTickerProviderStateMixin {
   final _scrollController = ScrollController();
+  late TabController _tabController;
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     _scrollController.addListener(_onScroll);
+    _tabController = TabController(length: 1, vsync: this);
+    _tabController.addListener(_onTabChanged);
   }
 
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
     _scrollController.dispose();
+    _tabController.dispose();
     super.dispose();
   }
 
@@ -58,10 +64,41 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen>
     }
   }
 
+  void _onTabChanged() {
+    if (!_tabController.indexIsChanging) return;
+    final profiles = ref.read(allProfilesProvider).value ?? [];
+    final currentFilter = ref.read(historyFilterProvider);
+
+    if (_tabController.index == 0) {
+      if (currentFilter.profileUuid != null) {
+        ref.read(historyFilterProvider.notifier).setProfileFilter(null);
+        ref.read(historyListProvider.notifier).refresh();
+      }
+    } else {
+      final profile = profiles[_tabController.index - 1];
+      if (currentFilter.profileUuid != profile.uuid) {
+        ref.read(historyFilterProvider.notifier).setProfileFilter(profile.uuid);
+        ref.read(historyListProvider.notifier).refresh();
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final state = ref.watch(historyListProvider);
+    final profilesAsync = ref.watch(allProfilesProvider);
+    final profiles = profilesAsync.value ?? [];
+
+    // Rebuild tab controller when profile count changes.
+    final tabCount = profiles.length + 1;
+    if (_tabController.length != tabCount) {
+      final oldIndex = _tabController.index.clamp(0, _tabController.length - 1);
+      _tabController.dispose();
+      _tabController = TabController(length: tabCount, vsync: this);
+      _tabController.addListener(_onTabChanged);
+      _tabController.index = oldIndex.clamp(0, tabCount - 1);
+    }
 
     return CScaffold(
       appBar: AppBar(
@@ -77,6 +114,17 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen>
             ),
           ),
         ],
+        bottom: TabBar(
+          controller: _tabController,
+          isScrollable: true,
+          labelColor: AppColors.primary,
+          unselectedLabelColor: AppColors.textSecondary,
+          indicatorColor: AppColors.primary,
+          tabs: [
+            const Tab(text: 'All'),
+            for (final p in profiles) Tab(text: p.name),
+          ],
+        ),
       ),
       body: _buildBody(state, l10n),
     );

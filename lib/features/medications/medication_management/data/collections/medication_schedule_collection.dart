@@ -10,6 +10,9 @@ class MedicationScheduleCollection {
   late String uuid;
 
   @Index()
+  late String profileUuid;
+
+  @Index()
   late String medicationUuid;
 
   /// Stored as minutes from midnight for faster comparisons, sorting,

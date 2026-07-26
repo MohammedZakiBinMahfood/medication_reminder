@@ -4,6 +4,7 @@ import '../../features/medications/medication_management/data/collections/medica
 import '../../features/medications/medication_management/data/collections/medication_schedule_collection.dart';
 import '../../features/medications/medication_management/data/collections/dose_log_collection.dart';
 import '../../features/settings/data/collections/settings_collection.dart';
+import '../../features/profiles/data/collections/profile_collection.dart';
 
 class DatabaseService {
   Isar? _isar;
@@ -17,6 +18,7 @@ class DatabaseService {
       MedicationScheduleCollectionSchema,
       DoseLogCollectionSchema,
       SettingsCollectionSchema,
+      ProfileCollectionSchema,
     ], directory: dir.path);
 
     return _isar!;

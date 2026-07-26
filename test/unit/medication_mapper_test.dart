@@ -113,6 +113,7 @@ void main() {
         final now = DateTime(2026, 7, 19);
         final model = MedicationModel(
           uuid: 'test-uuid',
+          profileUuid: 'test-profile',
           name: 'Aspirin',
           dosage: '100mg',
           color: '#FF000000',
@@ -136,6 +137,7 @@ void main() {
       test('sets isDeleted to false in collection', () {
         final model = MedicationModel(
           uuid: 'test-uuid',
+          profileUuid: 'test-profile',
           name: 'Aspirin',
           dosage: '100mg',
           color: '#FF000000',
@@ -152,6 +154,7 @@ void main() {
       test('preserves isarId', () {
         final model = MedicationModel(
           uuid: 'test-uuid',
+          profileUuid: 'test-profile',
           name: 'Aspirin',
           dosage: '100mg',
           color: '#FF000000',
@@ -170,6 +173,7 @@ void main() {
       test('creates MedicationField from model and schedule', () {
         final medication = MedicationModel(
           uuid: 'med-uuid',
+          profileUuid: 'test-profile',
           name: 'Aspirin',
           dosage: '100mg',
           color: '#FF000000',
@@ -181,6 +185,7 @@ void main() {
 
         final schedule = MedicationScheduleModel(
           uuid: 'sch-uuid',
+          profileUuid: 'test-profile',
           medicationUuid: 'med-uuid',
           minutesFromMidnight: 480,
           repeatType: RepeatType.specificDays,
@@ -211,6 +216,7 @@ void main() {
       test('uses defaults when schedule is null', () {
         final medication = MedicationModel(
           uuid: 'med-uuid',
+          profileUuid: 'test-profile',
           name: 'Aspirin',
           dosage: '100mg',
           color: '#FF000000',

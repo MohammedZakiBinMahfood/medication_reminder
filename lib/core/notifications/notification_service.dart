@@ -32,12 +32,34 @@ class NotificationService {
     const androidSettings = AndroidInitializationSettings(
       '@mipmap/ic_launcher',
     );
-    const darwinSettings = DarwinInitializationSettings(
+    final darwinCategories = [
+      DarwinNotificationCategory(
+        NotificationConstants.categoryMedicationReminder,
+        actions: [
+          DarwinNotificationAction.plain(
+            NotificationConstants.actionTaken,
+            'تم التناول',
+            options: {
+              DarwinNotificationActionOption.foreground,
+            },
+          ),
+          DarwinNotificationAction.plain(
+            'snooze_15',
+            'تأجيل 15 دقيقة',
+            options: {
+              DarwinNotificationActionOption.foreground,
+            },
+          ),
+        ],
+      ),
+    ];
+    final darwinSettings = DarwinInitializationSettings(
       requestSoundPermission: false,
       requestBadgePermission: false,
       requestAlertPermission: false,
+      notificationCategories: darwinCategories,
     );
-    const settings = InitializationSettings(
+    final settings = InitializationSettings(
       android: androidSettings,
       iOS: darwinSettings,
       macOS: darwinSettings,
@@ -65,21 +87,47 @@ class NotificationService {
 
   // ── Scheduling primitives ──────────────────────────────────────────────
 
-  NotificationDetails _buildDetails() {
-    const android = AndroidNotificationDetails(
-      NotificationConstants.androidChannelId,
-      NotificationConstants.androidChannelName,
-      channelDescription: NotificationConstants.androidChannelDescription,
-      importance: Importance.high,
-      priority: Priority.high,
+  NotificationDetails _buildDetails({bool isCritical = false}) {
+    final android = AndroidNotificationDetails(
+      isCritical
+          ? NotificationConstants.androidCriticalChannelId
+          : NotificationConstants.androidChannelId,
+      isCritical
+          ? NotificationConstants.androidCriticalChannelName
+          : NotificationConstants.androidChannelName,
+      channelDescription: isCritical
+          ? NotificationConstants.androidCriticalChannelDescription
+          : NotificationConstants.androidChannelDescription,
+      importance: isCritical ? Importance.max : Importance.high,
+      priority: isCritical ? Priority.max : Priority.high,
+      audioAttributesUsage: isCritical
+          ? AudioAttributesUsage.alarm
+          : AudioAttributesUsage.notification,
+      fullScreenIntent: isCritical,
       showWhen: true,
+      actions: const [
+        AndroidNotificationAction(
+          NotificationConstants.actionTaken,
+          'تم التناول',
+          showsUserInterface: false,
+        ),
+        AndroidNotificationAction(
+          'snooze_15',
+          'تأجيل 15 دقيقة',
+          showsUserInterface: false,
+        ),
+      ],
     );
-    const darwin = DarwinNotificationDetails(
+    final darwin = DarwinNotificationDetails(
       presentAlert: true,
       presentBadge: true,
       presentSound: true,
+      interruptionLevel: isCritical
+          ? InterruptionLevel.timeSensitive
+          : InterruptionLevel.active,
+      categoryIdentifier: NotificationConstants.categoryMedicationReminder,
     );
-    return const NotificationDetails(
+    return NotificationDetails(
       android: android,
       iOS: darwin,
       macOS: darwin,
@@ -92,6 +140,7 @@ class NotificationService {
     required String title,
     required String body,
     required DateTime scheduledDate,
+    bool isCritical = false,
     String? payload,
   }) async {
     final tzDateTime = tz.TZDateTime.from(scheduledDate, tz.local);
@@ -104,7 +153,7 @@ class NotificationService {
       title: title,
       body: body,
       scheduledDate: tzDateTime,
-      notificationDetails: _buildDetails(),
+      notificationDetails: _buildDetails(isCritical: isCritical),
       androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
       payload: payload,
     );
@@ -116,6 +165,7 @@ class NotificationService {
     required String title,
     required String body,
     required DateTime scheduledDate,
+    bool isCritical = false,
     String? payload,
   }) async {
     final tzDateTime = tz.TZDateTime.from(scheduledDate, tz.local);
@@ -124,7 +174,7 @@ class NotificationService {
       title: title,
       body: body,
       scheduledDate: tzDateTime,
-      notificationDetails: _buildDetails(),
+      notificationDetails: _buildDetails(isCritical: isCritical),
       androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
       matchDateTimeComponents: DateTimeComponents.time,
       payload: payload,
@@ -137,6 +187,7 @@ class NotificationService {
     required String title,
     required String body,
     required DateTime scheduledDate,
+    bool isCritical = false,
     String? payload,
   }) async {
     final tzDateTime = tz.TZDateTime.from(scheduledDate, tz.local);
@@ -145,7 +196,7 @@ class NotificationService {
       title: title,
       body: body,
       scheduledDate: tzDateTime,
-      notificationDetails: _buildDetails(),
+      notificationDetails: _buildDetails(isCritical: isCritical),
       androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
       matchDateTimeComponents: DateTimeComponents.dayOfWeekAndTime,
       payload: payload,
@@ -158,6 +209,7 @@ class NotificationService {
     required Duration interval,
     required String title,
     required String body,
+    bool isCritical = false,
     String? payload,
   }) async {
     await _plugin.periodicallyShowWithDuration(
@@ -165,7 +217,7 @@ class NotificationService {
       repeatDurationInterval: interval,
       title: title,
       body: body,
-      notificationDetails: _buildDetails(),
+      notificationDetails: _buildDetails(isCritical: isCritical),
       androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
       payload: payload,
     );

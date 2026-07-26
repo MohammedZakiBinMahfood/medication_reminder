@@ -77,7 +77,12 @@ class CButton extends StatelessWidget {
     }();
 
     if (semanticsLabel != null) {
-      return Semantics(label: semanticsLabel, child: button);
+      return Semantics(
+        container: true,
+        label: semanticsLabel,
+        excludeSemantics: true,
+        child: button,
+      );
     }
     return button;
   }

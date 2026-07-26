@@ -64,9 +64,16 @@ class NotificationActionHandler {
     final now = DateTime.now();
     final scheduledAt = DateTime(now.year, now.month, now.day);
 
+    final medResult = await _repository.getMedication(payload.medicationId);
+    final profileUuid = switch (medResult) {
+      Success(:final data) => data.profileUuid,
+      _ => '',
+    };
+
     final result = await _repository.logDose(
       DoseLogModel(
         uuid: now.microsecondsSinceEpoch.toString(),
+        profileUuid: profileUuid,
         medicationUuid: payload.medicationId,
         scheduleUuid: payload.scheduleId,
         scheduledAt: scheduledAt,
@@ -97,9 +104,16 @@ class NotificationActionHandler {
     final now = DateTime.now();
     final scheduledAt = DateTime(now.year, now.month, now.day);
 
+    final medResult = await _repository.getMedication(payload.medicationId);
+    final profileUuid = switch (medResult) {
+      Success(:final data) => data.profileUuid,
+      _ => '',
+    };
+
     final result = await _repository.logDose(
       DoseLogModel(
         uuid: now.microsecondsSinceEpoch.toString(),
+        profileUuid: profileUuid,
         medicationUuid: payload.medicationId,
         scheduleUuid: payload.scheduleId,
         scheduledAt: scheduledAt,
@@ -140,10 +154,17 @@ class NotificationActionHandler {
     final now = DateTime.now();
     final scheduledAt = DateTime(now.year, now.month, now.day);
 
+    final medResult = await _repository.getMedication(payload.medicationId);
+    final profileUuid = switch (medResult) {
+      Success(:final data) => data.profileUuid,
+      _ => '',
+    };
+
     // 1. Log the current dose as pending (will be re-checked later).
     final logResult = await _repository.logDose(
       DoseLogModel(
         uuid: now.microsecondsSinceEpoch.toString(),
+        profileUuid: profileUuid,
         medicationUuid: payload.medicationId,
         scheduleUuid: payload.scheduleId,
         scheduledAt: scheduledAt,

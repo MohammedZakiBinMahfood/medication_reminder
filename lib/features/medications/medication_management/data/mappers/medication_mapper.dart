@@ -11,11 +11,14 @@ class MedicationMapper {
   static MedicationModel toDomain(MedicationCollection collection) {
     return MedicationModel(
       uuid: collection.uuid,
+      profileUuid: collection.profileUuid,
       name: collection.name,
       dosage: collection.dosage,
       color: collection.color,
       priority: priorityFromInt(collection.priority),
       isActive: collection.isActive,
+      stockQuantity: collection.stockQuantity,
+      reorderThreshold: collection.reorderThreshold,
       createdAt: collection.createdAt,
       updatedAt: collection.updatedAt,
     );
@@ -28,11 +31,14 @@ class MedicationMapper {
     return MedicationCollection()
       ..id = isarId
       ..uuid = model.uuid
+      ..profileUuid = model.profileUuid
       ..name = model.name
       ..dosage = model.dosage
       ..color = model.color
       ..priority = model.priority.index
       ..isActive = model.isActive
+      ..stockQuantity = model.stockQuantity
+      ..reorderThreshold = model.reorderThreshold
       ..createdAt = model.createdAt
       ..updatedAt = model.updatedAt
       ..isDeleted = false;
@@ -40,20 +46,26 @@ class MedicationMapper {
 
   static MedicationCollection fromAddModel({
     required String uuid,
+    required String profileUuid,
     required String name,
     required String dosage,
     required String color,
     required MedicationPriority priority,
     required bool isActive,
+    int? stockQuantity,
+    int? reorderThreshold,
     required DateTime now,
   }) {
     return MedicationCollection()
       ..uuid = uuid
+      ..profileUuid = profileUuid
       ..name = name
       ..dosage = dosage
       ..color = color
       ..priority = priority.index
       ..isActive = isActive
+      ..stockQuantity = stockQuantity
+      ..reorderThreshold = reorderThreshold
       ..createdAt = now
       ..updatedAt = now
       ..isDeleted = false;
@@ -65,6 +77,7 @@ class MedicationMapper {
   ) {
     return MedicationField(
       id: medication.uuid,
+      profileUuid: medication.profileUuid,
       name: medication.name,
       dosage: medication.dosage,
       color: medication.color,
@@ -75,6 +88,9 @@ class MedicationMapper {
       startDate: schedule?.startDate ?? medication.createdAt,
       endDate: schedule?.endDate,
       isActive: medication.isActive,
+      stockQuantity: medication.stockQuantity,
+      reorderThreshold: medication.reorderThreshold,
+      minutesFromMidnight: schedule?.minutesFromMidnight ?? 480,
     );
   }
 

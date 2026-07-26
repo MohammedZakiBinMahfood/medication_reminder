@@ -21,52 +21,47 @@ class NotificationHintCard extends ConsumerWidget {
       padding: const EdgeInsets.symmetric(horizontal: AppSpacing.l),
       child: CCard(
         margin: EdgeInsets.zero,
-        child: Semantics(
-          container: true,
-          header: true,
-          label: l10n.firstRunNotificationHintTitle,
-          child: Row(
-            children: [
-              Icon(
-                Icons.notifications_active_outlined,
-                color: Theme.of(context).colorScheme.primary,
-                size: 28,
-              ),
-              const SizedBox(width: AppSpacing.m),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
+        child: Row(
+          children: [
+            Icon(
+              Icons.notifications_active_outlined,
+              color: Theme.of(context).colorScheme.primary,
+              size: 28,
+            ),
+            const SizedBox(width: AppSpacing.m),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Semantics(
+                    header: true,
+                    child: Text(
                       l10n.firstRunNotificationHintTitle,
                       style: Theme.of(context).textTheme.titleSmall?.copyWith(
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    const SizedBox(height: AppSpacing.xxs),
-                    Text(
-                      l10n.firstRunNotificationHintDescription,
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color:
-                            Theme.of(context).colorScheme.onSurfaceVariant,
-                      ),
+                  ),
+                  const SizedBox(height: AppSpacing.xxs),
+                  Text(
+                    l10n.firstRunNotificationHintDescription,
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color:
+                          Theme.of(context).colorScheme.onSurfaceVariant,
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              Semantics(
-                label: l10n.firstRunDismiss,
-                button: true,
-                child: IconButton(
-                  icon: const Icon(Icons.close, size: 20),
-                  onPressed: () {
-                    ref.read(firstRunProvider.notifier).dismissNotificationHint();
-                  },
-                ),
-              ),
-            ],
-          ),
+            ),
+            IconButton(
+              icon: const Icon(Icons.close, size: 20),
+              tooltip: l10n.firstRunDismiss,
+              onPressed: () {
+                ref.read(firstRunProvider.notifier).dismissNotificationHint();
+              },
+            ),
+          ],
         ),
       ),
     );

@@ -6,6 +6,7 @@ part 'medication_field.mapper.dart';
 @MappableClass()
 class MedicationField with MedicationFieldMappable {
   final String id;
+  final String profileUuid;
   final String name;
   final String dosage;
   final String color;
@@ -17,9 +18,12 @@ class MedicationField with MedicationFieldMappable {
   final DateTime? endDate;
   final int minutesFromMidnight;
   final bool isActive;
+  final int? stockQuantity;
+  final int? reorderThreshold;
 
   const MedicationField({
     required this.id,
+    required this.profileUuid,
     required this.name,
     required this.dosage,
     required this.color,
@@ -31,5 +35,7 @@ class MedicationField with MedicationFieldMappable {
     this.endDate,
     this.minutesFromMidnight = 480,
     required this.isActive,
+    this.stockQuantity,
+    this.reorderThreshold,
   });
 }

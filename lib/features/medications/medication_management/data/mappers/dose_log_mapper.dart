@@ -9,6 +9,7 @@ class DoseLogMapper {
   static DoseLogModel toDomain(DoseLogCollection collection) {
     return DoseLogModel(
       uuid: collection.uuid,
+      profileUuid: collection.profileUuid,
       medicationUuid: collection.medicationUuid,
       scheduleUuid: collection.scheduleUuid,
       scheduledAt: collection.scheduledAt,
@@ -26,6 +27,7 @@ class DoseLogMapper {
     return DoseLogCollection()
       ..id = isarId
       ..uuid = model.uuid
+      ..profileUuid = model.profileUuid
       ..medicationUuid = model.medicationUuid
       ..scheduleUuid = model.scheduleUuid
       ..scheduledAt = model.scheduledAt
@@ -38,6 +40,7 @@ class DoseLogMapper {
 
   static DoseLogCollection fromModel({
     required String uuid,
+    required String profileUuid,
     required String medicationUuid,
     required String scheduleUuid,
     required DateTime scheduledAt,
@@ -46,6 +49,7 @@ class DoseLogMapper {
   }) {
     return DoseLogCollection()
       ..uuid = uuid
+      ..profileUuid = profileUuid
       ..medicationUuid = medicationUuid
       ..scheduleUuid = scheduleUuid
       ..scheduledAt = scheduledAt

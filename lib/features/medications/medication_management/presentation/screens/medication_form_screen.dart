@@ -85,6 +85,7 @@ class _MedicationFormScreenState extends ConsumerState<MedicationFormScreen> {
   ) {
     return MedicationField(
       id: med.uuid,
+      profileUuid: med.profileUuid,
       name: med.name,
       dosage: med.dosage,
       color: med.color,
@@ -149,7 +150,11 @@ class _MedicationFormScreenState extends ConsumerState<MedicationFormScreen> {
 
   Future<void> _onSave() async {
     final isValid = ref.read(medicationFormProvider.notifier).validateForm();
-    if (!isValid) return;
+    if (!isValid) {
+      final l10n = AppLocalizations.of(context);
+      CSnackbar.error(context, l10n.a11yFormRequired);
+      return;
+    }
 
     final notifier = ref.read(medicationCrudProvider.notifier);
     final data = ref.read(medicationStateProvider);
@@ -329,6 +334,21 @@ class _MedicationFormScreenState extends ConsumerState<MedicationFormScreen> {
                           .setEndDate(null);
                     },
                   ),
+                  const SizedBox(height: 12),
+                  _StockSection(
+                    stockQuantity: medState.stockQuantity,
+                    reorderThreshold: medState.reorderThreshold,
+                    onStockChanged: (val) {
+                      ref
+                          .read(medicationStateProvider.notifier)
+                          .setStockQuantity(val);
+                    },
+                    onThresholdChanged: (val) {
+                      ref
+                          .read(medicationStateProvider.notifier)
+                          .setReorderThreshold(val);
+                    },
+                  ),
                   const SizedBox(height: 24),
                   SizedBox(
                     width: double.infinity,
@@ -341,6 +361,53 @@ class _MedicationFormScreenState extends ConsumerState<MedicationFormScreen> {
                 ],
               ),
             ),
+    );
+  }
+}
+
+class _StockSection extends StatelessWidget {
+  final int? stockQuantity;
+  final int? reorderThreshold;
+  final ValueChanged<int?> onStockChanged;
+  final ValueChanged<int?> onThresholdChanged;
+
+  const _StockSection({
+    required this.stockQuantity,
+    required this.reorderThreshold,
+    required this.onStockChanged,
+    required this.onThresholdChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const _SectionLabel(label: 'تتبع المخزون (اختياري)'),
+        Row(
+          children: [
+            Expanded(
+              child: CTextField(
+                labelText: 'كمية المخزون',
+                hintText: 'مثال: 30',
+                keyboardType: TextInputType.number,
+                initialValue: stockQuantity?.toString(),
+                onChanged: (v) => onStockChanged(int.tryParse(v)),
+              ),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: CTextField(
+                labelText: 'التنبيه عند المتبقي',
+                hintText: 'مثال: 5',
+                keyboardType: TextInputType.number,
+                initialValue: reorderThreshold?.toString(),
+                onChanged: (v) => onThresholdChanged(int.tryParse(v)),
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
@@ -395,7 +462,9 @@ class _DateTile extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Semantics(
+          container: true,
           button: true,
+          explicitChildNodes: true,
           label: '$sectionLabel: $displayText',
           child: InkWell(
             onTap: onTap,
@@ -407,13 +476,10 @@ class _DateTile extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     if (isClearable && date != null)
-                      Semantics(
-                        label: l10n.a11yClearDate,
-                        button: true,
-                        child: IconButton(
-                          icon: const Icon(Icons.clear, size: 18),
-                          onPressed: onClear,
-                        ),
+                      IconButton(
+                        icon: const Icon(Icons.clear, size: 18),
+                        tooltip: l10n.a11yClearDate,
+                        onPressed: onClear,
                       ),
                     const Icon(Icons.calendar_today, size: 18),
                   ],
@@ -455,6 +521,7 @@ class _TimeTile extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Semantics(
+          container: true,
           button: true,
           label: displayText,
           child: InkWell(

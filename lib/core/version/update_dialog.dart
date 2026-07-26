@@ -63,7 +63,7 @@ class UpdateDialog extends ConsumerWidget {
           onPressed: () async {
             Navigator.pop(context);
             final url = Uri.parse(
-              'https://play.google.com/store/apps/details?id=com.example.medication_reminder',
+              'https://play.google.com/store/apps/details?id=com.mohammedzaki.medication_reminder',
             );
             if (await canLaunchUrl(url)) {
               await launchUrl(url, mode: LaunchMode.externalApplication);

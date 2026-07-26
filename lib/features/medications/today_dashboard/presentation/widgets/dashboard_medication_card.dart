@@ -141,6 +141,34 @@ class DashboardMedicationCard extends StatelessWidget {
                             ),
                           ),
                         ],
+                        if (medication.stockQuantity != null) ...[
+                          const SizedBox(width: AppSpacing.m),
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(
+                                Icons.inventory_2_outlined,
+                                size: 14,
+                                color: medication.isLowStock
+                                    ? colorScheme.error
+                                    : colorScheme.onSurfaceVariant,
+                              ),
+                              const SizedBox(width: AppSpacing.xs),
+                              Text(
+                                '${medication.stockQuantity}',
+                                style: Theme.of(context).textTheme.bodySmall
+                                    ?.copyWith(
+                                      color: medication.isLowStock
+                                          ? colorScheme.error
+                                          : colorScheme.onSurfaceVariant,
+                                      fontWeight: medication.isLowStock
+                                          ? FontWeight.bold
+                                          : FontWeight.normal,
+                                    ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ],
                     ),
                     const SizedBox(height: AppSpacing.s),

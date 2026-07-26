@@ -16,14 +16,18 @@ class WizardNotifier extends Notifier<WizardState> {
   @override
   WizardState build() {
     _repository = ref.read(wizardRepositoryProvider);
-    return const WizardState();
+    _init();
+    return const WizardState(isLoading: true);
+  }
+
+  Future<void> _init() async {
+    final completed = await _repository.isWizardCompleted();
+    state = state.copyWith(isCompleted: completed, isLoading: false);
   }
 
   Future<void> initialize() async {
     final completed = await _repository.isWizardCompleted();
-    if (completed) {
-      state = state.copyWith(isCompleted: true);
-    }
+    state = state.copyWith(isCompleted: completed, isLoading: false);
   }
 
   void goToStep(WizardStep step) {

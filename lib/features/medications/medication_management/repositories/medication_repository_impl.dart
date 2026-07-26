@@ -12,8 +12,9 @@ import 'medication_filters.dart';
 
 class MedicationRepositoryImpl implements MedicationRepository {
   final Isar isar;
+  final String profileUuid;
 
-  MedicationRepositoryImpl({required this.isar});
+  MedicationRepositoryImpl({required this.isar, required this.profileUuid});
 
   @override
   Future<Result<MedicationModel>> createMedication(
@@ -25,17 +26,21 @@ class MedicationRepositoryImpl implements MedicationRepository {
 
       final medication = MedicationMapper.fromAddModel(
         uuid: uuid,
+        profileUuid: model.profileUuid,
         name: model.name,
         dosage: model.dosage,
         color: model.color,
         priority: model.priority,
         isActive: model.isActive,
+        stockQuantity: model.stockQuantity,
+        reorderThreshold: model.reorderThreshold,
         now: now,
       );
 
       final scheduleUuid = UuidService.generate();
       final schedule = MedicationScheduleMapper.fromAddModel(
         uuid: scheduleUuid,
+        profileUuid: model.profileUuid,
         medicationUuid: uuid,
         minutesFromMidnight: model.minutesFromMidnight,
         repeatType: model.repeatType,
@@ -76,11 +81,14 @@ class MedicationRepositoryImpl implements MedicationRepository {
       final medication = MedicationMapper.toCollection(
         MedicationModel(
           uuid: model.id,
+          profileUuid: model.profileUuid,
           name: model.name,
           dosage: model.dosage,
           color: model.color,
           priority: model.priority,
           isActive: model.isActive,
+          stockQuantity: model.stockQuantity,
+          reorderThreshold: model.reorderThreshold,
           createdAt: existing.createdAt,
           updatedAt: now,
         ),
@@ -90,6 +98,7 @@ class MedicationRepositoryImpl implements MedicationRepository {
       final scheduleUuid = UuidService.generate();
       final schedule = MedicationScheduleMapper.fromAddModel(
         uuid: scheduleUuid,
+        profileUuid: model.profileUuid,
         medicationUuid: model.id,
         minutesFromMidnight: model.minutesFromMidnight,
         repeatType: model.repeatType,
@@ -200,6 +209,7 @@ class MedicationRepositoryImpl implements MedicationRepository {
       final medications = await isar.medicationCollections
           .where()
           .filter()
+          .profileUuidEqualTo(profileUuid)
           .isDeletedEqualTo(false)
           .isActiveEqualTo(true)
           .findAll();
@@ -212,11 +222,13 @@ class MedicationRepositoryImpl implements MedicationRepository {
 
   @override
   Future<Result<MedicationModel>> saveMedication(
-    MedicationStateModel state,
-  ) async {
+    MedicationStateModel state, {
+    String profileUuid = '',
+  }) async {
     if (state.id != null) {
       final editModel = MedicationEditModel(
         id: state.id!,
+        profileUuid: profileUuid,
         name: state.name ?? '',
         dosage: state.dosage ?? '',
         color: state.color ?? '#4F46E5',
@@ -228,10 +240,13 @@ class MedicationRepositoryImpl implements MedicationRepository {
         endDate: state.endDate,
         minutesFromMidnight: state.minutesFromMidnight,
         isActive: state.isActive,
+        stockQuantity: state.stockQuantity,
+        reorderThreshold: state.reorderThreshold,
       );
       return updateMedication(editModel);
     } else {
       final addModel = MedicationAddModel(
+        profileUuid: profileUuid,
         name: state.name ?? '',
         dosage: state.dosage ?? '',
         color: state.color ?? '#4F46E5',
@@ -243,6 +258,8 @@ class MedicationRepositoryImpl implements MedicationRepository {
         endDate: state.endDate,
         minutesFromMidnight: state.minutesFromMidnight,
         isActive: state.isActive,
+        stockQuantity: state.stockQuantity,
+        reorderThreshold: state.reorderThreshold,
       );
       return createMedication(addModel);
     }
@@ -314,6 +331,7 @@ class MedicationRepositoryImpl implements MedicationRepository {
       var filterQuery = isar.medicationCollections
           .where()
           .filter()
+          .profileUuidEqualTo(profileUuid)
           .isDeletedEqualTo(false);
 
       if (filters != null) {
@@ -442,6 +460,7 @@ class MedicationRepositoryImpl implements MedicationRepository {
       final newCollections = schedules.map((s) {
         return MedicationScheduleMapper.fromAddModel(
           uuid: UuidService.generate(),
+          profileUuid: s.profileUuid,
           medicationUuid: medicationUuid,
           minutesFromMidnight: s.minutesFromMidnight,
           repeatType: s.repeatType,
@@ -494,9 +513,50 @@ class MedicationRepositoryImpl implements MedicationRepository {
 
       await isar.writeTxn(() async {
         await isar.doseLogCollections.put(collection);
+
+        // Auto-decrement stock if dose is taken
+        if (log.status == DoseStatus.taken) {
+          final medication = await isar.medicationCollections
+              .where()
+              .uuidEqualTo(log.medicationUuid)
+              .findFirst();
+
+          if (medication != null &&
+              medication.stockQuantity != null &&
+              medication.stockQuantity! > 0) {
+            medication.stockQuantity = medication.stockQuantity! - 1;
+            medication.updatedAt = DateTime.now();
+            await isar.medicationCollections.put(medication);
+          }
+        }
       });
 
       return Success(DoseLogMapper.toDomain(collection));
+    } catch (e) {
+      return Failure(UnknownError(e.toString()));
+    }
+  }
+
+  @override
+  Future<Result<void>> refillStock(String medicationUuid, int quantity) async {
+    try {
+      final medication = await isar.medicationCollections
+          .where()
+          .uuidEqualTo(medicationUuid)
+          .findFirst();
+
+      if (medication == null) {
+        return Failure(UnknownError('Medication not found'));
+      }
+
+      medication.stockQuantity = (medication.stockQuantity ?? 0) + quantity;
+      medication.updatedAt = DateTime.now();
+
+      await isar.writeTxn(() async {
+        await isar.medicationCollections.put(medication);
+      });
+
+      return const Success(null);
     } catch (e) {
       return Failure(UnknownError(e.toString()));
     }

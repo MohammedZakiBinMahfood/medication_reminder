@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.medication_reminder"
+    namespace = "com.mohammedzaki.medication_reminder"
     compileSdk = 36
     ndkVersion = flutter.ndkVersion
 
@@ -15,7 +15,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.example.medication_reminder"
+        applicationId = "com.mohammedzaki.medication_reminder"
         minSdk = flutter.minSdkVersion
         targetSdk = 36
         versionCode = flutter.versionCode

@@ -6,6 +6,7 @@ part 'medication_schedule_model.mapper.dart';
 @MappableClass()
 class MedicationScheduleModel with MedicationScheduleModelMappable {
   final String uuid;
+  final String profileUuid;
   final String medicationUuid;
   final int minutesFromMidnight;
   final RepeatType repeatType;
@@ -18,6 +19,7 @@ class MedicationScheduleModel with MedicationScheduleModelMappable {
 
   const MedicationScheduleModel({
     required this.uuid,
+    required this.profileUuid,
     required this.medicationUuid,
     required this.minutesFromMidnight,
     required this.repeatType,

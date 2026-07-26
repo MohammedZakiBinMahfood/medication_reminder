@@ -33,12 +33,27 @@ const MedicationCollectionSchema = CollectionSchema(
     ),
     r'name': PropertySchema(id: 5, name: r'name', type: IsarType.string),
     r'priority': PropertySchema(id: 6, name: r'priority', type: IsarType.int),
-    r'updatedAt': PropertySchema(
+    r'profileUuid': PropertySchema(
       id: 7,
+      name: r'profileUuid',
+      type: IsarType.string,
+    ),
+    r'reorderThreshold': PropertySchema(
+      id: 8,
+      name: r'reorderThreshold',
+      type: IsarType.long,
+    ),
+    r'stockQuantity': PropertySchema(
+      id: 9,
+      name: r'stockQuantity',
+      type: IsarType.long,
+    ),
+    r'updatedAt': PropertySchema(
+      id: 10,
       name: r'updatedAt',
       type: IsarType.dateTime,
     ),
-    r'uuid': PropertySchema(id: 8, name: r'uuid', type: IsarType.string),
+    r'uuid': PropertySchema(id: 11, name: r'uuid', type: IsarType.string),
   },
 
   estimateSize: _medicationCollectionEstimateSize,
@@ -55,6 +70,19 @@ const MedicationCollectionSchema = CollectionSchema(
       properties: [
         IndexPropertySchema(
           name: r'uuid',
+          type: IndexType.hash,
+          caseSensitive: true,
+        ),
+      ],
+    ),
+    r'profileUuid': IndexSchema(
+      id: 1129968050600041444,
+      name: r'profileUuid',
+      unique: false,
+      replace: false,
+      properties: [
+        IndexPropertySchema(
+          name: r'profileUuid',
           type: IndexType.hash,
           caseSensitive: true,
         ),
@@ -92,6 +120,7 @@ int _medicationCollectionEstimateSize(
   bytesCount += 3 + object.color.length * 3;
   bytesCount += 3 + object.dosage.length * 3;
   bytesCount += 3 + object.name.length * 3;
+  bytesCount += 3 + object.profileUuid.length * 3;
   bytesCount += 3 + object.uuid.length * 3;
   return bytesCount;
 }
@@ -109,8 +138,11 @@ void _medicationCollectionSerialize(
   writer.writeBool(offsets[4], object.isDeleted);
   writer.writeString(offsets[5], object.name);
   writer.writeInt(offsets[6], object.priority);
-  writer.writeDateTime(offsets[7], object.updatedAt);
-  writer.writeString(offsets[8], object.uuid);
+  writer.writeString(offsets[7], object.profileUuid);
+  writer.writeLong(offsets[8], object.reorderThreshold);
+  writer.writeLong(offsets[9], object.stockQuantity);
+  writer.writeDateTime(offsets[10], object.updatedAt);
+  writer.writeString(offsets[11], object.uuid);
 }
 
 MedicationCollection _medicationCollectionDeserialize(
@@ -128,8 +160,11 @@ MedicationCollection _medicationCollectionDeserialize(
   object.isDeleted = reader.readBool(offsets[4]);
   object.name = reader.readString(offsets[5]);
   object.priority = reader.readInt(offsets[6]);
-  object.updatedAt = reader.readDateTime(offsets[7]);
-  object.uuid = reader.readString(offsets[8]);
+  object.profileUuid = reader.readString(offsets[7]);
+  object.reorderThreshold = reader.readLongOrNull(offsets[8]);
+  object.stockQuantity = reader.readLongOrNull(offsets[9]);
+  object.updatedAt = reader.readDateTime(offsets[10]);
+  object.uuid = reader.readString(offsets[11]);
   return object;
 }
 
@@ -155,8 +190,14 @@ P _medicationCollectionDeserializeProp<P>(
     case 6:
       return (reader.readInt(offset)) as P;
     case 7:
-      return (reader.readDateTime(offset)) as P;
+      return (reader.readString(offset)) as P;
     case 8:
+      return (reader.readLongOrNull(offset)) as P;
+    case 9:
+      return (reader.readLongOrNull(offset)) as P;
+    case 10:
+      return (reader.readDateTime(offset)) as P;
+    case 11:
       return (reader.readString(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -371,6 +412,61 @@ extension MedicationCollectionQueryWhere
                 indexName: r'uuid',
                 lower: [],
                 upper: [uuid],
+                includeUpper: false,
+              ),
+            );
+      }
+    });
+  }
+
+  QueryBuilder<MedicationCollection, MedicationCollection, QAfterWhereClause>
+  profileUuidEqualTo(String profileUuid) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(
+        IndexWhereClause.equalTo(
+          indexName: r'profileUuid',
+          value: [profileUuid],
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<MedicationCollection, MedicationCollection, QAfterWhereClause>
+  profileUuidNotEqualTo(String profileUuid) {
+    return QueryBuilder.apply(this, (query) {
+      if (query.whereSort == Sort.asc) {
+        return query
+            .addWhereClause(
+              IndexWhereClause.between(
+                indexName: r'profileUuid',
+                lower: [],
+                upper: [profileUuid],
+                includeUpper: false,
+              ),
+            )
+            .addWhereClause(
+              IndexWhereClause.between(
+                indexName: r'profileUuid',
+                lower: [profileUuid],
+                includeLower: false,
+                upper: [],
+              ),
+            );
+      } else {
+        return query
+            .addWhereClause(
+              IndexWhereClause.between(
+                indexName: r'profileUuid',
+                lower: [profileUuid],
+                includeLower: false,
+                upper: [],
+              ),
+            )
+            .addWhereClause(
+              IndexWhereClause.between(
+                indexName: r'profileUuid',
+                lower: [],
+                upper: [profileUuid],
                 includeUpper: false,
               ),
             );
@@ -1225,6 +1321,381 @@ extension MedicationCollectionQueryFilter
     MedicationCollection,
     QAfterFilterCondition
   >
+  profileUuidEqualTo(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'profileUuid',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<
+    MedicationCollection,
+    MedicationCollection,
+    QAfterFilterCondition
+  >
+  profileUuidGreaterThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'profileUuid',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<
+    MedicationCollection,
+    MedicationCollection,
+    QAfterFilterCondition
+  >
+  profileUuidLessThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'profileUuid',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<
+    MedicationCollection,
+    MedicationCollection,
+    QAfterFilterCondition
+  >
+  profileUuidBetween(
+    String lower,
+    String upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'profileUuid',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<
+    MedicationCollection,
+    MedicationCollection,
+    QAfterFilterCondition
+  >
+  profileUuidStartsWith(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.startsWith(
+          property: r'profileUuid',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<
+    MedicationCollection,
+    MedicationCollection,
+    QAfterFilterCondition
+  >
+  profileUuidEndsWith(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.endsWith(
+          property: r'profileUuid',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<
+    MedicationCollection,
+    MedicationCollection,
+    QAfterFilterCondition
+  >
+  profileUuidContains(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.contains(
+          property: r'profileUuid',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<
+    MedicationCollection,
+    MedicationCollection,
+    QAfterFilterCondition
+  >
+  profileUuidMatches(String pattern, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.matches(
+          property: r'profileUuid',
+          wildcard: pattern,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<
+    MedicationCollection,
+    MedicationCollection,
+    QAfterFilterCondition
+  >
+  profileUuidIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'profileUuid', value: ''),
+      );
+    });
+  }
+
+  QueryBuilder<
+    MedicationCollection,
+    MedicationCollection,
+    QAfterFilterCondition
+  >
+  profileUuidIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(property: r'profileUuid', value: ''),
+      );
+    });
+  }
+
+  QueryBuilder<
+    MedicationCollection,
+    MedicationCollection,
+    QAfterFilterCondition
+  >
+  reorderThresholdIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'reorderThreshold'),
+      );
+    });
+  }
+
+  QueryBuilder<
+    MedicationCollection,
+    MedicationCollection,
+    QAfterFilterCondition
+  >
+  reorderThresholdIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'reorderThreshold'),
+      );
+    });
+  }
+
+  QueryBuilder<
+    MedicationCollection,
+    MedicationCollection,
+    QAfterFilterCondition
+  >
+  reorderThresholdEqualTo(int? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'reorderThreshold', value: value),
+      );
+    });
+  }
+
+  QueryBuilder<
+    MedicationCollection,
+    MedicationCollection,
+    QAfterFilterCondition
+  >
+  reorderThresholdGreaterThan(int? value, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'reorderThreshold',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<
+    MedicationCollection,
+    MedicationCollection,
+    QAfterFilterCondition
+  >
+  reorderThresholdLessThan(int? value, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'reorderThreshold',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<
+    MedicationCollection,
+    MedicationCollection,
+    QAfterFilterCondition
+  >
+  reorderThresholdBetween(
+    int? lower,
+    int? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'reorderThreshold',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<
+    MedicationCollection,
+    MedicationCollection,
+    QAfterFilterCondition
+  >
+  stockQuantityIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'stockQuantity'),
+      );
+    });
+  }
+
+  QueryBuilder<
+    MedicationCollection,
+    MedicationCollection,
+    QAfterFilterCondition
+  >
+  stockQuantityIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'stockQuantity'),
+      );
+    });
+  }
+
+  QueryBuilder<
+    MedicationCollection,
+    MedicationCollection,
+    QAfterFilterCondition
+  >
+  stockQuantityEqualTo(int? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'stockQuantity', value: value),
+      );
+    });
+  }
+
+  QueryBuilder<
+    MedicationCollection,
+    MedicationCollection,
+    QAfterFilterCondition
+  >
+  stockQuantityGreaterThan(int? value, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'stockQuantity',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<
+    MedicationCollection,
+    MedicationCollection,
+    QAfterFilterCondition
+  >
+  stockQuantityLessThan(int? value, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'stockQuantity',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<
+    MedicationCollection,
+    MedicationCollection,
+    QAfterFilterCondition
+  >
+  stockQuantityBetween(
+    int? lower,
+    int? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'stockQuantity',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<
+    MedicationCollection,
+    MedicationCollection,
+    QAfterFilterCondition
+  >
   updatedAtEqualTo(DateTime value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
@@ -1590,6 +2061,48 @@ extension MedicationCollectionQuerySortBy
   }
 
   QueryBuilder<MedicationCollection, MedicationCollection, QAfterSortBy>
+  sortByProfileUuid() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'profileUuid', Sort.asc);
+    });
+  }
+
+  QueryBuilder<MedicationCollection, MedicationCollection, QAfterSortBy>
+  sortByProfileUuidDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'profileUuid', Sort.desc);
+    });
+  }
+
+  QueryBuilder<MedicationCollection, MedicationCollection, QAfterSortBy>
+  sortByReorderThreshold() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'reorderThreshold', Sort.asc);
+    });
+  }
+
+  QueryBuilder<MedicationCollection, MedicationCollection, QAfterSortBy>
+  sortByReorderThresholdDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'reorderThreshold', Sort.desc);
+    });
+  }
+
+  QueryBuilder<MedicationCollection, MedicationCollection, QAfterSortBy>
+  sortByStockQuantity() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'stockQuantity', Sort.asc);
+    });
+  }
+
+  QueryBuilder<MedicationCollection, MedicationCollection, QAfterSortBy>
+  sortByStockQuantityDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'stockQuantity', Sort.desc);
+    });
+  }
+
+  QueryBuilder<MedicationCollection, MedicationCollection, QAfterSortBy>
   sortByUpdatedAt() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'updatedAt', Sort.asc);
@@ -1733,6 +2246,48 @@ extension MedicationCollectionQuerySortThenBy
   }
 
   QueryBuilder<MedicationCollection, MedicationCollection, QAfterSortBy>
+  thenByProfileUuid() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'profileUuid', Sort.asc);
+    });
+  }
+
+  QueryBuilder<MedicationCollection, MedicationCollection, QAfterSortBy>
+  thenByProfileUuidDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'profileUuid', Sort.desc);
+    });
+  }
+
+  QueryBuilder<MedicationCollection, MedicationCollection, QAfterSortBy>
+  thenByReorderThreshold() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'reorderThreshold', Sort.asc);
+    });
+  }
+
+  QueryBuilder<MedicationCollection, MedicationCollection, QAfterSortBy>
+  thenByReorderThresholdDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'reorderThreshold', Sort.desc);
+    });
+  }
+
+  QueryBuilder<MedicationCollection, MedicationCollection, QAfterSortBy>
+  thenByStockQuantity() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'stockQuantity', Sort.asc);
+    });
+  }
+
+  QueryBuilder<MedicationCollection, MedicationCollection, QAfterSortBy>
+  thenByStockQuantityDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'stockQuantity', Sort.desc);
+    });
+  }
+
+  QueryBuilder<MedicationCollection, MedicationCollection, QAfterSortBy>
   thenByUpdatedAt() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'updatedAt', Sort.asc);
@@ -1813,6 +2368,27 @@ extension MedicationCollectionQueryWhereDistinct
   }
 
   QueryBuilder<MedicationCollection, MedicationCollection, QDistinct>
+  distinctByProfileUuid({bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'profileUuid', caseSensitive: caseSensitive);
+    });
+  }
+
+  QueryBuilder<MedicationCollection, MedicationCollection, QDistinct>
+  distinctByReorderThreshold() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'reorderThreshold');
+    });
+  }
+
+  QueryBuilder<MedicationCollection, MedicationCollection, QDistinct>
+  distinctByStockQuantity() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'stockQuantity');
+    });
+  }
+
+  QueryBuilder<MedicationCollection, MedicationCollection, QDistinct>
   distinctByUpdatedAt() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'updatedAt');
@@ -1883,6 +2459,27 @@ extension MedicationCollectionQueryProperty
   QueryBuilder<MedicationCollection, int, QQueryOperations> priorityProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'priority');
+    });
+  }
+
+  QueryBuilder<MedicationCollection, String, QQueryOperations>
+  profileUuidProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'profileUuid');
+    });
+  }
+
+  QueryBuilder<MedicationCollection, int?, QQueryOperations>
+  reorderThresholdProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'reorderThreshold');
+    });
+  }
+
+  QueryBuilder<MedicationCollection, int?, QQueryOperations>
+  stockQuantityProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'stockQuantity');
     });
   }
 

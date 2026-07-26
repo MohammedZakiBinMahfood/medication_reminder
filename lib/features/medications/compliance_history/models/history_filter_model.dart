@@ -10,6 +10,7 @@ class HistoryFilterModel {
   final MedicationPriority? priority;
   final HistoryGroupBy groupBy;
   final HistorySortOrder sortOrder;
+  final String? profileUuid;
 
   const HistoryFilterModel({
     this.dateRange = HistoryDateRange.last7Days,
@@ -20,6 +21,7 @@ class HistoryFilterModel {
     this.priority,
     this.groupBy = HistoryGroupBy.day,
     this.sortOrder = HistorySortOrder.newestFirst,
+    this.profileUuid,
   });
 
   HistoryFilterModel copyWith({
@@ -35,6 +37,8 @@ class HistoryFilterModel {
     bool clearPriority = false,
     HistoryGroupBy? groupBy,
     HistorySortOrder? sortOrder,
+    String? profileUuid,
+    bool clearProfile = false,
   }) {
     return HistoryFilterModel(
       dateRange: dateRange ?? this.dateRange,
@@ -51,6 +55,7 @@ class HistoryFilterModel {
       priority: clearPriority ? null : (priority ?? this.priority),
       groupBy: groupBy ?? this.groupBy,
       sortOrder: sortOrder ?? this.sortOrder,
+      profileUuid: clearProfile ? null : (profileUuid ?? this.profileUuid),
     );
   }
 
@@ -93,7 +98,8 @@ class HistoryFilterModel {
           status == other.status &&
           priority == other.priority &&
           groupBy == other.groupBy &&
-          sortOrder == other.sortOrder;
+          sortOrder == other.sortOrder &&
+          profileUuid == other.profileUuid;
 
   @override
   int get hashCode => Object.hash(
@@ -105,5 +111,6 @@ class HistoryFilterModel {
     priority,
     groupBy,
     sortOrder,
+    profileUuid,
   );
 }

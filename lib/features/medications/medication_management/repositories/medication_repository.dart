@@ -36,4 +36,6 @@ abstract class MedicationRepository {
   Future<Result<List<DoseLogModel>>> getDoseLogs(String medicationUuid);
 
   Future<Result<DoseLogModel>> logDose(DoseLogModel log);
+
+  Future<Result<void>> refillStock(String medicationUuid, int quantity);
 }

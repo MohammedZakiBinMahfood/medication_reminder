@@ -17,6 +17,7 @@ class TestFixtures {
   }) {
     return MedicationModel(
       uuid: uuid,
+      profileUuid: 'test-profile',
       name: name,
       dosage: dosage,
       color: color,
@@ -39,6 +40,7 @@ class TestFixtures {
   }) {
     return MedicationScheduleModel(
       uuid: uuid,
+      profileUuid: 'test-profile',
       medicationUuid: medicationUuid,
       minutesFromMidnight: minutesFromMidnight,
       repeatType: repeatType,
@@ -61,6 +63,7 @@ class TestFixtures {
   }) {
     return DoseLogModel(
       uuid: uuid,
+      profileUuid: 'test-profile',
       medicationUuid: medicationUuid,
       scheduleUuid: scheduleUuid,
       scheduledAt: scheduledAt ?? fixedNow,
@@ -102,6 +105,7 @@ class TestFixtures {
   }) {
     return MedicationField(
       id: id,
+      profileUuid: 'test-profile',
       name: name,
       dosage: dosage,
       color: color,
@@ -142,6 +146,7 @@ class TestFixtures {
     RepeatType repeatType = RepeatType.daily,
   }) {
     return MedicationAddModel(
+      profileUuid: 'test-profile',
       name: name,
       dosage: dosage,
       color: color,
@@ -164,6 +169,7 @@ class TestFixtures {
   }) {
     return MedicationEditModel(
       id: id,
+      profileUuid: 'test-profile',
       name: name,
       dosage: dosage,
       color: color,

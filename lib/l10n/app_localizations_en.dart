@@ -322,6 +322,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsTitle => 'Settings';
 
   @override
+  String get settingsProfiles => 'Profiles';
+
+  @override
   String get settingsGeneral => 'General';
 
   @override
@@ -430,7 +433,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsUpdateError => 'Failed to check for updates';
 
   @override
-  String get settingsUpdateNotPublished => 'App not yet available on Play Store';
+  String get settingsUpdateNotPublished =>
+      'App not yet available on Play Store';
 
   @override
   String get settingsUpdateNow => 'Update';

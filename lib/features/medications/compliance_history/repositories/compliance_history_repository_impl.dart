@@ -4,10 +4,9 @@ import 'package:isar_community/isar.dart';
 
 import '../../../../core/database/database_provider.dart';
 import '../../medication_management/data/collections/dose_log_collection.dart';
+import '../../medication_management/data/collections/medication_collection.dart';
 import '../../medication_management/data/mappers/medication_mapper.dart';
 import '../../medication_management/models/enums/medication_enums.dart';
-import '../../medication_management/repositories/medication_repository.dart';
-import '../../medication_management/providers/repository_providers.dart';
 import '../models/history_enums.dart';
 import '../models/history_filter_model.dart';
 import '../models/history_group_model.dart';
@@ -20,17 +19,14 @@ final complianceHistoryRepositoryProvider =
     Provider<ComplianceHistoryRepository>(
       (ref) => ComplianceHistoryRepositoryImpl(
         isar: ref.read(isarProvider),
-        medicationRepository: ref.read(medicationRepositoryProvider),
       ),
     );
 
 class ComplianceHistoryRepositoryImpl implements ComplianceHistoryRepository {
   final Isar isar;
-  final MedicationRepository medicationRepository;
 
   ComplianceHistoryRepositoryImpl({
     required this.isar,
-    required this.medicationRepository,
   });
 
   @override
@@ -106,11 +102,12 @@ class ComplianceHistoryRepositoryImpl implements ComplianceHistoryRepository {
   @override
   Future<Result<String>> getMedicationName(String medicationUuid) async {
     try {
-      final result = await medicationRepository.getMedication(medicationUuid);
-      return switch (result) {
-        Success(:final data) => Success(data.name),
-        Failure() => Success('Deleted Medication'),
-      };
+      final med = await isar.medicationCollections
+          .where()
+          .filter()
+          .uuidEqualTo(medicationUuid)
+          .findFirst();
+      return Success(med?.name ?? 'Deleted Medication');
     } catch (e) {
       return Failure(UnknownError(e.toString()));
     }
@@ -141,6 +138,9 @@ class ComplianceHistoryRepositoryImpl implements ComplianceHistoryRepository {
     if (filter.status != null) {
       query = query.statusEqualTo(filter.status!.index);
     }
+    if (filter.profileUuid != null && filter.profileUuid!.isNotEmpty) {
+      query = query.profileUuidEqualTo(filter.profileUuid!);
+    }
 
     final sortedQuery = filter.sortOrder == HistorySortOrder.newestFirst
         ? query.sortByScheduledAtDesc()
@@ -156,13 +156,15 @@ class ComplianceHistoryRepositoryImpl implements ComplianceHistoryRepository {
       doseLogs = await sortedQuery.findAll();
     }
 
-    // Batch-fetch all medications in a single query (eliminates N+1).
-    final allMedsResult = await medicationRepository.getAllMedications();
-    final medications = <String, dynamic>{};
-    if (allMedsResult case Success(:final data)) {
-      for (final m in data) {
-        medications[m.uuid] = m;
-      }
+    // Batch-fetch ALL medications across profiles (history is global).
+    final allMeds = await isar.medicationCollections
+        .where()
+        .filter()
+        .isDeletedEqualTo(false)
+        .findAll();
+    final medications = <String, MedicationCollection>{};
+    for (final m in allMeds) {
+      medications[m.uuid] = m;
     }
 
     // In-memory filtering for priority and repeatType
@@ -175,7 +177,7 @@ class ComplianceHistoryRepositoryImpl implements ComplianceHistoryRepository {
         medicationName: med?.name ?? 'Deleted Medication',
         dosage: med?.dosage ?? '',
         medicationColor: med?.color ?? '#6B7280',
-        priority: med?.priority ?? MedicationPriority.medium,
+        priority: MedicationPriority.values[med?.priority ?? 1],
         status: _statusFromInt(log.status),
         scheduledAt: log.scheduledAt,
         actionAt: log.actionAt,
@@ -209,6 +211,9 @@ class ComplianceHistoryRepositoryImpl implements ComplianceHistoryRepository {
     }
     if (filter.status != null) {
       query = query.statusEqualTo(filter.status!.index);
+    }
+    if (filter.profileUuid != null && filter.profileUuid!.isNotEmpty) {
+      query = query.profileUuidEqualTo(filter.profileUuid!);
     }
 
     return query.count();

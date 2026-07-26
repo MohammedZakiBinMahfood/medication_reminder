@@ -99,6 +99,18 @@ class MedicationStateModelMapper extends ClassMapperBase<MedicationStateModel> {
     opt: true,
     def: true,
   );
+  static int? _$stockQuantity(MedicationStateModel v) => v.stockQuantity;
+  static const Field<MedicationStateModel, int> _f$stockQuantity = Field(
+    'stockQuantity',
+    _$stockQuantity,
+    opt: true,
+  );
+  static int? _$reorderThreshold(MedicationStateModel v) => v.reorderThreshold;
+  static const Field<MedicationStateModel, int> _f$reorderThreshold = Field(
+    'reorderThreshold',
+    _$reorderThreshold,
+    opt: true,
+  );
 
   @override
   final MappableFields<MedicationStateModel> fields = const {
@@ -114,6 +126,8 @@ class MedicationStateModelMapper extends ClassMapperBase<MedicationStateModel> {
     #endDate: _f$endDate,
     #minutesFromMidnight: _f$minutesFromMidnight,
     #isActive: _f$isActive,
+    #stockQuantity: _f$stockQuantity,
+    #reorderThreshold: _f$reorderThreshold,
   };
 
   static MedicationStateModel _instantiate(DecodingData data) {
@@ -130,6 +144,8 @@ class MedicationStateModelMapper extends ClassMapperBase<MedicationStateModel> {
       endDate: data.dec(_f$endDate),
       minutesFromMidnight: data.dec(_f$minutesFromMidnight),
       isActive: data.dec(_f$isActive),
+      stockQuantity: data.dec(_f$stockQuantity),
+      reorderThreshold: data.dec(_f$reorderThreshold),
     );
   }
 
@@ -217,6 +233,8 @@ abstract class MedicationStateModelCopyWith<
     DateTime? endDate,
     int? minutesFromMidnight,
     bool? isActive,
+    int? stockQuantity,
+    int? reorderThreshold,
   });
   MedicationStateModelCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
     Then<$Out2, $R2> t,
@@ -252,6 +270,8 @@ class _MedicationStateModelCopyWithImpl<$R, $Out>
     Object? endDate = $none,
     int? minutesFromMidnight,
     bool? isActive,
+    Object? stockQuantity = $none,
+    Object? reorderThreshold = $none,
   }) => $apply(
     FieldCopyWithData({
       if (id != $none) #id: id,
@@ -267,6 +287,8 @@ class _MedicationStateModelCopyWithImpl<$R, $Out>
       if (minutesFromMidnight != null)
         #minutesFromMidnight: minutesFromMidnight,
       if (isActive != null) #isActive: isActive,
+      if (stockQuantity != $none) #stockQuantity: stockQuantity,
+      if (reorderThreshold != $none) #reorderThreshold: reorderThreshold,
     }),
   );
   @override
@@ -286,6 +308,8 @@ class _MedicationStateModelCopyWithImpl<$R, $Out>
       or: $value.minutesFromMidnight,
     ),
     isActive: data.get(#isActive, or: $value.isActive),
+    stockQuantity: data.get(#stockQuantity, or: $value.stockQuantity),
+    reorderThreshold: data.get(#reorderThreshold, or: $value.reorderThreshold),
   );
 
   @override

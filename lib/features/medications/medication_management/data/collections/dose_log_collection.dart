@@ -10,6 +10,9 @@ class DoseLogCollection {
   late String uuid;
 
   @Index()
+  late String profileUuid;
+
+  @Index()
   late String medicationUuid;
 
   @Index()

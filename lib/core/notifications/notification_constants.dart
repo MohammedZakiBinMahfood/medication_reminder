@@ -4,11 +4,20 @@
 class NotificationConstants {
   NotificationConstants._();
 
-  // ── Android channel ──────────────────────────────────────────────────
+  // ── Android channels ──────────────────────────────────────────────────
   static const String androidChannelId = 'medication_reminders';
   static const String androidChannelName = 'Medication Reminders';
   static const String androidChannelDescription =
       'Reminders for taking your medications';
+
+  static const String androidCriticalChannelId = 'critical_medication_reminders';
+  static const String androidCriticalChannelName = 'Critical Medication Alarms';
+  static const String androidCriticalChannelDescription =
+      'High priority alarm reminders for vital medications';
+
+  // ── Categories ──────────────────────────────────────────────────────────
+  static const String categoryMedicationReminder =
+      'medication_reminder_category';
 
   // ── Action types (payload actionType values) ─────────────────────────
   static const String actionTaken = 'taken';

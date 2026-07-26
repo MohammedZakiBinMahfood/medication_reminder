@@ -1,15 +1,25 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:home_widget/home_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'app/app.dart';
 import 'core/database/database_initializer.dart';
 import 'core/database/database_provider.dart';
 import 'core/database/database_service.dart';
 import 'core/notifications/notifications.dart';
+import 'core/widgets/home_widget_sync_service.dart';
 import 'features/onboarding/setup_wizard/repositories/wizard_repository_impl.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // 0. Set AppGroupId for iOS home/lock screen widgets
+  if (!kIsWeb && Platform.isIOS) {
+    await HomeWidget.setAppGroupId(HomeWidgetSyncService.appGroupId);
+  }
 
   // 1. Init Isar database
   final databaseService = DatabaseService();

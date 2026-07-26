@@ -9,6 +9,9 @@ class MedicationCollection {
   @Index(unique: true)
   late String uuid;
 
+  @Index()
+  late String profileUuid;
+
   late String name;
 
   late String dosage;
@@ -21,6 +24,10 @@ class MedicationCollection {
 
   @Index()
   late bool isActive;
+
+  int? stockQuantity;
+
+  int? reorderThreshold;
 
   // Audit & Sync Fields
   late DateTime createdAt;

@@ -25,6 +25,11 @@ class MedicationModelMapper extends ClassMapperBase<MedicationModel> {
 
   static String _$uuid(MedicationModel v) => v.uuid;
   static const Field<MedicationModel, String> _f$uuid = Field('uuid', _$uuid);
+  static String _$profileUuid(MedicationModel v) => v.profileUuid;
+  static const Field<MedicationModel, String> _f$profileUuid = Field(
+    'profileUuid',
+    _$profileUuid,
+  );
   static String _$name(MedicationModel v) => v.name;
   static const Field<MedicationModel, String> _f$name = Field('name', _$name);
   static String _$dosage(MedicationModel v) => v.dosage;
@@ -47,6 +52,18 @@ class MedicationModelMapper extends ClassMapperBase<MedicationModel> {
     'isActive',
     _$isActive,
   );
+  static int? _$stockQuantity(MedicationModel v) => v.stockQuantity;
+  static const Field<MedicationModel, int> _f$stockQuantity = Field(
+    'stockQuantity',
+    _$stockQuantity,
+    opt: true,
+  );
+  static int? _$reorderThreshold(MedicationModel v) => v.reorderThreshold;
+  static const Field<MedicationModel, int> _f$reorderThreshold = Field(
+    'reorderThreshold',
+    _$reorderThreshold,
+    opt: true,
+  );
   static DateTime _$createdAt(MedicationModel v) => v.createdAt;
   static const Field<MedicationModel, DateTime> _f$createdAt = Field(
     'createdAt',
@@ -61,11 +78,14 @@ class MedicationModelMapper extends ClassMapperBase<MedicationModel> {
   @override
   final MappableFields<MedicationModel> fields = const {
     #uuid: _f$uuid,
+    #profileUuid: _f$profileUuid,
     #name: _f$name,
     #dosage: _f$dosage,
     #color: _f$color,
     #priority: _f$priority,
     #isActive: _f$isActive,
+    #stockQuantity: _f$stockQuantity,
+    #reorderThreshold: _f$reorderThreshold,
     #createdAt: _f$createdAt,
     #updatedAt: _f$updatedAt,
   };
@@ -73,11 +93,14 @@ class MedicationModelMapper extends ClassMapperBase<MedicationModel> {
   static MedicationModel _instantiate(DecodingData data) {
     return MedicationModel(
       uuid: data.dec(_f$uuid),
+      profileUuid: data.dec(_f$profileUuid),
       name: data.dec(_f$name),
       dosage: data.dec(_f$dosage),
       color: data.dec(_f$color),
       priority: data.dec(_f$priority),
       isActive: data.dec(_f$isActive),
+      stockQuantity: data.dec(_f$stockQuantity),
+      reorderThreshold: data.dec(_f$reorderThreshold),
       createdAt: data.dec(_f$createdAt),
       updatedAt: data.dec(_f$updatedAt),
     );
@@ -147,11 +170,14 @@ abstract class MedicationModelCopyWith<$R, $In extends MedicationModel, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
   $R call({
     String? uuid,
+    String? profileUuid,
     String? name,
     String? dosage,
     String? color,
     MedicationPriority? priority,
     bool? isActive,
+    int? stockQuantity,
+    int? reorderThreshold,
     DateTime? createdAt,
     DateTime? updatedAt,
   });
@@ -171,21 +197,27 @@ class _MedicationModelCopyWithImpl<$R, $Out>
   @override
   $R call({
     String? uuid,
+    String? profileUuid,
     String? name,
     String? dosage,
     String? color,
     MedicationPriority? priority,
     bool? isActive,
+    Object? stockQuantity = $none,
+    Object? reorderThreshold = $none,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) => $apply(
     FieldCopyWithData({
       if (uuid != null) #uuid: uuid,
+      if (profileUuid != null) #profileUuid: profileUuid,
       if (name != null) #name: name,
       if (dosage != null) #dosage: dosage,
       if (color != null) #color: color,
       if (priority != null) #priority: priority,
       if (isActive != null) #isActive: isActive,
+      if (stockQuantity != $none) #stockQuantity: stockQuantity,
+      if (reorderThreshold != $none) #reorderThreshold: reorderThreshold,
       if (createdAt != null) #createdAt: createdAt,
       if (updatedAt != null) #updatedAt: updatedAt,
     }),
@@ -193,11 +225,14 @@ class _MedicationModelCopyWithImpl<$R, $Out>
   @override
   MedicationModel $make(CopyWithData data) => MedicationModel(
     uuid: data.get(#uuid, or: $value.uuid),
+    profileUuid: data.get(#profileUuid, or: $value.profileUuid),
     name: data.get(#name, or: $value.name),
     dosage: data.get(#dosage, or: $value.dosage),
     color: data.get(#color, or: $value.color),
     priority: data.get(#priority, or: $value.priority),
     isActive: data.get(#isActive, or: $value.isActive),
+    stockQuantity: data.get(#stockQuantity, or: $value.stockQuantity),
+    reorderThreshold: data.get(#reorderThreshold, or: $value.reorderThreshold),
     createdAt: data.get(#createdAt, or: $value.createdAt),
     updatedAt: data.get(#updatedAt, or: $value.updatedAt),
   );

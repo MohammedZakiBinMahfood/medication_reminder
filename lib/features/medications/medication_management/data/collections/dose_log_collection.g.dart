@@ -37,23 +37,28 @@ const DoseLogCollectionSchema = CollectionSchema(
       name: r'medicationUuid',
       type: IsarType.string,
     ),
-    r'scheduleUuid': PropertySchema(
+    r'profileUuid': PropertySchema(
       id: 4,
+      name: r'profileUuid',
+      type: IsarType.string,
+    ),
+    r'scheduleUuid': PropertySchema(
+      id: 5,
       name: r'scheduleUuid',
       type: IsarType.string,
     ),
     r'scheduledAt': PropertySchema(
-      id: 5,
+      id: 6,
       name: r'scheduledAt',
       type: IsarType.dateTime,
     ),
-    r'status': PropertySchema(id: 6, name: r'status', type: IsarType.int),
+    r'status': PropertySchema(id: 7, name: r'status', type: IsarType.int),
     r'updatedAt': PropertySchema(
-      id: 7,
+      id: 8,
       name: r'updatedAt',
       type: IsarType.dateTime,
     ),
-    r'uuid': PropertySchema(id: 8, name: r'uuid', type: IsarType.string),
+    r'uuid': PropertySchema(id: 9, name: r'uuid', type: IsarType.string),
   },
 
   estimateSize: _doseLogCollectionEstimateSize,
@@ -70,6 +75,19 @@ const DoseLogCollectionSchema = CollectionSchema(
       properties: [
         IndexPropertySchema(
           name: r'uuid',
+          type: IndexType.hash,
+          caseSensitive: true,
+        ),
+      ],
+    ),
+    r'profileUuid': IndexSchema(
+      id: 1129968050600041444,
+      name: r'profileUuid',
+      unique: false,
+      replace: false,
+      properties: [
+        IndexPropertySchema(
+          name: r'profileUuid',
           type: IndexType.hash,
           caseSensitive: true,
         ),
@@ -144,6 +162,7 @@ int _doseLogCollectionEstimateSize(
 ) {
   var bytesCount = offsets.last;
   bytesCount += 3 + object.medicationUuid.length * 3;
+  bytesCount += 3 + object.profileUuid.length * 3;
   bytesCount += 3 + object.scheduleUuid.length * 3;
   bytesCount += 3 + object.uuid.length * 3;
   return bytesCount;
@@ -159,11 +178,12 @@ void _doseLogCollectionSerialize(
   writer.writeDateTime(offsets[1], object.createdAt);
   writer.writeBool(offsets[2], object.isDeleted);
   writer.writeString(offsets[3], object.medicationUuid);
-  writer.writeString(offsets[4], object.scheduleUuid);
-  writer.writeDateTime(offsets[5], object.scheduledAt);
-  writer.writeInt(offsets[6], object.status);
-  writer.writeDateTime(offsets[7], object.updatedAt);
-  writer.writeString(offsets[8], object.uuid);
+  writer.writeString(offsets[4], object.profileUuid);
+  writer.writeString(offsets[5], object.scheduleUuid);
+  writer.writeDateTime(offsets[6], object.scheduledAt);
+  writer.writeInt(offsets[7], object.status);
+  writer.writeDateTime(offsets[8], object.updatedAt);
+  writer.writeString(offsets[9], object.uuid);
 }
 
 DoseLogCollection _doseLogCollectionDeserialize(
@@ -178,11 +198,12 @@ DoseLogCollection _doseLogCollectionDeserialize(
   object.id = id;
   object.isDeleted = reader.readBool(offsets[2]);
   object.medicationUuid = reader.readString(offsets[3]);
-  object.scheduleUuid = reader.readString(offsets[4]);
-  object.scheduledAt = reader.readDateTime(offsets[5]);
-  object.status = reader.readInt(offsets[6]);
-  object.updatedAt = reader.readDateTime(offsets[7]);
-  object.uuid = reader.readString(offsets[8]);
+  object.profileUuid = reader.readString(offsets[4]);
+  object.scheduleUuid = reader.readString(offsets[5]);
+  object.scheduledAt = reader.readDateTime(offsets[6]);
+  object.status = reader.readInt(offsets[7]);
+  object.updatedAt = reader.readDateTime(offsets[8]);
+  object.uuid = reader.readString(offsets[9]);
   return object;
 }
 
@@ -204,12 +225,14 @@ P _doseLogCollectionDeserializeProp<P>(
     case 4:
       return (reader.readString(offset)) as P;
     case 5:
-      return (reader.readDateTime(offset)) as P;
+      return (reader.readString(offset)) as P;
     case 6:
-      return (reader.readInt(offset)) as P;
-    case 7:
       return (reader.readDateTime(offset)) as P;
+    case 7:
+      return (reader.readInt(offset)) as P;
     case 8:
+      return (reader.readDateTime(offset)) as P;
+    case 9:
       return (reader.readString(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -431,6 +454,61 @@ extension DoseLogCollectionQueryWhere
                 indexName: r'uuid',
                 lower: [],
                 upper: [uuid],
+                includeUpper: false,
+              ),
+            );
+      }
+    });
+  }
+
+  QueryBuilder<DoseLogCollection, DoseLogCollection, QAfterWhereClause>
+  profileUuidEqualTo(String profileUuid) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(
+        IndexWhereClause.equalTo(
+          indexName: r'profileUuid',
+          value: [profileUuid],
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<DoseLogCollection, DoseLogCollection, QAfterWhereClause>
+  profileUuidNotEqualTo(String profileUuid) {
+    return QueryBuilder.apply(this, (query) {
+      if (query.whereSort == Sort.asc) {
+        return query
+            .addWhereClause(
+              IndexWhereClause.between(
+                indexName: r'profileUuid',
+                lower: [],
+                upper: [profileUuid],
+                includeUpper: false,
+              ),
+            )
+            .addWhereClause(
+              IndexWhereClause.between(
+                indexName: r'profileUuid',
+                lower: [profileUuid],
+                includeLower: false,
+                upper: [],
+              ),
+            );
+      } else {
+        return query
+            .addWhereClause(
+              IndexWhereClause.between(
+                indexName: r'profileUuid',
+                lower: [profileUuid],
+                includeLower: false,
+                upper: [],
+              ),
+            )
+            .addWhereClause(
+              IndexWhereClause.between(
+                indexName: r'profileUuid',
+                lower: [],
+                upper: [profileUuid],
                 includeUpper: false,
               ),
             );
@@ -1088,6 +1166,147 @@ extension DoseLogCollectionQueryFilter
   }
 
   QueryBuilder<DoseLogCollection, DoseLogCollection, QAfterFilterCondition>
+  profileUuidEqualTo(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'profileUuid',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<DoseLogCollection, DoseLogCollection, QAfterFilterCondition>
+  profileUuidGreaterThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'profileUuid',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<DoseLogCollection, DoseLogCollection, QAfterFilterCondition>
+  profileUuidLessThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'profileUuid',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<DoseLogCollection, DoseLogCollection, QAfterFilterCondition>
+  profileUuidBetween(
+    String lower,
+    String upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'profileUuid',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<DoseLogCollection, DoseLogCollection, QAfterFilterCondition>
+  profileUuidStartsWith(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.startsWith(
+          property: r'profileUuid',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<DoseLogCollection, DoseLogCollection, QAfterFilterCondition>
+  profileUuidEndsWith(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.endsWith(
+          property: r'profileUuid',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<DoseLogCollection, DoseLogCollection, QAfterFilterCondition>
+  profileUuidContains(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.contains(
+          property: r'profileUuid',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<DoseLogCollection, DoseLogCollection, QAfterFilterCondition>
+  profileUuidMatches(String pattern, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.matches(
+          property: r'profileUuid',
+          wildcard: pattern,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<DoseLogCollection, DoseLogCollection, QAfterFilterCondition>
+  profileUuidIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'profileUuid', value: ''),
+      );
+    });
+  }
+
+  QueryBuilder<DoseLogCollection, DoseLogCollection, QAfterFilterCondition>
+  profileUuidIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(property: r'profileUuid', value: ''),
+      );
+    });
+  }
+
+  QueryBuilder<DoseLogCollection, DoseLogCollection, QAfterFilterCondition>
   scheduleUuidEqualTo(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
@@ -1600,6 +1819,20 @@ extension DoseLogCollectionQuerySortBy
   }
 
   QueryBuilder<DoseLogCollection, DoseLogCollection, QAfterSortBy>
+  sortByProfileUuid() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'profileUuid', Sort.asc);
+    });
+  }
+
+  QueryBuilder<DoseLogCollection, DoseLogCollection, QAfterSortBy>
+  sortByProfileUuidDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'profileUuid', Sort.desc);
+    });
+  }
+
+  QueryBuilder<DoseLogCollection, DoseLogCollection, QAfterSortBy>
   sortByScheduleUuid() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'scheduleUuid', Sort.asc);
@@ -1742,6 +1975,20 @@ extension DoseLogCollectionQuerySortThenBy
   }
 
   QueryBuilder<DoseLogCollection, DoseLogCollection, QAfterSortBy>
+  thenByProfileUuid() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'profileUuid', Sort.asc);
+    });
+  }
+
+  QueryBuilder<DoseLogCollection, DoseLogCollection, QAfterSortBy>
+  thenByProfileUuidDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'profileUuid', Sort.desc);
+    });
+  }
+
+  QueryBuilder<DoseLogCollection, DoseLogCollection, QAfterSortBy>
   thenByScheduleUuid() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'scheduleUuid', Sort.asc);
@@ -1846,6 +2093,13 @@ extension DoseLogCollectionQueryWhereDistinct
   }
 
   QueryBuilder<DoseLogCollection, DoseLogCollection, QDistinct>
+  distinctByProfileUuid({bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'profileUuid', caseSensitive: caseSensitive);
+    });
+  }
+
+  QueryBuilder<DoseLogCollection, DoseLogCollection, QDistinct>
   distinctByScheduleUuid({bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'scheduleUuid', caseSensitive: caseSensitive);
@@ -1914,6 +2168,13 @@ extension DoseLogCollectionQueryProperty
   medicationUuidProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'medicationUuid');
+    });
+  }
+
+  QueryBuilder<DoseLogCollection, String, QQueryOperations>
+  profileUuidProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'profileUuid');
     });
   }
 

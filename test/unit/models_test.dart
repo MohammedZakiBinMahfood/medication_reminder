@@ -6,6 +6,7 @@ void main() {
     test('creates with all required fields', () {
       final model = MedicationModel(
         uuid: 'test-uuid',
+        profileUuid: 'test-profile',
         name: 'Aspirin',
         dosage: '100mg',
         color: '#FF000000',
@@ -26,6 +27,7 @@ void main() {
     test('copyWith creates modified copy', () {
       final original = MedicationModel(
         uuid: 'test-uuid',
+        profileUuid: 'test-profile',
         name: 'Aspirin',
         dosage: '100mg',
         color: '#FF000000',
@@ -45,6 +47,7 @@ void main() {
     test('equality works correctly', () {
       final a = MedicationModel(
         uuid: 'test-uuid',
+        profileUuid: 'test-profile',
         name: 'Aspirin',
         dosage: '100mg',
         color: '#FF000000',
@@ -56,6 +59,7 @@ void main() {
 
       final b = MedicationModel(
         uuid: 'test-uuid',
+        profileUuid: 'test-profile',
         name: 'Aspirin',
         dosage: '100mg',
         color: '#FF000000',
@@ -71,6 +75,7 @@ void main() {
     test('fromJson/fromMappable roundtrips', () {
       final original = MedicationModel(
         uuid: 'test-uuid',
+        profileUuid: 'test-profile',
         name: 'Aspirin',
         dosage: '100mg',
         color: '#FF000000',
@@ -96,6 +101,7 @@ void main() {
     test('creates with all required fields', () {
       final model = MedicationScheduleModel(
         uuid: 'sch-uuid',
+        profileUuid: 'test-profile',
         medicationUuid: 'med-uuid',
         minutesFromMidnight: 480,
         repeatType: RepeatType.daily,
@@ -115,6 +121,7 @@ void main() {
     test('formattedTime returns correct format', () {
       final model = MedicationScheduleModel(
         uuid: 'sch-uuid',
+        profileUuid: 'test-profile',
         medicationUuid: 'med-uuid',
         minutesFromMidnight: 480,
         repeatType: RepeatType.daily,
@@ -130,6 +137,7 @@ void main() {
     test('formattedTime pads single digits', () {
       final model = MedicationScheduleModel(
         uuid: 'sch-uuid',
+        profileUuid: 'test-profile',
         medicationUuid: 'med-uuid',
         minutesFromMidnight: 65,
         repeatType: RepeatType.daily,
@@ -145,6 +153,7 @@ void main() {
     test('formattedTime at midnight', () {
       final model = MedicationScheduleModel(
         uuid: 'sch-uuid',
+        profileUuid: 'test-profile',
         medicationUuid: 'med-uuid',
         minutesFromMidnight: 0,
         repeatType: RepeatType.daily,
@@ -160,6 +169,7 @@ void main() {
     test('formattedTime at end of day', () {
       final model = MedicationScheduleModel(
         uuid: 'sch-uuid',
+        profileUuid: 'test-profile',
         medicationUuid: 'med-uuid',
         minutesFromMidnight: 1380,
         repeatType: RepeatType.daily,
@@ -175,6 +185,7 @@ void main() {
     test('copyWith creates modified copy', () {
       final original = MedicationScheduleModel(
         uuid: 'sch-uuid',
+        profileUuid: 'test-profile',
         medicationUuid: 'med-uuid',
         minutesFromMidnight: 480,
         repeatType: RepeatType.daily,
@@ -195,6 +206,7 @@ void main() {
     test('creates with all required fields', () {
       final model = DoseLogModel(
         uuid: 'log-uuid',
+        profileUuid: 'test-profile',
         medicationUuid: 'med-uuid',
         scheduleUuid: 'sch-uuid',
         scheduledAt: DateTime(2026),
@@ -212,6 +224,7 @@ void main() {
       final now = DateTime(2026);
       final model = DoseLogModel(
         uuid: 'log-uuid',
+        profileUuid: 'test-profile',
         medicationUuid: 'med-uuid',
         scheduleUuid: 'sch-uuid',
         scheduledAt: DateTime(2026),
@@ -303,6 +316,7 @@ void main() {
     test('creates with all required fields', () {
       final field = MedicationField(
         id: 'test-id',
+        profileUuid: 'test-profile',
         name: 'Aspirin',
         dosage: '100mg',
         color: '#FF000000',
@@ -338,6 +352,7 @@ void main() {
   group('MedicationAddModel', () {
     test('creates with all required fields', () {
       final model = MedicationAddModel(
+        profileUuid: 'test-profile',
         name: 'Aspirin',
         dosage: '100mg',
         color: '#FF000000',
@@ -358,6 +373,7 @@ void main() {
     test('creates with all required fields including id', () {
       final model = MedicationEditModel(
         id: 'edit-id',
+        profileUuid: 'test-profile',
         name: 'Aspirin',
         dosage: '100mg',
         color: '#FF000000',

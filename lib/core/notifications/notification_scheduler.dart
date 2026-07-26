@@ -49,6 +49,10 @@ class NotificationScheduler {
     }
     final schedules = (schedulesResult as Success).data;
 
+    final medResult = await _repository.getMedication(medicationUuid);
+    final isCritical = medResult is Success &&
+        (medResult as Success).data.priority == MedicationPriority.high;
+
     final available = await _queueManager.availableSlots;
     var slotsUsed = 0;
 
@@ -65,6 +69,7 @@ class NotificationScheduler {
         medicationUuid: medicationUuid,
         schedule: schedule,
         slotsRemaining: available - slotsUsed,
+        isCritical: isCritical,
       );
       slotsUsed += count;
     }
@@ -242,9 +247,12 @@ class NotificationScheduler {
     required String medicationUuid,
     required MedicationScheduleModel schedule,
     required int slotsRemaining,
+    bool isCritical = false,
   }) async {
-    const title = 'Medication Reminder';
-    const body = 'Time to take your medication';
+    final title = isCritical ? '⚠️ تنبيه دواء حرج' : 'تذكير بموعد الدواء';
+    final body = isCritical
+        ? 'حان وقت تناول دوائك الحرج الآن، نرجو عدم التأخير'
+        : 'حان وقت تناول الدواء';
 
     final occurrences = _calculator.upcomingOccurrences(
       schedule,
@@ -276,6 +284,7 @@ class NotificationScheduler {
             title: title,
             body: body,
             scheduledDate: occurrence,
+            isCritical: isCritical,
             payload: finalPayload.toJsonString(),
           );
           scheduled++;
@@ -295,6 +304,7 @@ class NotificationScheduler {
             title: title,
             body: body,
             scheduledDate: occurrence,
+            isCritical: isCritical,
             payload: finalPayload.toJsonString(),
           );
           scheduled++;
@@ -313,6 +323,7 @@ class NotificationScheduler {
             title: title,
             body: body,
             scheduledDate: occurrence,
+            isCritical: isCritical,
             payload: finalPayload.toJsonString(),
           );
           scheduled++;

@@ -2,6 +2,7 @@ import 'package:app_platform_core/core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:isar_community/isar.dart';
 import 'package:medication_reminder/features/medications/medication_management/models/dose_log_model.dart';
+import '../../../profiles/providers/profile_providers.dart';
 import '../../../../core/database/database_provider.dart';
 import '../../../../core/services/uuid_service.dart';
 import '../../medication_management/data/collections/medication_collection.dart';
@@ -16,16 +17,27 @@ import '../models/dashboard_section_model.dart';
 import '../models/dashboard_summary_model.dart';
 import '../models/dashboard_filter_model.dart';
 import '../models/dashboard_enums.dart';
+import '../../../../core/widgets/home_widget_sync_service.dart';
 import 'today_dashboard_repository.dart';
 
 final todayDashboardRepositoryProvider = Provider<TodayDashboardRepository>(
-  (ref) => TodayDashboardRepositoryImpl(isar: ref.read(isarProvider)),
+  (ref) {
+    final profileUuid = ref.watch(activeProfileUuidProvider).value ?? '';
+    return TodayDashboardRepositoryImpl(
+      isar: ref.read(isarProvider),
+      profileUuid: profileUuid,
+    );
+  },
 );
 
 class TodayDashboardRepositoryImpl implements TodayDashboardRepository {
   final Isar isar;
+  final String profileUuid;
 
-  TodayDashboardRepositoryImpl({required this.isar});
+  TodayDashboardRepositoryImpl({
+    required this.isar,
+    required this.profileUuid,
+  });
 
   @override
   Future<Result<DashboardStateModel>> getTodayDashboard({
@@ -39,6 +51,7 @@ class TodayDashboardRepositoryImpl implements TodayDashboardRepository {
       final medications = await isar.medicationCollections
           .where()
           .filter()
+          .profileUuidEqualTo(profileUuid)
           .isActiveEqualTo(true)
           .isDeletedEqualTo(false)
           .findAll();
@@ -51,6 +64,7 @@ class TodayDashboardRepositoryImpl implements TodayDashboardRepository {
       final allSchedules = await isar.medicationScheduleCollections
           .where()
           .filter()
+          .profileUuidEqualTo(profileUuid)
           .isDeletedEqualTo(false)
           .findAll();
 
@@ -72,6 +86,7 @@ class TodayDashboardRepositoryImpl implements TodayDashboardRepository {
       final doseLogs = await isar.doseLogCollections
           .where()
           .filter()
+          .profileUuidEqualTo(profileUuid)
           .isDeletedEqualTo(false)
           .scheduledAtGreaterThan(today, include: true)
           .scheduledAtLessThan(tomorrow, include: false)
@@ -134,12 +149,20 @@ class TodayDashboardRepositoryImpl implements TodayDashboardRepository {
             doseLogUuid: doseLogUuid,
             isOverdue: isOverdue,
             remainingTimeText: remainingText,
+            stockQuantity: medication.stockQuantity,
+            reorderThreshold: medication.reorderThreshold,
           ),
         );
       }
 
       final sortedAll = _applySort(dashboardMedications, filter?.sortType);
       final summary = _buildSummary(sortedAll);
+
+      // Synchronize with Home Screen Widget asynchronously
+      HomeWidgetSyncService.syncNextMedication(
+        nextMedication: summary.nextMedication,
+        summary: summary,
+      );
 
       final filtered = _applyFilter(dashboardMedications, filter?.filterType);
       final filteredSorted = _applySort(filtered, filter?.sortType);
@@ -349,8 +372,16 @@ class TodayDashboardRepositoryImpl implements TodayDashboardRepository {
           ..updatedAt = now;
         collection = existingLog;
       } else {
+        final medResult = await isar.medicationCollections
+            .where()
+            .filter()
+            .uuidEqualTo(medicationUuid)
+            .findFirst();
+        final profileUuid = medResult?.profileUuid ?? '';
+
         collection = DoseLogMapper.fromModel(
           uuid: UuidService.generate(),
+          profileUuid: profileUuid,
           medicationUuid: medicationUuid,
           scheduleUuid: scheduleUuid,
           scheduledAt: scheduledAt,
@@ -362,6 +393,22 @@ class TodayDashboardRepositoryImpl implements TodayDashboardRepository {
 
       await isar.writeTxn(() async {
         await isar.doseLogCollections.put(collection);
+
+        if (status == DoseStatus.taken) {
+          final medication = await isar.medicationCollections
+              .where()
+              .filter()
+              .uuidEqualTo(medicationUuid)
+              .findFirst();
+
+          if (medication != null &&
+              medication.stockQuantity != null &&
+              medication.stockQuantity! > 0) {
+            medication.stockQuantity = medication.stockQuantity! - 1;
+            medication.updatedAt = now;
+            await isar.medicationCollections.put(medication);
+          }
+        }
       });
 
       return Success(DoseLogMapper.toDomain(collection));
@@ -420,8 +467,16 @@ class TodayDashboardRepositoryImpl implements TodayDashboardRepository {
         }
       }
 
+      final medResult = await isar.medicationCollections
+          .where()
+          .filter()
+          .uuidEqualTo(medicationUuid)
+          .findFirst();
+      final profileUuid = medResult?.profileUuid ?? '';
+
       final newLog = DoseLogMapper.fromModel(
         uuid: UuidService.generate(),
+        profileUuid: profileUuid,
         medicationUuid: medicationUuid,
         scheduleUuid: scheduleUuid,
         scheduledAt: scheduledAt,

@@ -13,6 +13,8 @@ class DashboardMedicationModel {
   final String? doseLogUuid;
   final bool isOverdue;
   final String? remainingTimeText;
+  final int? stockQuantity;
+  final int? reorderThreshold;
 
   const DashboardMedicationModel({
     required this.medicationUuid,
@@ -26,7 +28,14 @@ class DashboardMedicationModel {
     this.doseLogUuid,
     required this.isOverdue,
     this.remainingTimeText,
+    this.stockQuantity,
+    this.reorderThreshold,
   });
+
+  bool get isLowStock {
+    if (stockQuantity == null || reorderThreshold == null) return false;
+    return stockQuantity! <= reorderThreshold!;
+  }
 
   DashboardSectionType get section {
     if (doseStatus == DoseStatus.taken || doseStatus == DoseStatus.skipped) {
@@ -43,6 +52,8 @@ class DashboardMedicationModel {
     String? doseLogUuid,
     bool? isOverdue,
     String? remainingTimeText,
+    int? stockQuantity,
+    int? reorderThreshold,
   }) {
     return DashboardMedicationModel(
       medicationUuid: medicationUuid,
@@ -56,6 +67,8 @@ class DashboardMedicationModel {
       doseLogUuid: doseLogUuid ?? this.doseLogUuid,
       isOverdue: isOverdue ?? this.isOverdue,
       remainingTimeText: remainingTimeText ?? this.remainingTimeText,
+      stockQuantity: stockQuantity ?? this.stockQuantity,
+      reorderThreshold: reorderThreshold ?? this.reorderThreshold,
     );
   }
 }

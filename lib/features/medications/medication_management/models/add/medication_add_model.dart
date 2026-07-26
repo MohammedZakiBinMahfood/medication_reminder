@@ -5,6 +5,7 @@ part 'medication_add_model.mapper.dart';
 
 @MappableClass()
 class MedicationAddModel with MedicationAddModelMappable {
+  final String profileUuid;
   final String name;
   final String dosage;
   final String color;
@@ -16,8 +17,11 @@ class MedicationAddModel with MedicationAddModelMappable {
   final DateTime? endDate;
   final int minutesFromMidnight;
   final bool isActive;
+  final int? stockQuantity;
+  final int? reorderThreshold;
 
   const MedicationAddModel({
+    required this.profileUuid,
     required this.name,
     required this.dosage,
     required this.color,
@@ -29,5 +33,7 @@ class MedicationAddModel with MedicationAddModelMappable {
     this.endDate,
     this.minutesFromMidnight = 480,
     required this.isActive,
+    this.stockQuantity,
+    this.reorderThreshold,
   });
 }

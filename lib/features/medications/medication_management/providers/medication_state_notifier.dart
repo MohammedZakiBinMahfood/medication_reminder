@@ -8,7 +8,8 @@ final medicationStateProvider =
 
 class MedicationStateNotifier extends Notifier<MedicationStateModel> {
   @override
-  MedicationStateModel build() => MedicationStateModel.empty();
+  MedicationStateModel build() =>
+      MedicationStateModel(startDate: DateTime.now());
 
   void setId(String? v) => state = state.copyWith(id: v);
   void setName(String? v) => state = state.copyWith(name: v);
@@ -23,8 +24,11 @@ class MedicationStateNotifier extends Notifier<MedicationStateModel> {
   void setMinutesFromMidnight(int v) =>
       state = state.copyWith(minutesFromMidnight: v);
   void setIsActive(bool v) => state = state.copyWith(isActive: v);
+  void setStockQuantity(int? v) => state = state.copyWith(stockQuantity: v);
+  void setReorderThreshold(int? v) =>
+      state = state.copyWith(reorderThreshold: v);
 
-  void reset() => state = MedicationStateModel.empty();
+  void reset() => state = MedicationStateModel(startDate: DateTime.now());
 
   void loadFromField(MedicationField field) {
     state = MedicationStateModel(
@@ -40,6 +44,8 @@ class MedicationStateNotifier extends Notifier<MedicationStateModel> {
       endDate: field.endDate,
       minutesFromMidnight: field.minutesFromMidnight,
       isActive: field.isActive,
+      stockQuantity: field.stockQuantity,
+      reorderThreshold: field.reorderThreshold,
     );
   }
 }

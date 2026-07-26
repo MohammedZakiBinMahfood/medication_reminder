@@ -1,6 +1,7 @@
 import 'package:app_platform_core/core.dart';
 import 'package:app_platform_state/state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../profiles/providers/profile_providers.dart';
 import '../models/models.dart';
 import '../repositories/repositories.dart';
 import 'dashboard_filter_provider.dart';
@@ -17,6 +18,16 @@ class DashboardListNotifier extends BaseNotifier<DashboardStateModel> {
   @override
   BaseState<DashboardStateModel> build() {
     repository = ref.read(todayDashboardRepositoryProvider);
+
+    // Re-load when the active profile changes
+    ref.listen<AsyncValue<String>>(activeProfileUuidProvider, (prev, next) {
+      final prevUuid = prev?.value;
+      final nextUuid = next.value;
+      if (prevUuid != nextUuid) {
+        repository = ref.read(todayDashboardRepositoryProvider);
+        _loadDashboard(showLoading: true);
+      }
+    });
 
     ref.listen<DashboardFilterModel>(dashboardFilterProvider, (prev, next) {
       if (prev != next) {

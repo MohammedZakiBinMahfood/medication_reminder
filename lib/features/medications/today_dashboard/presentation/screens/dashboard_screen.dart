@@ -32,6 +32,7 @@ import '../widgets/dashboard_filters.dart';
 import '../widgets/dashboard_floating_actions.dart';
 import '../widgets/welcome_card.dart';
 import '../widgets/notification_hint_card.dart';
+import '../widgets/profile_switcher.dart';
 
 class DashboardScreen extends ConsumerStatefulWidget {
   const DashboardScreen({super.key});
@@ -152,6 +153,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen>
       children: [
         WelcomeCard(onExploreApp: _onExploreApp),
         const NotificationHintCard(),
+        const ProfileSwitcher(),
         const DashboardHeader(),
         DashboardSummaryCard(summary: data.summary),
         const DashboardFilters(),

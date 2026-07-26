@@ -47,6 +47,13 @@ class HistoryFilterNotifier extends Notifier<HistoryFilterModel> {
     state = state.copyWith(sortOrder: order);
   }
 
+  void setProfileFilter(String? profileUuid) {
+    state = state.copyWith(
+      profileUuid: profileUuid ?? '',
+      clearProfile: profileUuid == null,
+    );
+  }
+
   void reset() {
     state = const HistoryFilterModel();
   }

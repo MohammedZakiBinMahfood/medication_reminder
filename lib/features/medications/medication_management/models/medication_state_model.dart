@@ -17,6 +17,8 @@ class MedicationStateModel with MedicationStateModelMappable {
   final DateTime? endDate;
   final int minutesFromMidnight;
   final bool isActive;
+  final int? stockQuantity;
+  final int? reorderThreshold;
 
   const MedicationStateModel({
     this.id,
@@ -31,6 +33,8 @@ class MedicationStateModel with MedicationStateModelMappable {
     this.endDate,
     this.minutesFromMidnight = 480,
     this.isActive = true,
+    this.stockQuantity,
+    this.reorderThreshold,
   });
 
   factory MedicationStateModel.empty() {

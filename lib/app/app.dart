@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:medication_reminder/features/onboarding/setup_wizard/providers/wizard_notifier.dart';
 import '../core/design_system/theme/app_theme.dart';
 import '../features/medications/today_dashboard/presentation/screens/dashboard_screen.dart';
 import '../features/onboarding/setup_wizard/presentation/screens/wizard_screen.dart';
@@ -50,52 +51,18 @@ class App extends ConsumerWidget {
   }
 }
 
-class _WizardOrHome extends ConsumerStatefulWidget {
+class _WizardOrHome extends ConsumerWidget {
   const _WizardOrHome();
 
   @override
-  ConsumerState<_WizardOrHome> createState() => _WizardOrHomeState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(wizardProvider);
 
-class _WizardOrHomeState extends ConsumerState<_WizardOrHome> {
-  bool? _wizardCompleted;
-  bool _loading = true;
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _checkWizardStatus();
-    });
-  }
-
-  Future<void> _checkWizardStatus() async {
-    try {
-      final repo = ref.read(wizardRepositoryProvider);
-      final completed = await repo.isWizardCompleted();
-      if (mounted) {
-        setState(() {
-          _wizardCompleted = completed;
-          _loading = false;
-        });
-      }
-    } catch (e) {
-      if (mounted) {
-        setState(() {
-          _wizardCompleted = false;
-          _loading = false;
-        });
-      }
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    if (_loading) {
+    if (state.isLoading) {
       return const SplashScreen();
     }
 
-    if (_wizardCompleted == false) {
+    if (!state.isCompleted) {
       return const WizardScreen();
     }
 

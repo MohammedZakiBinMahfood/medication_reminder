@@ -25,6 +25,11 @@ class DoseLogModelMapper extends ClassMapperBase<DoseLogModel> {
 
   static String _$uuid(DoseLogModel v) => v.uuid;
   static const Field<DoseLogModel, String> _f$uuid = Field('uuid', _$uuid);
+  static String _$profileUuid(DoseLogModel v) => v.profileUuid;
+  static const Field<DoseLogModel, String> _f$profileUuid = Field(
+    'profileUuid',
+    _$profileUuid,
+  );
   static String _$medicationUuid(DoseLogModel v) => v.medicationUuid;
   static const Field<DoseLogModel, String> _f$medicationUuid = Field(
     'medicationUuid',
@@ -65,6 +70,7 @@ class DoseLogModelMapper extends ClassMapperBase<DoseLogModel> {
   @override
   final MappableFields<DoseLogModel> fields = const {
     #uuid: _f$uuid,
+    #profileUuid: _f$profileUuid,
     #medicationUuid: _f$medicationUuid,
     #scheduleUuid: _f$scheduleUuid,
     #scheduledAt: _f$scheduledAt,
@@ -77,6 +83,7 @@ class DoseLogModelMapper extends ClassMapperBase<DoseLogModel> {
   static DoseLogModel _instantiate(DecodingData data) {
     return DoseLogModel(
       uuid: data.dec(_f$uuid),
+      profileUuid: data.dec(_f$profileUuid),
       medicationUuid: data.dec(_f$medicationUuid),
       scheduleUuid: data.dec(_f$scheduleUuid),
       scheduledAt: data.dec(_f$scheduledAt),
@@ -151,6 +158,7 @@ abstract class DoseLogModelCopyWith<$R, $In extends DoseLogModel, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
   $R call({
     String? uuid,
+    String? profileUuid,
     String? medicationUuid,
     String? scheduleUuid,
     DateTime? scheduledAt,
@@ -173,6 +181,7 @@ class _DoseLogModelCopyWithImpl<$R, $Out>
   @override
   $R call({
     String? uuid,
+    String? profileUuid,
     String? medicationUuid,
     String? scheduleUuid,
     DateTime? scheduledAt,
@@ -183,6 +192,7 @@ class _DoseLogModelCopyWithImpl<$R, $Out>
   }) => $apply(
     FieldCopyWithData({
       if (uuid != null) #uuid: uuid,
+      if (profileUuid != null) #profileUuid: profileUuid,
       if (medicationUuid != null) #medicationUuid: medicationUuid,
       if (scheduleUuid != null) #scheduleUuid: scheduleUuid,
       if (scheduledAt != null) #scheduledAt: scheduledAt,
@@ -195,6 +205,7 @@ class _DoseLogModelCopyWithImpl<$R, $Out>
   @override
   DoseLogModel $make(CopyWithData data) => DoseLogModel(
     uuid: data.get(#uuid, or: $value.uuid),
+    profileUuid: data.get(#profileUuid, or: $value.profileUuid),
     medicationUuid: data.get(#medicationUuid, or: $value.medicationUuid),
     scheduleUuid: data.get(#scheduleUuid, or: $value.scheduleUuid),
     scheduledAt: data.get(#scheduledAt, or: $value.scheduledAt),

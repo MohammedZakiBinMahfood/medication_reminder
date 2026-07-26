@@ -716,6 +716,12 @@ abstract class AppLocalizations {
   /// **'Settings'**
   String get settingsTitle;
 
+  /// No description provided for @settingsProfiles.
+  ///
+  /// In en, this message translates to:
+  /// **'Profiles'**
+  String get settingsProfiles;
+
   /// No description provided for @settingsGeneral.
   ///
   /// In en, this message translates to:

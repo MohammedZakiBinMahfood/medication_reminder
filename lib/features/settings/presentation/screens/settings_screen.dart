@@ -7,6 +7,7 @@ import 'package:medication_reminder/features/settings/presentation/widgets/setti
 import 'package:medication_reminder/features/settings/presentation/widgets/settings_general_section.dart';
 import 'package:medication_reminder/features/settings/presentation/widgets/settings_history_section.dart';
 import 'package:medication_reminder/features/settings/presentation/widgets/settings_notifications_section.dart';
+import 'package:medication_reminder/features/settings/presentation/widgets/settings_profiles_section.dart';
 import 'package:medication_reminder/features/settings/providers/settings_notifier.dart';
 import 'package:medication_reminder/l10n/app_localizations.dart';
 import 'package:medication_reminder/shared/components/c_scaffold.dart';
@@ -58,6 +59,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     return ListView(
       padding: const EdgeInsets.only(bottom: AppSpacing.xxxl),
       children: [
+        SettingsProfilesSection(),
+        const SizedBox(height: AppSpacing.s),
         SettingsGeneralSection(settings: settings),
         const SizedBox(height: AppSpacing.s),
         SettingsNotificationsSection(settings: settings),

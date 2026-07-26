@@ -6,6 +6,7 @@ part 'dose_log_model.mapper.dart';
 @MappableClass()
 class DoseLogModel with DoseLogModelMappable {
   final String uuid;
+  final String profileUuid;
   final String medicationUuid;
   final String scheduleUuid;
   final DateTime scheduledAt;
@@ -16,6 +17,7 @@ class DoseLogModel with DoseLogModelMappable {
 
   const DoseLogModel({
     required this.uuid,
+    required this.profileUuid,
     required this.medicationUuid,
     required this.scheduleUuid,
     required this.scheduledAt,

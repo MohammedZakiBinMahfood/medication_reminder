@@ -2,6 +2,7 @@ import 'package:app_platform_core/core.dart';
 import 'package:app_platform_state/state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/notifications/notifications.dart';
+import '../../../profiles/providers/profile_providers.dart';
 import '../../compliance_history/providers/providers.dart';
 import '../models/models.dart';
 import '../repositories/medication_repository.dart';
@@ -29,15 +30,21 @@ class MedicationCrudNotifier extends Notifier<ActionStore> {
     if (state.isLoading(key.value)) return;
     state = state.start(key.value);
 
-    final model = _buildAddModel(data);
-    final result = await repository.createMedication(model);
+    try {
+      final model = _buildAddModel(data);
+      final result = await repository.createMedication(model);
 
-    if (result case Success<MedicationModel>(:final data)) {
-      state = state.success(key.value);
-      await _manager.scheduleMedication(data.uuid);
-      _notifyDependents();
-    } else if (result case Failure(:final error)) {
-      state = state.fail(key.value, error);
+      if (result case Success<MedicationModel>(:final data)) {
+        try {
+          await _manager.scheduleMedication(data.uuid);
+        } catch (_) {}
+        state = state.success(key.value);
+        _notifyDependents();
+      } else if (result case Failure(:final error)) {
+        state = state.fail(key.value, error);
+      }
+    } catch (e) {
+      state = state.fail(key.value, UnknownError(e.toString()));
     }
   }
 
@@ -46,19 +53,27 @@ class MedicationCrudNotifier extends Notifier<ActionStore> {
     final key = ActionKey(ActionType.update, data.id ?? '');
     state = state.start(key.value);
 
-    // Cancel existing notifications BEFORE updating schedules
-    // to prevent orphan notifications with old schedule UUIDs.
-    await _manager.cancelMedication(data.id ?? '');
+    try {
+      // Cancel existing notifications BEFORE updating schedules
+      // to prevent orphan notifications with old schedule UUIDs.
+      try {
+        await _manager.cancelMedication(data.id ?? '');
+      } catch (_) {}
 
-    final model = _buildEditModel(data);
-    final result = await repository.updateMedication(model);
+      final model = _buildEditModel(data);
+      final result = await repository.updateMedication(model);
 
-    if (result case Success<MedicationModel>(:final data)) {
-      state = state.success(key.value);
-      await _manager.scheduleMedication(data.uuid);
-      _notifyDependents();
-    } else if (result case Failure(:final error)) {
-      state = state.fail(key.value, error);
+      if (result case Success<MedicationModel>(:final data)) {
+        try {
+          await _manager.scheduleMedication(data.uuid);
+        } catch (_) {}
+        state = state.success(key.value);
+        _notifyDependents();
+      } else if (result case Failure(:final error)) {
+        state = state.fail(key.value, error);
+      }
+    } catch (e) {
+      state = state.fail(key.value, UnknownError(e.toString()));
     }
   }
 
@@ -116,7 +131,9 @@ class MedicationCrudNotifier extends Notifier<ActionStore> {
   }
 
   MedicationAddModel _buildAddModel(MedicationStateModel data) {
+    final profileUuid = ref.read(activeProfileUuidProvider).value ?? '';
     return MedicationAddModel(
+      profileUuid: profileUuid,
       name: data.name ?? '',
       dosage: data.dosage ?? '',
       color: data.color ?? '#4F46E5',
@@ -128,12 +145,16 @@ class MedicationCrudNotifier extends Notifier<ActionStore> {
       endDate: data.endDate,
       minutesFromMidnight: data.minutesFromMidnight,
       isActive: data.isActive,
+      stockQuantity: data.stockQuantity,
+      reorderThreshold: data.reorderThreshold,
     );
   }
 
   MedicationEditModel _buildEditModel(MedicationStateModel data) {
+    final profileUuid = ref.read(activeProfileUuidProvider).value ?? '';
     return MedicationEditModel(
       id: data.id ?? '',
+      profileUuid: profileUuid,
       name: data.name ?? '',
       dosage: data.dosage ?? '',
       color: data.color ?? '#4F46E5',
@@ -145,6 +166,8 @@ class MedicationCrudNotifier extends Notifier<ActionStore> {
       endDate: data.endDate,
       minutesFromMidnight: data.minutesFromMidnight,
       isActive: data.isActive,
+      stockQuantity: data.stockQuantity,
+      reorderThreshold: data.reorderThreshold,
     );
   }
 }

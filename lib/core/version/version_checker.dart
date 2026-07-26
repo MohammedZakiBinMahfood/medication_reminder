@@ -4,7 +4,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'version_check_result.dart';
 
 class VersionChecker {
-  static const _packageName = 'com.example.medication_reminder';
+  static const _packageName = 'com.mohammedzaki.medication_reminder';
   static const _playStoreUrl =
       'https://play.google.com/store/apps/details?id=$_packageName&hl=en&gl=US';
 
