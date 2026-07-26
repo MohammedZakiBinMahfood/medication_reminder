@@ -15,7 +15,7 @@ class PriorityBadge extends StatelessWidget {
     final l10n = AppLocalizations.of(context);
     final label = _label(l10n);
     return Semantics(
-      label: 'Priority: $label',
+      label: l10n.a11yPriorityLabel(label),
       child: Container(
         padding: const EdgeInsets.symmetric(
           horizontal: AppSpacing.s,

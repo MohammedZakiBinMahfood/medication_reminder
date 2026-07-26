@@ -206,24 +206,25 @@ class _ProfileManagementScreenState
       Icons.star,
     ];
 
+    final l10n = AppLocalizations.of(context);
     showDialog(
       context: context,
       builder: (context) => StatefulBuilder(
         builder: (context, setDialogState) => AlertDialog(
-          title: Text(profile != null ? 'Edit Profile' : 'Add Profile'),
+          title: Text(profile != null ? l10n.profileEditTitle : l10n.profileAddTitle),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               TextField(
                 controller: nameController,
-                decoration: const InputDecoration(
-                  labelText: 'Name',
-                  hintText: 'e.g., Mom, Dad, Child',
+                decoration: InputDecoration(
+                  labelText: l10n.profileNameLabel,
+                  hintText: l10n.profileNameHint,
                 ),
                 autofocus: true,
               ),
               const SizedBox(height: 16),
-              const Text('Color'),
+              Text(l10n.profileColorLabel),
               const SizedBox(height: 8),
               Wrap(
                 spacing: 8,
@@ -359,18 +360,18 @@ class _ProfileManagementScreenState
   }
 
   void _showDeleteConfirmation(BuildContext context, ProfileModel profile) {
+    final l10n = AppLocalizations.of(context);
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Delete Profile'),
+        title: Text(l10n.profileDeleteDialogTitle),
         content: Text(
-          'Are you sure you want to delete "${profile.name}"? '
-          'All medications in this profile will be permanently removed.',
+          l10n.profileDeleteConfirm(profile.name),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
+            child: Text(l10n.cancel),
           ),
           FilledButton(
             style: FilledButton.styleFrom(
@@ -383,10 +384,10 @@ class _ProfileManagementScreenState
               ref.invalidate(allProfilesProvider);
               ref.invalidate(activeProfileUuidProvider);
               if (mounted) {
-                CSnackbar.success(context, 'Profile deleted');
+                CSnackbar.success(context, l10n.medicationDeleted);
               }
             },
-            child: const Text('Delete'),
+            child: Text(l10n.delete),
           ),
         ],
       ),

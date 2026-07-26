@@ -19,6 +19,8 @@ class MedicationAddModel with MedicationAddModelMappable {
   final bool isActive;
   final int? stockQuantity;
   final int? reorderThreshold;
+  final FoodInstruction foodInstruction;
+  final String? imagePath;
 
   const MedicationAddModel({
     required this.profileUuid,
@@ -35,5 +37,7 @@ class MedicationAddModel with MedicationAddModelMappable {
     required this.isActive,
     this.stockQuantity,
     this.reorderThreshold,
+    this.foodInstruction = FoodInstruction.none,
+    this.imagePath,
   });
 }

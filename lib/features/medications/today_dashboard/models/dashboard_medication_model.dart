@@ -15,6 +15,8 @@ class DashboardMedicationModel {
   final String? remainingTimeText;
   final int? stockQuantity;
   final int? reorderThreshold;
+  final FoodInstruction foodInstruction;
+  final String? imagePath;
 
   const DashboardMedicationModel({
     required this.medicationUuid,
@@ -30,6 +32,8 @@ class DashboardMedicationModel {
     this.remainingTimeText,
     this.stockQuantity,
     this.reorderThreshold,
+    this.foodInstruction = FoodInstruction.none,
+    this.imagePath,
   });
 
   bool get isLowStock {
@@ -54,6 +58,8 @@ class DashboardMedicationModel {
     String? remainingTimeText,
     int? stockQuantity,
     int? reorderThreshold,
+    FoodInstruction? foodInstruction,
+    String? imagePath,
   }) {
     return DashboardMedicationModel(
       medicationUuid: medicationUuid,
@@ -69,6 +75,8 @@ class DashboardMedicationModel {
       remainingTimeText: remainingTimeText ?? this.remainingTimeText,
       stockQuantity: stockQuantity ?? this.stockQuantity,
       reorderThreshold: reorderThreshold ?? this.reorderThreshold,
+      foodInstruction: foodInstruction ?? this.foodInstruction,
+      imagePath: imagePath ?? this.imagePath,
     );
   }
 }

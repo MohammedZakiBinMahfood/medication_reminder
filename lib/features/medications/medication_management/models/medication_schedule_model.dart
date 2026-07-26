@@ -1,4 +1,5 @@
 import 'package:dart_mappable/dart_mappable.dart';
+import 'package:medication_reminder/core/utils/time_formatter.dart';
 import 'enums/medication_enums.dart';
 
 part 'medication_schedule_model.mapper.dart';
@@ -31,9 +32,12 @@ class MedicationScheduleModel with MedicationScheduleModelMappable {
     required this.updatedAt,
   });
 
-  String get formattedTime {
-    final hours = minutesFromMidnight ~/ 60;
-    final minutes = minutesFromMidnight % 60;
-    return '${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}';
+  String formatTime({bool isArabic = true}) {
+    return AppTimeFormatter.formatMinutesFromMidnight(
+      minutesFromMidnight,
+      isArabic: isArabic,
+    );
   }
+
+  String get formattedTime => formatTime();
 }

@@ -9,6 +9,7 @@ class MedicationFilters {
   final String? searchQuery;
   final MedicationSortField? sortField;
   final SortDirection? sortDirection;
+  final bool includeAllProfiles;
 
   const MedicationFilters({
     this.priority,
@@ -17,6 +18,7 @@ class MedicationFilters {
     this.searchQuery,
     this.sortField,
     this.sortDirection,
+    this.includeAllProfiles = false,
   });
 
   MedicationFilters copyWith({
@@ -26,6 +28,7 @@ class MedicationFilters {
     String? searchQuery,
     MedicationSortField? sortField,
     SortDirection? sortDirection,
+    bool? includeAllProfiles,
   }) {
     return MedicationFilters(
       priority: priority ?? this.priority,
@@ -34,6 +37,7 @@ class MedicationFilters {
       searchQuery: searchQuery ?? this.searchQuery,
       sortField: sortField ?? this.sortField,
       sortDirection: sortDirection ?? this.sortDirection,
+      includeAllProfiles: includeAllProfiles ?? this.includeAllProfiles,
     );
   }
 

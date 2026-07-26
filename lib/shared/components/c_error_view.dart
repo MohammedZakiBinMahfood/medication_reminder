@@ -36,7 +36,7 @@ class CErrorView extends StatelessWidget {
               const SizedBox(height: AppSpacing.xl),
               Semantics(
                 label: l10n.a11yRetry,
-                child: CButton.outlined(text: 'Retry', onPressed: onRetry),
+                child: CButton.outlined(text: l10n.a11yRetry, onPressed: onRetry),
               ),
             ],
           ],

@@ -25,35 +25,45 @@ const MedicationCollectionSchema = CollectionSchema(
       type: IsarType.dateTime,
     ),
     r'dosage': PropertySchema(id: 2, name: r'dosage', type: IsarType.string),
-    r'isActive': PropertySchema(id: 3, name: r'isActive', type: IsarType.bool),
-    r'isDeleted': PropertySchema(
+    r'foodInstruction': PropertySchema(
+      id: 3,
+      name: r'foodInstruction',
+      type: IsarType.int,
+    ),
+    r'imagePath': PropertySchema(
       id: 4,
+      name: r'imagePath',
+      type: IsarType.string,
+    ),
+    r'isActive': PropertySchema(id: 5, name: r'isActive', type: IsarType.bool),
+    r'isDeleted': PropertySchema(
+      id: 6,
       name: r'isDeleted',
       type: IsarType.bool,
     ),
-    r'name': PropertySchema(id: 5, name: r'name', type: IsarType.string),
-    r'priority': PropertySchema(id: 6, name: r'priority', type: IsarType.int),
+    r'name': PropertySchema(id: 7, name: r'name', type: IsarType.string),
+    r'priority': PropertySchema(id: 8, name: r'priority', type: IsarType.int),
     r'profileUuid': PropertySchema(
-      id: 7,
+      id: 9,
       name: r'profileUuid',
       type: IsarType.string,
     ),
     r'reorderThreshold': PropertySchema(
-      id: 8,
+      id: 10,
       name: r'reorderThreshold',
       type: IsarType.long,
     ),
     r'stockQuantity': PropertySchema(
-      id: 9,
+      id: 11,
       name: r'stockQuantity',
       type: IsarType.long,
     ),
     r'updatedAt': PropertySchema(
-      id: 10,
+      id: 12,
       name: r'updatedAt',
       type: IsarType.dateTime,
     ),
-    r'uuid': PropertySchema(id: 11, name: r'uuid', type: IsarType.string),
+    r'uuid': PropertySchema(id: 13, name: r'uuid', type: IsarType.string),
   },
 
   estimateSize: _medicationCollectionEstimateSize,
@@ -119,6 +129,12 @@ int _medicationCollectionEstimateSize(
   var bytesCount = offsets.last;
   bytesCount += 3 + object.color.length * 3;
   bytesCount += 3 + object.dosage.length * 3;
+  {
+    final value = object.imagePath;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
   bytesCount += 3 + object.name.length * 3;
   bytesCount += 3 + object.profileUuid.length * 3;
   bytesCount += 3 + object.uuid.length * 3;
@@ -134,15 +150,17 @@ void _medicationCollectionSerialize(
   writer.writeString(offsets[0], object.color);
   writer.writeDateTime(offsets[1], object.createdAt);
   writer.writeString(offsets[2], object.dosage);
-  writer.writeBool(offsets[3], object.isActive);
-  writer.writeBool(offsets[4], object.isDeleted);
-  writer.writeString(offsets[5], object.name);
-  writer.writeInt(offsets[6], object.priority);
-  writer.writeString(offsets[7], object.profileUuid);
-  writer.writeLong(offsets[8], object.reorderThreshold);
-  writer.writeLong(offsets[9], object.stockQuantity);
-  writer.writeDateTime(offsets[10], object.updatedAt);
-  writer.writeString(offsets[11], object.uuid);
+  writer.writeInt(offsets[3], object.foodInstruction);
+  writer.writeString(offsets[4], object.imagePath);
+  writer.writeBool(offsets[5], object.isActive);
+  writer.writeBool(offsets[6], object.isDeleted);
+  writer.writeString(offsets[7], object.name);
+  writer.writeInt(offsets[8], object.priority);
+  writer.writeString(offsets[9], object.profileUuid);
+  writer.writeLong(offsets[10], object.reorderThreshold);
+  writer.writeLong(offsets[11], object.stockQuantity);
+  writer.writeDateTime(offsets[12], object.updatedAt);
+  writer.writeString(offsets[13], object.uuid);
 }
 
 MedicationCollection _medicationCollectionDeserialize(
@@ -155,16 +173,18 @@ MedicationCollection _medicationCollectionDeserialize(
   object.color = reader.readString(offsets[0]);
   object.createdAt = reader.readDateTime(offsets[1]);
   object.dosage = reader.readString(offsets[2]);
+  object.foodInstruction = reader.readInt(offsets[3]);
   object.id = id;
-  object.isActive = reader.readBool(offsets[3]);
-  object.isDeleted = reader.readBool(offsets[4]);
-  object.name = reader.readString(offsets[5]);
-  object.priority = reader.readInt(offsets[6]);
-  object.profileUuid = reader.readString(offsets[7]);
-  object.reorderThreshold = reader.readLongOrNull(offsets[8]);
-  object.stockQuantity = reader.readLongOrNull(offsets[9]);
-  object.updatedAt = reader.readDateTime(offsets[10]);
-  object.uuid = reader.readString(offsets[11]);
+  object.imagePath = reader.readStringOrNull(offsets[4]);
+  object.isActive = reader.readBool(offsets[5]);
+  object.isDeleted = reader.readBool(offsets[6]);
+  object.name = reader.readString(offsets[7]);
+  object.priority = reader.readInt(offsets[8]);
+  object.profileUuid = reader.readString(offsets[9]);
+  object.reorderThreshold = reader.readLongOrNull(offsets[10]);
+  object.stockQuantity = reader.readLongOrNull(offsets[11]);
+  object.updatedAt = reader.readDateTime(offsets[12]);
+  object.uuid = reader.readString(offsets[13]);
   return object;
 }
 
@@ -182,22 +202,26 @@ P _medicationCollectionDeserializeProp<P>(
     case 2:
       return (reader.readString(offset)) as P;
     case 3:
-      return (reader.readBool(offset)) as P;
-    case 4:
-      return (reader.readBool(offset)) as P;
-    case 5:
-      return (reader.readString(offset)) as P;
-    case 6:
       return (reader.readInt(offset)) as P;
+    case 4:
+      return (reader.readStringOrNull(offset)) as P;
+    case 5:
+      return (reader.readBool(offset)) as P;
+    case 6:
+      return (reader.readBool(offset)) as P;
     case 7:
       return (reader.readString(offset)) as P;
     case 8:
-      return (reader.readLongOrNull(offset)) as P;
+      return (reader.readInt(offset)) as P;
     case 9:
-      return (reader.readLongOrNull(offset)) as P;
+      return (reader.readString(offset)) as P;
     case 10:
-      return (reader.readDateTime(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 11:
+      return (reader.readLongOrNull(offset)) as P;
+    case 12:
+      return (reader.readDateTime(offset)) as P;
+    case 13:
       return (reader.readString(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -972,6 +996,77 @@ extension MedicationCollectionQueryFilter
     MedicationCollection,
     QAfterFilterCondition
   >
+  foodInstructionEqualTo(int value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'foodInstruction', value: value),
+      );
+    });
+  }
+
+  QueryBuilder<
+    MedicationCollection,
+    MedicationCollection,
+    QAfterFilterCondition
+  >
+  foodInstructionGreaterThan(int value, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'foodInstruction',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<
+    MedicationCollection,
+    MedicationCollection,
+    QAfterFilterCondition
+  >
+  foodInstructionLessThan(int value, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'foodInstruction',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<
+    MedicationCollection,
+    MedicationCollection,
+    QAfterFilterCondition
+  >
+  foodInstructionBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'foodInstruction',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<
+    MedicationCollection,
+    MedicationCollection,
+    QAfterFilterCondition
+  >
   idEqualTo(Id value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
@@ -1034,6 +1129,213 @@ extension MedicationCollectionQueryFilter
           upper: upper,
           includeUpper: includeUpper,
         ),
+      );
+    });
+  }
+
+  QueryBuilder<
+    MedicationCollection,
+    MedicationCollection,
+    QAfterFilterCondition
+  >
+  imagePathIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'imagePath'),
+      );
+    });
+  }
+
+  QueryBuilder<
+    MedicationCollection,
+    MedicationCollection,
+    QAfterFilterCondition
+  >
+  imagePathIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'imagePath'),
+      );
+    });
+  }
+
+  QueryBuilder<
+    MedicationCollection,
+    MedicationCollection,
+    QAfterFilterCondition
+  >
+  imagePathEqualTo(String? value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'imagePath',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<
+    MedicationCollection,
+    MedicationCollection,
+    QAfterFilterCondition
+  >
+  imagePathGreaterThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'imagePath',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<
+    MedicationCollection,
+    MedicationCollection,
+    QAfterFilterCondition
+  >
+  imagePathLessThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'imagePath',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<
+    MedicationCollection,
+    MedicationCollection,
+    QAfterFilterCondition
+  >
+  imagePathBetween(
+    String? lower,
+    String? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'imagePath',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<
+    MedicationCollection,
+    MedicationCollection,
+    QAfterFilterCondition
+  >
+  imagePathStartsWith(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.startsWith(
+          property: r'imagePath',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<
+    MedicationCollection,
+    MedicationCollection,
+    QAfterFilterCondition
+  >
+  imagePathEndsWith(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.endsWith(
+          property: r'imagePath',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<
+    MedicationCollection,
+    MedicationCollection,
+    QAfterFilterCondition
+  >
+  imagePathContains(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.contains(
+          property: r'imagePath',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<
+    MedicationCollection,
+    MedicationCollection,
+    QAfterFilterCondition
+  >
+  imagePathMatches(String pattern, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.matches(
+          property: r'imagePath',
+          wildcard: pattern,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<
+    MedicationCollection,
+    MedicationCollection,
+    QAfterFilterCondition
+  >
+  imagePathIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'imagePath', value: ''),
+      );
+    });
+  }
+
+  QueryBuilder<
+    MedicationCollection,
+    MedicationCollection,
+    QAfterFilterCondition
+  >
+  imagePathIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(property: r'imagePath', value: ''),
       );
     });
   }
@@ -2005,6 +2307,34 @@ extension MedicationCollectionQuerySortBy
   }
 
   QueryBuilder<MedicationCollection, MedicationCollection, QAfterSortBy>
+  sortByFoodInstruction() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'foodInstruction', Sort.asc);
+    });
+  }
+
+  QueryBuilder<MedicationCollection, MedicationCollection, QAfterSortBy>
+  sortByFoodInstructionDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'foodInstruction', Sort.desc);
+    });
+  }
+
+  QueryBuilder<MedicationCollection, MedicationCollection, QAfterSortBy>
+  sortByImagePath() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'imagePath', Sort.asc);
+    });
+  }
+
+  QueryBuilder<MedicationCollection, MedicationCollection, QAfterSortBy>
+  sortByImagePathDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'imagePath', Sort.desc);
+    });
+  }
+
+  QueryBuilder<MedicationCollection, MedicationCollection, QAfterSortBy>
   sortByIsActive() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'isActive', Sort.asc);
@@ -2176,6 +2506,20 @@ extension MedicationCollectionQuerySortThenBy
   }
 
   QueryBuilder<MedicationCollection, MedicationCollection, QAfterSortBy>
+  thenByFoodInstruction() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'foodInstruction', Sort.asc);
+    });
+  }
+
+  QueryBuilder<MedicationCollection, MedicationCollection, QAfterSortBy>
+  thenByFoodInstructionDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'foodInstruction', Sort.desc);
+    });
+  }
+
+  QueryBuilder<MedicationCollection, MedicationCollection, QAfterSortBy>
   thenById() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.asc);
@@ -2186,6 +2530,20 @@ extension MedicationCollectionQuerySortThenBy
   thenByIdDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.desc);
+    });
+  }
+
+  QueryBuilder<MedicationCollection, MedicationCollection, QAfterSortBy>
+  thenByImagePath() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'imagePath', Sort.asc);
+    });
+  }
+
+  QueryBuilder<MedicationCollection, MedicationCollection, QAfterSortBy>
+  thenByImagePathDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'imagePath', Sort.desc);
     });
   }
 
@@ -2340,6 +2698,20 @@ extension MedicationCollectionQueryWhereDistinct
   }
 
   QueryBuilder<MedicationCollection, MedicationCollection, QDistinct>
+  distinctByFoodInstruction() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'foodInstruction');
+    });
+  }
+
+  QueryBuilder<MedicationCollection, MedicationCollection, QDistinct>
+  distinctByImagePath({bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'imagePath', caseSensitive: caseSensitive);
+    });
+  }
+
+  QueryBuilder<MedicationCollection, MedicationCollection, QDistinct>
   distinctByIsActive() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'isActive');
@@ -2433,6 +2805,20 @@ extension MedicationCollectionQueryProperty
   dosageProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'dosage');
+    });
+  }
+
+  QueryBuilder<MedicationCollection, int, QQueryOperations>
+  foodInstructionProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'foodInstruction');
+    });
+  }
+
+  QueryBuilder<MedicationCollection, String?, QQueryOperations>
+  imagePathProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'imagePath');
     });
   }
 

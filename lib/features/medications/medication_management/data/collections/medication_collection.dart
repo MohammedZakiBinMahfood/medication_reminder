@@ -29,6 +29,11 @@ class MedicationCollection {
 
   int? reorderThreshold;
 
+  /// Stored as integer: 0: none, 1: beforeMeal, 2: withMeal, 3: afterMeal, 4: onEmptyStomach, 5: beforeBed
+  short foodInstruction = 0;
+
+  String? imagePath;
+
   // Audit & Sync Fields
   late DateTime createdAt;
   late DateTime updatedAt;

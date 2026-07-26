@@ -20,6 +20,8 @@ class MedicationEditModel with MedicationEditModelMappable {
   final bool isActive;
   final int? stockQuantity;
   final int? reorderThreshold;
+  final FoodInstruction foodInstruction;
+  final String? imagePath;
 
   const MedicationEditModel({
     required this.id,
@@ -37,5 +39,7 @@ class MedicationEditModel with MedicationEditModelMappable {
     required this.isActive,
     this.stockQuantity,
     this.reorderThreshold,
+    this.foodInstruction = FoodInstruction.none,
+    this.imagePath,
   });
 }

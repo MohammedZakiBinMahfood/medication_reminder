@@ -10,3 +10,12 @@ enum AppHistoryFilter { last7Days, last30Days, custom, all }
 
 @MappableEnum()
 enum AppHistoryGrouping { day, week, month, medication }
+
+@MappableEnum()
+enum AppAccentColor {
+  indigo,
+  emerald,
+  ocean,
+  sunset,
+  violet,
+}

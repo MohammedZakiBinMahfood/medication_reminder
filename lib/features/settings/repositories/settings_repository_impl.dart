@@ -125,6 +125,16 @@ class SettingsRepositoryImpl implements SettingsRepository {
   }
 
   @override
+  Future<Result<void>> updateAccentColor(AppAccentColor color) async {
+    try {
+      await _updateField((c) => c.accentColor = color.index);
+      return const Success(null);
+    } catch (e) {
+      return Failure(UnknownError(e.toString()));
+    }
+  }
+
+  @override
   Future<Result<void>> updateFirstDayOfWeek(int day) async {
     try {
       await _updateField((c) => c.firstDayOfWeek = day);

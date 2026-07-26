@@ -1,11 +1,12 @@
 import 'package:dart_mappable/dart_mappable.dart';
+import 'package:medication_reminder/core/utils/time_formatter.dart';
 import 'enums/medication_enums.dart';
 
 part 'medication_schedule_list_model.mapper.dart';
 
 @MappableClass()
 class MedicationScheduleListModel with MedicationScheduleListModelMappable {
-  final String id;
+  final String uuid;
   final String medicationUuid;
   final int minutesFromMidnight;
   final RepeatType repeatType;
@@ -15,7 +16,7 @@ class MedicationScheduleListModel with MedicationScheduleListModelMappable {
   final DateTime? endDate;
 
   const MedicationScheduleListModel({
-    required this.id,
+    required this.uuid,
     required this.medicationUuid,
     required this.minutesFromMidnight,
     required this.repeatType,
@@ -25,9 +26,12 @@ class MedicationScheduleListModel with MedicationScheduleListModelMappable {
     this.endDate,
   });
 
-  String get formattedTime {
-    final hours = minutesFromMidnight ~/ 60;
-    final minutes = minutesFromMidnight % 60;
-    return '${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}';
+  String formatTime({bool isArabic = true}) {
+    return AppTimeFormatter.formatMinutesFromMidnight(
+      minutesFromMidnight,
+      isArabic: isArabic,
+    );
   }
+
+  String get formattedTime => formatTime();
 }

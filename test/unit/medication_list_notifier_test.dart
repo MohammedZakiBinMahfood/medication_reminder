@@ -30,7 +30,7 @@ void main() {
     registerFallbackValue(const MedicationFilters());
   });
 
-  ProviderContainer _createContainer() {
+  ProviderContainer createContainer() {
     return ProviderContainer(
       overrides: [medicationRepositoryProvider.overrideWithValue(mockRepo)],
     );
@@ -53,7 +53,7 @@ void main() {
         ),
       );
 
-      final container = _createContainer();
+      final container = createContainer();
       addTearDown(container.dispose);
 
       await container.read(medicationListProvider.notifier).refresh();
@@ -72,7 +72,7 @@ void main() {
         ),
       ).thenAnswer((_) async => Failure(UnknownError('Database error')));
 
-      final container = _createContainer();
+      final container = createContainer();
       addTearDown(container.dispose);
 
       await container.read(medicationListProvider.notifier).refresh();
@@ -99,7 +99,7 @@ void main() {
         ),
       );
 
-      final container = _createContainer();
+      final container = createContainer();
       addTearDown(container.dispose);
 
       await container.read(medicationListProvider.notifier).refresh();
@@ -112,7 +112,7 @@ void main() {
 
   group('MedicationFilters', () {
     test('filters provider starts with empty filters', () {
-      final container = _createContainer();
+      final container = createContainer();
       addTearDown(container.dispose);
 
       final filters = container.read(medicationFiltersProvider);
@@ -120,7 +120,7 @@ void main() {
     });
 
     test('setting filters updates state', () {
-      final container = _createContainer();
+      final container = createContainer();
       addTearDown(container.dispose);
 
       container

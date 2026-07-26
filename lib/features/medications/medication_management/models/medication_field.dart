@@ -20,6 +20,8 @@ class MedicationField with MedicationFieldMappable {
   final bool isActive;
   final int? stockQuantity;
   final int? reorderThreshold;
+  final FoodInstruction foodInstruction;
+  final String? imagePath;
 
   const MedicationField({
     required this.id,
@@ -37,5 +39,7 @@ class MedicationField with MedicationFieldMappable {
     required this.isActive,
     this.stockQuantity,
     this.reorderThreshold,
+    this.foodInstruction = FoodInstruction.none,
+    this.imagePath,
   });
 }

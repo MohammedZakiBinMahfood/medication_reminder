@@ -19,6 +19,8 @@ class MedicationMapper {
       isActive: collection.isActive,
       stockQuantity: collection.stockQuantity,
       reorderThreshold: collection.reorderThreshold,
+      foodInstruction: foodInstructionFromInt(collection.foodInstruction),
+      imagePath: collection.imagePath,
       createdAt: collection.createdAt,
       updatedAt: collection.updatedAt,
     );
@@ -39,6 +41,8 @@ class MedicationMapper {
       ..isActive = model.isActive
       ..stockQuantity = model.stockQuantity
       ..reorderThreshold = model.reorderThreshold
+      ..foodInstruction = model.foodInstruction.index
+      ..imagePath = model.imagePath
       ..createdAt = model.createdAt
       ..updatedAt = model.updatedAt
       ..isDeleted = false;
@@ -54,6 +58,8 @@ class MedicationMapper {
     required bool isActive,
     int? stockQuantity,
     int? reorderThreshold,
+    FoodInstruction foodInstruction = FoodInstruction.none,
+    String? imagePath,
     required DateTime now,
   }) {
     return MedicationCollection()
@@ -66,6 +72,8 @@ class MedicationMapper {
       ..isActive = isActive
       ..stockQuantity = stockQuantity
       ..reorderThreshold = reorderThreshold
+      ..foodInstruction = foodInstruction.index
+      ..imagePath = imagePath
       ..createdAt = now
       ..updatedAt = now
       ..isDeleted = false;
@@ -90,6 +98,8 @@ class MedicationMapper {
       isActive: medication.isActive,
       stockQuantity: medication.stockQuantity,
       reorderThreshold: medication.reorderThreshold,
+      foodInstruction: medication.foodInstruction,
+      imagePath: medication.imagePath,
       minutesFromMidnight: schedule?.minutesFromMidnight ?? 480,
     );
   }
@@ -107,5 +117,9 @@ class MedicationMapper {
 
   static DoseStatus doseStatusFromInt(int value) {
     return DoseStatus.values[value.clamp(0, DoseStatus.values.length - 1)];
+  }
+
+  static FoodInstruction foodInstructionFromInt(int value) {
+    return FoodInstruction.values[value.clamp(0, FoodInstruction.values.length - 1)];
   }
 }

@@ -71,6 +71,23 @@ class SettingsGeneralSection extends ConsumerWidget {
 
           const Divider(height: 1),
 
+          // Accent Color
+          Semantics(
+            label: l10n.accentThemeLabel,
+            child: ListTile(
+              leading: Icon(
+                Icons.color_lens_outlined,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+              title: Text(l10n.accentThemeLabel),
+              subtitle: Text(_accentColorLabel(settings.accentColor, l10n)),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => _showAccentColorPicker(context, ref, l10n),
+            ),
+          ),
+
+          const Divider(height: 1),
+
           // First Day of Week
           Semantics(
             label: l10n.settingsFirstDayOfWeek,
@@ -257,6 +274,53 @@ class SettingsGeneralSection extends ConsumerWidget {
                 onChanged: (v) {
                   Navigator.pop(context);
                   if (v != null) notifier.updateFirstDayOfWeek(v);
+                },
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+  String _accentColorLabel(AppAccentColor accent, AppLocalizations l10n) {
+    return switch (accent) {
+      AppAccentColor.indigo => l10n.accentIndigo,
+      AppAccentColor.emerald => l10n.accentEmerald,
+      AppAccentColor.ocean => l10n.accentOcean,
+      AppAccentColor.sunset => l10n.accentSunset,
+      AppAccentColor.violet => l10n.accentViolet,
+    };
+  }
+
+  void _showAccentColorPicker(
+    BuildContext context,
+    WidgetRef ref,
+    AppLocalizations l10n,
+  ) {
+    final notifier = ref.read(settingsProvider.notifier);
+    final current =
+        ref.read(settingsProvider).data?.accentColor ?? AppAccentColor.indigo;
+
+    showModalBottomSheet(
+      context: context,
+      builder: (context) => SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(AppSpacing.l),
+              child: Text(
+                l10n.accentThemeLabel,
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+            ),
+            for (final accent in AppAccentColor.values)
+              RadioListTile<AppAccentColor>(
+                title: Text(_accentColorLabel(accent, l10n)),
+                value: accent,
+                groupValue: current,
+                onChanged: (v) {
+                  Navigator.pop(context);
+                  if (v != null) notifier.updateAccentColor(v);
                 },
               ),
           ],

@@ -1106,5 +1106,182 @@ class AppLocalizationsAr extends AppLocalizations {
   String get backupDoseLogsCount => 'سجل الجرعات';
 
   @override
+  String get medicationStockTrackingOptional => 'تتبع المخزون (اختياري)';
+
+  @override
+  String get medicationStockQuantity => 'كمية المخزون';
+
+  @override
+  String get medicationStockQuantityHint => 'مثال: 30';
+
+  @override
+  String get medicationStockThreshold => 'التنبيه عند المتبقي';
+
+  @override
+  String get medicationStockThresholdHint => 'مثال: 5';
+
+  @override
+  String settingsProfileCount(num count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count ملف شخصي',
+      many: '$count ملفاً شخصياً',
+      few: '$count ملفات شخصية',
+      two: 'ملفان شخصيان',
+      one: 'ملف شخصي واحد',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String settingsProfileActive(Object activeName, num count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count ملف شخصي',
+      many: '$count ملفاً شخصياً',
+      few: '$count ملفات شخصية',
+      two: 'ملفان شخصيان',
+      one: 'ملف شخصي واحد',
+    );
+    return '$activeName · $_temp0';
+  }
+
+  @override
+  String get profileNameHint => 'مثال: أمي، أبي، طفل';
+
+  @override
+  String get profileDeleteDialogTitle => 'حذف الملف الشخصي';
+
+  @override
+  String get profileAddTitle => 'إضافة ملف شخصي';
+
+  @override
+  String get profileEditTitle => 'تعديل الملف الشخصي';
+
+  @override
+  String get profileNameLabel => 'الاسم';
+
+  @override
+  String get profileColorLabel => 'اللون';
+
+  @override
+  String get profileIconLabel => 'الأيقونة';
+
+  @override
+  String profileDeleteConfirm(Object name) {
+    return 'هل أنت متأكد من حذف \"$name\"؟ سيتم حذف جميع الأدوية في هذا الملف الشخصي نهائياً.';
+  }
+
+  @override
+  String get settingsSystemHealthSubtitle => 'التحقق من حالة صحة التطبيق';
+
+  @override
+  String get systemHealthChecksSection => 'فحوصات النظام';
+
+  @override
+  String get historyDays => 'أيام';
+
+  @override
+  String wizardStepProgress(Object current, Object total) {
+    return 'الخطوة $current من $total';
+  }
+
+  @override
+  String get notificationActionTaken => 'تم التناول';
+
+  @override
+  String get notificationActionSnooze15 => 'تأجيل 15 دقيقة';
+
+  @override
+  String get notificationTitleCritical => '⚠️ تنبيه دواء حرج';
+
+  @override
+  String get notificationTitleRegular => 'تذكير بموعد الدواء';
+
+  @override
+  String get notificationBodyCritical =>
+      'حان وقت تناول دوائك الحرج الآن، نرجو عدم التأخير';
+
+  @override
+  String get notificationBodyRegular => 'حان وقت تناول الدواء';
+
+  @override
+  String get homeWidgetNoDosesRemaining => 'لا توجد جرعات متبقية اليوم';
+
+  @override
   String get backupIncludesSettings => 'يتضمن الإعدادات';
+
+  @override
+  String get foodInstructionLabel => 'تعليمات التناول مع الطعام';
+
+  @override
+  String get foodInstructionNone => 'بدون تعليمات خاصة';
+
+  @override
+  String get foodInstructionBeforeMeal => 'قبل الطعام';
+
+  @override
+  String get foodInstructionWithMeal => 'مع الطعام';
+
+  @override
+  String get foodInstructionAfterMeal => 'بعد الطعام';
+
+  @override
+  String get foodInstructionOnEmptyStomach => 'على معدة فارغة';
+
+  @override
+  String get foodInstructionBeforeBed => 'قبل النوم';
+
+  @override
+  String get medicationPhotoLabel => 'صورة الدواء/العلبة (اختياري)';
+
+  @override
+  String get medicationPhotoAdd => 'إضافة صورة';
+
+  @override
+  String get medicationPhotoRemove => 'إزالة الصورة';
+
+  @override
+  String get refillAlertTitle => 'تنبيه إكمال المخزون';
+
+  @override
+  String refillAlertMessage(Object count, Object name) {
+    return 'تنبيه المخزون: متبقي من $name عدد $count جرعات فقط!';
+  }
+
+  @override
+  String get accentThemeLabel => 'اللون الأساسي للتطبيق';
+
+  @override
+  String get accentIndigo => 'بنفسجي نيلي';
+
+  @override
+  String get accentEmerald => 'أخضر زمردي';
+
+  @override
+  String get accentOcean => 'أزرق محيطي';
+
+  @override
+  String get accentSunset => 'برتقالي الغروب';
+
+  @override
+  String get accentViolet => 'بنفسجي ملكي';
+
+  @override
+  String get medicationBasicInfo => 'البيانات الأساسية';
+
+  @override
+  String get medicationScheduleHeading => 'جدول التناول والتوقيت';
+
+  @override
+  String get medicationStockAndPhotoHeading => 'المخزون والصورة';
+
+  @override
+  String get celebrationTitle => 'أحسنت! أكملت جميع جرعات اليوم 🎉';
+
+  @override
+  String get celebrationSubtitle =>
+      'ممتاز! واصل الالتزام بجدول أدويتك لصحة أفضل.';
 }

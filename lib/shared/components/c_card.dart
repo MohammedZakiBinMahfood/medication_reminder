@@ -6,6 +6,7 @@ class CCard extends StatelessWidget {
   final EdgeInsetsGeometry? padding;
   final EdgeInsetsGeometry? margin;
   final VoidCallback? onTap;
+  final Color? color;
 
   const CCard({
     super.key,
@@ -13,12 +14,14 @@ class CCard extends StatelessWidget {
     this.padding = const EdgeInsets.all(AppSpacing.l),
     this.margin,
     this.onTap,
+    this.color,
   });
 
   @override
   Widget build(BuildContext context) {
     final card = Card(
       margin: margin,
+      color: color,
       child: Padding(padding: padding ?? EdgeInsets.zero, child: child),
     );
 

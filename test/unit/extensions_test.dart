@@ -57,7 +57,7 @@ void main() {
 
     group('isNullOrEmpty (nullable)', () {
       test('returns true for null', () {
-        String? value = null;
+        String? value;
         expect(value.isNullOrEmpty, isTrue);
       });
 
@@ -81,7 +81,7 @@ void main() {
   group('ColorExtensions', () {
     group('toHex', () {
       test('converts Color to hex string with hash', () {
-        const color = Color(0xFFFF4F46E5);
+        const color = Color(0xFF4F46E5);
         expect(color.toHex(), equals('#FF4F46E5'));
       });
 
@@ -102,12 +102,12 @@ void main() {
     group('toColor (String extension)', () {
       test('parses 8-char hex string with hash', () {
         final color = '#FF4F46E5'.toColor();
-        expect(color, equals(const Color(0xFFFF4F46E5)));
+        expect(color, equals(const Color(0xFF4F46E5)));
       });
 
       test('parses 8-char hex string without hash', () {
         final color = 'FF4F46E5'.toColor();
-        expect(color, equals(const Color(0xFFFF4F46E5)));
+        expect(color, equals(const Color(0xFF4F46E5)));
       });
 
       test('parses 6-char hex string (adds ff prefix)', () {

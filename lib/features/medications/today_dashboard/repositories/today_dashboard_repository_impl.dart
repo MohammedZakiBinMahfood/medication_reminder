@@ -151,6 +151,10 @@ class TodayDashboardRepositoryImpl implements TodayDashboardRepository {
             remainingTimeText: remainingText,
             stockQuantity: medication.stockQuantity,
             reorderThreshold: medication.reorderThreshold,
+            foodInstruction: MedicationMapper.foodInstructionFromInt(
+              medication.foodInstruction,
+            ),
+            imagePath: medication.imagePath,
           ),
         );
       }

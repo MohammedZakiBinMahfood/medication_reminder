@@ -17,6 +17,7 @@ class MedicationEditModelMapper extends ClassMapperBase<MedicationEditModel> {
       MapperContainer.globals.use(_instance = MedicationEditModelMapper._());
       MedicationPriorityMapper.ensureInitialized();
       RepeatTypeMapper.ensureInitialized();
+      FoodInstructionMapper.ensureInitialized();
     }
     return _instance!;
   }
@@ -100,6 +101,21 @@ class MedicationEditModelMapper extends ClassMapperBase<MedicationEditModel> {
     _$reorderThreshold,
     opt: true,
   );
+  static FoodInstruction _$foodInstruction(MedicationEditModel v) =>
+      v.foodInstruction;
+  static const Field<MedicationEditModel, FoodInstruction> _f$foodInstruction =
+      Field(
+        'foodInstruction',
+        _$foodInstruction,
+        opt: true,
+        def: FoodInstruction.none,
+      );
+  static String? _$imagePath(MedicationEditModel v) => v.imagePath;
+  static const Field<MedicationEditModel, String> _f$imagePath = Field(
+    'imagePath',
+    _$imagePath,
+    opt: true,
+  );
 
   @override
   final MappableFields<MedicationEditModel> fields = const {
@@ -118,6 +134,8 @@ class MedicationEditModelMapper extends ClassMapperBase<MedicationEditModel> {
     #isActive: _f$isActive,
     #stockQuantity: _f$stockQuantity,
     #reorderThreshold: _f$reorderThreshold,
+    #foodInstruction: _f$foodInstruction,
+    #imagePath: _f$imagePath,
   };
 
   static MedicationEditModel _instantiate(DecodingData data) {
@@ -137,6 +155,8 @@ class MedicationEditModelMapper extends ClassMapperBase<MedicationEditModel> {
       isActive: data.dec(_f$isActive),
       stockQuantity: data.dec(_f$stockQuantity),
       reorderThreshold: data.dec(_f$reorderThreshold),
+      foodInstruction: data.dec(_f$foodInstruction),
+      imagePath: data.dec(_f$imagePath),
     );
   }
 
@@ -227,6 +247,8 @@ abstract class MedicationEditModelCopyWith<
     bool? isActive,
     int? stockQuantity,
     int? reorderThreshold,
+    FoodInstruction? foodInstruction,
+    String? imagePath,
   });
   MedicationEditModelCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
     Then<$Out2, $R2> t,
@@ -265,6 +287,8 @@ class _MedicationEditModelCopyWithImpl<$R, $Out>
     bool? isActive,
     Object? stockQuantity = $none,
     Object? reorderThreshold = $none,
+    FoodInstruction? foodInstruction,
+    Object? imagePath = $none,
   }) => $apply(
     FieldCopyWithData({
       if (id != null) #id: id,
@@ -283,6 +307,8 @@ class _MedicationEditModelCopyWithImpl<$R, $Out>
       if (isActive != null) #isActive: isActive,
       if (stockQuantity != $none) #stockQuantity: stockQuantity,
       if (reorderThreshold != $none) #reorderThreshold: reorderThreshold,
+      if (foodInstruction != null) #foodInstruction: foodInstruction,
+      if (imagePath != $none) #imagePath: imagePath,
     }),
   );
   @override
@@ -305,6 +331,8 @@ class _MedicationEditModelCopyWithImpl<$R, $Out>
     isActive: data.get(#isActive, or: $value.isActive),
     stockQuantity: data.get(#stockQuantity, or: $value.stockQuantity),
     reorderThreshold: data.get(#reorderThreshold, or: $value.reorderThreshold),
+    foodInstruction: data.get(#foodInstruction, or: $value.foodInstruction),
+    imagePath: data.get(#imagePath, or: $value.imagePath),
   );
 
   @override

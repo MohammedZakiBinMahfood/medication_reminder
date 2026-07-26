@@ -2126,11 +2126,305 @@ abstract class AppLocalizations {
   /// **'Dose Logs'**
   String get backupDoseLogsCount;
 
+  /// No description provided for @medicationStockTrackingOptional.
+  ///
+  /// In en, this message translates to:
+  /// **'Stock Tracking (Optional)'**
+  String get medicationStockTrackingOptional;
+
+  /// No description provided for @medicationStockQuantity.
+  ///
+  /// In en, this message translates to:
+  /// **'Stock Quantity'**
+  String get medicationStockQuantity;
+
+  /// No description provided for @medicationStockQuantityHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g., 30'**
+  String get medicationStockQuantityHint;
+
+  /// No description provided for @medicationStockThreshold.
+  ///
+  /// In en, this message translates to:
+  /// **'Low Stock Alert'**
+  String get medicationStockThreshold;
+
+  /// No description provided for @medicationStockThresholdHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g., 5'**
+  String get medicationStockThresholdHint;
+
+  /// No description provided for @settingsProfileCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 profile} other{{count} profiles}}'**
+  String settingsProfileCount(num count);
+
+  /// No description provided for @settingsProfileActive.
+  ///
+  /// In en, this message translates to:
+  /// **'{activeName} · {count, plural, =1{1 profile} other{{count} profiles}}'**
+  String settingsProfileActive(Object activeName, num count);
+
+  /// No description provided for @profileNameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g., Mom, Dad, Child'**
+  String get profileNameHint;
+
+  /// No description provided for @profileDeleteDialogTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Profile'**
+  String get profileDeleteDialogTitle;
+
+  /// No description provided for @profileAddTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Profile'**
+  String get profileAddTitle;
+
+  /// No description provided for @profileEditTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Profile'**
+  String get profileEditTitle;
+
+  /// No description provided for @profileNameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get profileNameLabel;
+
+  /// No description provided for @profileColorLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Color'**
+  String get profileColorLabel;
+
+  /// No description provided for @profileIconLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Icon'**
+  String get profileIconLabel;
+
+  /// No description provided for @profileDeleteConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete \"{name}\"? All medications in this profile will be permanently removed.'**
+  String profileDeleteConfirm(Object name);
+
+  /// No description provided for @settingsSystemHealthSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Check app health status'**
+  String get settingsSystemHealthSubtitle;
+
+  /// No description provided for @systemHealthChecksSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Health Checks'**
+  String get systemHealthChecksSection;
+
+  /// No description provided for @historyDays.
+  ///
+  /// In en, this message translates to:
+  /// **'days'**
+  String get historyDays;
+
+  /// No description provided for @wizardStepProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Step {current} of {total}'**
+  String wizardStepProgress(Object current, Object total);
+
+  /// No description provided for @notificationActionTaken.
+  ///
+  /// In en, this message translates to:
+  /// **'Taken'**
+  String get notificationActionTaken;
+
+  /// No description provided for @notificationActionSnooze15.
+  ///
+  /// In en, this message translates to:
+  /// **'Snooze 15 min'**
+  String get notificationActionSnooze15;
+
+  /// No description provided for @notificationTitleCritical.
+  ///
+  /// In en, this message translates to:
+  /// **'⚠️ Critical Medication Reminder'**
+  String get notificationTitleCritical;
+
+  /// No description provided for @notificationTitleRegular.
+  ///
+  /// In en, this message translates to:
+  /// **'Medication Reminder'**
+  String get notificationTitleRegular;
+
+  /// No description provided for @notificationBodyCritical.
+  ///
+  /// In en, this message translates to:
+  /// **'It is time to take your critical medication now, please do not delay.'**
+  String get notificationBodyCritical;
+
+  /// No description provided for @notificationBodyRegular.
+  ///
+  /// In en, this message translates to:
+  /// **'It is time to take your medication.'**
+  String get notificationBodyRegular;
+
+  /// No description provided for @homeWidgetNoDosesRemaining.
+  ///
+  /// In en, this message translates to:
+  /// **'No doses remaining today'**
+  String get homeWidgetNoDosesRemaining;
+
   /// No description provided for @backupIncludesSettings.
   ///
   /// In en, this message translates to:
   /// **'Includes settings'**
   String get backupIncludesSettings;
+
+  /// No description provided for @foodInstructionLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Food Instructions'**
+  String get foodInstructionLabel;
+
+  /// No description provided for @foodInstructionNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No specific instructions'**
+  String get foodInstructionNone;
+
+  /// No description provided for @foodInstructionBeforeMeal.
+  ///
+  /// In en, this message translates to:
+  /// **'Before meals'**
+  String get foodInstructionBeforeMeal;
+
+  /// No description provided for @foodInstructionWithMeal.
+  ///
+  /// In en, this message translates to:
+  /// **'With food'**
+  String get foodInstructionWithMeal;
+
+  /// No description provided for @foodInstructionAfterMeal.
+  ///
+  /// In en, this message translates to:
+  /// **'After food'**
+  String get foodInstructionAfterMeal;
+
+  /// No description provided for @foodInstructionOnEmptyStomach.
+  ///
+  /// In en, this message translates to:
+  /// **'On empty stomach'**
+  String get foodInstructionOnEmptyStomach;
+
+  /// No description provided for @foodInstructionBeforeBed.
+  ///
+  /// In en, this message translates to:
+  /// **'Before bed'**
+  String get foodInstructionBeforeBed;
+
+  /// No description provided for @medicationPhotoLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Medication Photo (Optional)'**
+  String get medicationPhotoLabel;
+
+  /// No description provided for @medicationPhotoAdd.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Photo'**
+  String get medicationPhotoAdd;
+
+  /// No description provided for @medicationPhotoRemove.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove Photo'**
+  String get medicationPhotoRemove;
+
+  /// No description provided for @refillAlertTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Stock Refill Alert'**
+  String get refillAlertTitle;
+
+  /// No description provided for @refillAlertMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Low stock: {name} has only {count} doses left!'**
+  String refillAlertMessage(Object count, Object name);
+
+  /// No description provided for @accentThemeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Accent Color'**
+  String get accentThemeLabel;
+
+  /// No description provided for @accentIndigo.
+  ///
+  /// In en, this message translates to:
+  /// **'Indigo'**
+  String get accentIndigo;
+
+  /// No description provided for @accentEmerald.
+  ///
+  /// In en, this message translates to:
+  /// **'Emerald Green'**
+  String get accentEmerald;
+
+  /// No description provided for @accentOcean.
+  ///
+  /// In en, this message translates to:
+  /// **'Ocean Blue'**
+  String get accentOcean;
+
+  /// No description provided for @accentSunset.
+  ///
+  /// In en, this message translates to:
+  /// **'Sunset Orange'**
+  String get accentSunset;
+
+  /// No description provided for @accentViolet.
+  ///
+  /// In en, this message translates to:
+  /// **'Royal Violet'**
+  String get accentViolet;
+
+  /// No description provided for @medicationBasicInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Basic Information'**
+  String get medicationBasicInfo;
+
+  /// No description provided for @medicationScheduleHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Schedule & Timing'**
+  String get medicationScheduleHeading;
+
+  /// No description provided for @medicationStockAndPhotoHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Stock & Photo'**
+  String get medicationStockAndPhotoHeading;
+
+  /// No description provided for @celebrationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'All Doses Completed! 🎉'**
+  String get celebrationTitle;
+
+  /// No description provided for @celebrationSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Great job maintaining your medication schedule today.'**
+  String get celebrationSubtitle;
 }
 
 class _AppLocalizationsDelegate

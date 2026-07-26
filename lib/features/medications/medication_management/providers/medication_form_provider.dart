@@ -1,4 +1,5 @@
 import 'package:app_platform_state/state.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/models.dart';
 import 'medication_state_notifier.dart';
@@ -68,5 +69,10 @@ class MedicationFormNotifier extends ValidationController<MedicationFormField> {
   void validateDosage() => validate(MedicationFormField.dosage);
   void validateStartDate() => validate(MedicationFormField.startDate);
   void validateEndDate() => validate(MedicationFormField.endDate);
-  bool validateForm() => validateAll();
+  bool validateForm() {
+    debugPrint('🔴 [FORM] validateForm called');
+    final result = validateAll();
+    debugPrint('🔴 [FORM] validateAll result: $result');
+    return result;
+  }
 }

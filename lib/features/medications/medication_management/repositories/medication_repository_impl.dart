@@ -1,4 +1,5 @@
 import 'package:app_platform_core/core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:isar_community/isar.dart';
 import '../../../../core/services/uuid_service.dart';
 import '../../../../core/constants/enums.dart';
@@ -20,9 +21,12 @@ class MedicationRepositoryImpl implements MedicationRepository {
   Future<Result<MedicationModel>> createMedication(
     MedicationAddModel model,
   ) async {
+    debugPrint('🔴 [REPO] createMedication called');
+    debugPrint('🔴 [REPO] model: name=${model.name}, dosage=${model.dosage}, profileUuid=${model.profileUuid}');
     try {
       final uuid = UuidService.generate();
       final now = DateTime.now();
+      debugPrint('🔴 [REPO] generated uuid=$uuid');
 
       final medication = MedicationMapper.fromAddModel(
         uuid: uuid,
@@ -34,8 +38,11 @@ class MedicationRepositoryImpl implements MedicationRepository {
         isActive: model.isActive,
         stockQuantity: model.stockQuantity,
         reorderThreshold: model.reorderThreshold,
+        foodInstruction: model.foodInstruction,
+        imagePath: model.imagePath,
         now: now,
       );
+      debugPrint('🔴 [REPO] medication collection created');
 
       final scheduleUuid = UuidService.generate();
       final schedule = MedicationScheduleMapper.fromAddModel(
@@ -50,14 +57,23 @@ class MedicationRepositoryImpl implements MedicationRepository {
         endDate: model.endDate,
         now: now,
       );
+      debugPrint('🔴 [REPO] schedule collection created');
 
+      debugPrint('🔴 [REPO] writing to Isar...');
       await isar.writeTxn(() async {
         await isar.medicationCollections.put(medication);
+        debugPrint('🔴 [REPO] medication put to Isar');
         await isar.medicationScheduleCollections.put(schedule);
+        debugPrint('🔴 [REPO] schedule put to Isar');
       });
+      debugPrint('🔴 [REPO] Isar writeTxn completed');
 
-      return Success(MedicationMapper.toDomain(medication));
-    } catch (e) {
+      final domain = MedicationMapper.toDomain(medication);
+      debugPrint('🔴 [REPO] returning Success with uuid=${domain.uuid}');
+      return Success(domain);
+    } catch (e, stackTrace) {
+      debugPrint('🔴 [REPO] EXCEPTION: $e');
+      debugPrint('🔴 [REPO] StackTrace: $stackTrace');
       return Failure(UnknownError(e.toString()));
     }
   }
@@ -89,6 +105,8 @@ class MedicationRepositoryImpl implements MedicationRepository {
           isActive: model.isActive,
           stockQuantity: model.stockQuantity,
           reorderThreshold: model.reorderThreshold,
+          foodInstruction: model.foodInstruction,
+          imagePath: model.imagePath,
           createdAt: existing.createdAt,
           updatedAt: now,
         ),
@@ -242,6 +260,8 @@ class MedicationRepositoryImpl implements MedicationRepository {
         isActive: state.isActive,
         stockQuantity: state.stockQuantity,
         reorderThreshold: state.reorderThreshold,
+        foodInstruction: state.foodInstruction,
+        imagePath: state.imagePath,
       );
       return updateMedication(editModel);
     } else {
@@ -260,6 +280,8 @@ class MedicationRepositoryImpl implements MedicationRepository {
         isActive: state.isActive,
         stockQuantity: state.stockQuantity,
         reorderThreshold: state.reorderThreshold,
+        foodInstruction: state.foodInstruction,
+        imagePath: state.imagePath,
       );
       return createMedication(addModel);
     }
@@ -331,8 +353,11 @@ class MedicationRepositoryImpl implements MedicationRepository {
       var filterQuery = isar.medicationCollections
           .where()
           .filter()
-          .profileUuidEqualTo(profileUuid)
           .isDeletedEqualTo(false);
+
+      if (filters?.includeAllProfiles != true) {
+        filterQuery = filterQuery.profileUuidEqualTo(profileUuid);
+      }
 
       if (filters != null) {
         if (filters.searchQuery != null && filters.searchQuery!.isNotEmpty) {

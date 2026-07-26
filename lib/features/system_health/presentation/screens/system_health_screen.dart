@@ -37,7 +37,7 @@ class _SystemHealthScreenState extends ConsumerState<SystemHealthScreen> {
 
     return CScaffold(
       appBar: CAppBar(
-        title: 'System Health',
+        title: l10n.healthSystemHealthTitle,
         centerTitle: true,
       ),
       body: _buildBody(state, l10n),
@@ -51,7 +51,7 @@ class _SystemHealthScreenState extends ConsumerState<SystemHealthScreen> {
 
     if (state.status == LoadStatus.error) {
       return CErrorView(
-        errorMessage: state.error?.errorMessage ?? 'Failed to load system health',
+        errorMessage: state.error?.errorMessage ?? l10n.healthApplicationError,
         onRetry: () => ref.read(systemHealthProvider.notifier).loadAll(),
       );
     }
@@ -59,7 +59,7 @@ class _SystemHealthScreenState extends ConsumerState<SystemHealthScreen> {
     final data = state.data;
     if (data == null) {
       return CErrorView(
-        errorMessage: 'No health data available',
+        errorMessage: l10n.healthApplicationError,
         onRetry: () => ref.read(systemHealthProvider.notifier).loadAll(),
       );
     }
@@ -91,7 +91,7 @@ class _SystemHealthScreenState extends ConsumerState<SystemHealthScreen> {
             },
           ),
           const SizedBox(height: AppSpacing.m),
-          _SectionHeader(title: 'Health Checks'),
+          _SectionHeader(title: l10n.systemHealthChecksSection),
           ...data.checks.map((check) => HealthCheckTile(
             check: check,
             title: _checkTitle(check.type, l10n),

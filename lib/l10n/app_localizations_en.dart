@@ -1112,5 +1112,176 @@ class AppLocalizationsEn extends AppLocalizations {
   String get backupDoseLogsCount => 'Dose Logs';
 
   @override
+  String get medicationStockTrackingOptional => 'Stock Tracking (Optional)';
+
+  @override
+  String get medicationStockQuantity => 'Stock Quantity';
+
+  @override
+  String get medicationStockQuantityHint => 'e.g., 30';
+
+  @override
+  String get medicationStockThreshold => 'Low Stock Alert';
+
+  @override
+  String get medicationStockThresholdHint => 'e.g., 5';
+
+  @override
+  String settingsProfileCount(num count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count profiles',
+      one: '1 profile',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String settingsProfileActive(Object activeName, num count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count profiles',
+      one: '1 profile',
+    );
+    return '$activeName · $_temp0';
+  }
+
+  @override
+  String get profileNameHint => 'e.g., Mom, Dad, Child';
+
+  @override
+  String get profileDeleteDialogTitle => 'Delete Profile';
+
+  @override
+  String get profileAddTitle => 'Add Profile';
+
+  @override
+  String get profileEditTitle => 'Edit Profile';
+
+  @override
+  String get profileNameLabel => 'Name';
+
+  @override
+  String get profileColorLabel => 'Color';
+
+  @override
+  String get profileIconLabel => 'Icon';
+
+  @override
+  String profileDeleteConfirm(Object name) {
+    return 'Are you sure you want to delete \"$name\"? All medications in this profile will be permanently removed.';
+  }
+
+  @override
+  String get settingsSystemHealthSubtitle => 'Check app health status';
+
+  @override
+  String get systemHealthChecksSection => 'Health Checks';
+
+  @override
+  String get historyDays => 'days';
+
+  @override
+  String wizardStepProgress(Object current, Object total) {
+    return 'Step $current of $total';
+  }
+
+  @override
+  String get notificationActionTaken => 'Taken';
+
+  @override
+  String get notificationActionSnooze15 => 'Snooze 15 min';
+
+  @override
+  String get notificationTitleCritical => '⚠️ Critical Medication Reminder';
+
+  @override
+  String get notificationTitleRegular => 'Medication Reminder';
+
+  @override
+  String get notificationBodyCritical =>
+      'It is time to take your critical medication now, please do not delay.';
+
+  @override
+  String get notificationBodyRegular => 'It is time to take your medication.';
+
+  @override
+  String get homeWidgetNoDosesRemaining => 'No doses remaining today';
+
+  @override
   String get backupIncludesSettings => 'Includes settings';
+
+  @override
+  String get foodInstructionLabel => 'Food Instructions';
+
+  @override
+  String get foodInstructionNone => 'No specific instructions';
+
+  @override
+  String get foodInstructionBeforeMeal => 'Before meals';
+
+  @override
+  String get foodInstructionWithMeal => 'With food';
+
+  @override
+  String get foodInstructionAfterMeal => 'After food';
+
+  @override
+  String get foodInstructionOnEmptyStomach => 'On empty stomach';
+
+  @override
+  String get foodInstructionBeforeBed => 'Before bed';
+
+  @override
+  String get medicationPhotoLabel => 'Medication Photo (Optional)';
+
+  @override
+  String get medicationPhotoAdd => 'Add Photo';
+
+  @override
+  String get medicationPhotoRemove => 'Remove Photo';
+
+  @override
+  String get refillAlertTitle => 'Stock Refill Alert';
+
+  @override
+  String refillAlertMessage(Object count, Object name) {
+    return 'Low stock: $name has only $count doses left!';
+  }
+
+  @override
+  String get accentThemeLabel => 'Accent Color';
+
+  @override
+  String get accentIndigo => 'Indigo';
+
+  @override
+  String get accentEmerald => 'Emerald Green';
+
+  @override
+  String get accentOcean => 'Ocean Blue';
+
+  @override
+  String get accentSunset => 'Sunset Orange';
+
+  @override
+  String get accentViolet => 'Royal Violet';
+
+  @override
+  String get medicationBasicInfo => 'Basic Information';
+
+  @override
+  String get medicationScheduleHeading => 'Schedule & Timing';
+
+  @override
+  String get medicationStockAndPhotoHeading => 'Stock & Photo';
+
+  @override
+  String get celebrationTitle => 'All Doses Completed! 🎉';
+
+  @override
+  String get celebrationSubtitle =>
+      'Great job maintaining your medication schedule today.';
 }

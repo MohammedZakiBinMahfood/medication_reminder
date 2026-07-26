@@ -71,7 +71,7 @@ void main() {
     registerFallbackValue(_defaultSettings());
   });
 
-  ProviderContainer _createContainer({bool loadImmediately = true}) {
+  ProviderContainer createContainer({bool loadImmediately = true}) {
     if (loadImmediately) {
       when(
         () => mockRepo.loadSettings(),
@@ -84,7 +84,7 @@ void main() {
 
   group('SettingsNotifier', () {
     test('loads settings successfully', () async {
-      final container = _createContainer();
+      final container = createContainer();
       addTearDown(container.dispose);
 
       final state = await _waitForState(container);
@@ -98,7 +98,7 @@ void main() {
         () => mockRepo.loadSettings(),
       ).thenAnswer((_) async => Failure(UnknownError('Load failed')));
 
-      final container = _createContainer(loadImmediately: false);
+      final container = createContainer(loadImmediately: false);
       addTearDown(container.dispose);
 
       final state = await _waitForState(container, expectSuccess: false);
@@ -106,7 +106,7 @@ void main() {
     });
 
     test('updateLanguage performs optimistic update', () async {
-      final container = _createContainer();
+      final container = createContainer();
       addTearDown(container.dispose);
 
       await _waitForState(container);
@@ -123,7 +123,7 @@ void main() {
     });
 
     test('updateLanguage rolls back on failure', () async {
-      final container = _createContainer();
+      final container = createContainer();
       addTearDown(container.dispose);
 
       await _waitForState(container);
@@ -139,7 +139,7 @@ void main() {
     });
 
     test('updateThemeMode performs optimistic update', () async {
-      final container = _createContainer();
+      final container = createContainer();
       addTearDown(container.dispose);
 
       await _waitForState(container);
@@ -157,7 +157,7 @@ void main() {
     });
 
     test('updateNotificationsEnabled', () async {
-      final container = _createContainer();
+      final container = createContainer();
       addTearDown(container.dispose);
 
       await _waitForState(container);
@@ -175,7 +175,7 @@ void main() {
     });
 
     test('updateDefaultSnoozeMinutes', () async {
-      final container = _createContainer();
+      final container = createContainer();
       addTearDown(container.dispose);
 
       await _waitForState(container);
@@ -193,7 +193,7 @@ void main() {
     });
 
     test('updateAutoBackupEnabled', () async {
-      final container = _createContainer();
+      final container = createContainer();
       addTearDown(container.dispose);
 
       await _waitForState(container);
@@ -211,7 +211,7 @@ void main() {
     });
 
     test('resetToDefaults reloads settings', () async {
-      final container = _createContainer();
+      final container = createContainer();
       addTearDown(container.dispose);
 
       await _waitForState(container);

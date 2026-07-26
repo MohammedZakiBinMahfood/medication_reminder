@@ -18,89 +18,94 @@ const SettingsCollectionSchema = CollectionSchema(
   name: r'SettingsCollection',
   id: 1768772991470096974,
   properties: {
-    r'appVersion': PropertySchema(
+    r'accentColor': PropertySchema(
       id: 0,
+      name: r'accentColor',
+      type: IsarType.long,
+    ),
+    r'appVersion': PropertySchema(
+      id: 1,
       name: r'appVersion',
       type: IsarType.string,
     ),
     r'autoBackupEnabled': PropertySchema(
-      id: 1,
+      id: 2,
       name: r'autoBackupEnabled',
       type: IsarType.bool,
     ),
     r'buildNumber': PropertySchema(
-      id: 2,
+      id: 3,
       name: r'buildNumber',
       type: IsarType.string,
     ),
     r'createdAt': PropertySchema(
-      id: 3,
+      id: 4,
       name: r'createdAt',
       type: IsarType.dateTime,
     ),
     r'defaultHistoryFilter': PropertySchema(
-      id: 4,
+      id: 5,
       name: r'defaultHistoryFilter',
       type: IsarType.long,
     ),
     r'defaultHistoryGrouping': PropertySchema(
-      id: 5,
+      id: 6,
       name: r'defaultHistoryGrouping',
       type: IsarType.long,
     ),
     r'defaultSnoozeMinutes': PropertySchema(
-      id: 6,
+      id: 7,
       name: r'defaultSnoozeMinutes',
       type: IsarType.long,
     ),
     r'firstDayOfWeek': PropertySchema(
-      id: 7,
+      id: 8,
       name: r'firstDayOfWeek',
       type: IsarType.long,
     ),
     r'isDeleted': PropertySchema(
-      id: 8,
+      id: 9,
       name: r'isDeleted',
       type: IsarType.bool,
     ),
     r'language': PropertySchema(
-      id: 9,
+      id: 10,
       name: r'language',
       type: IsarType.string,
     ),
     r'notificationSound': PropertySchema(
-      id: 10,
+      id: 11,
       name: r'notificationSound',
       type: IsarType.bool,
     ),
     r'notificationsEnabled': PropertySchema(
-      id: 11,
+      id: 12,
       name: r'notificationsEnabled',
       type: IsarType.bool,
     ),
     r'reminderBeforeMinutes': PropertySchema(
-      id: 12,
+      id: 13,
       name: r'reminderBeforeMinutes',
       type: IsarType.long,
     ),
     r'themeMode': PropertySchema(
-      id: 13,
+      id: 14,
       name: r'themeMode',
       type: IsarType.long,
     ),
     r'timeFormat24': PropertySchema(
-      id: 14,
+      id: 15,
       name: r'timeFormat24',
       type: IsarType.bool,
     ),
     r'updatedAt': PropertySchema(
-      id: 15,
+      id: 16,
       name: r'updatedAt',
       type: IsarType.dateTime,
     ),
-    r'uuid': PropertySchema(id: 16, name: r'uuid', type: IsarType.string),
+    r'uuid': PropertySchema(id: 17, name: r'uuid', type: IsarType.string),
     r'vibrationEnabled': PropertySchema(
-      id: 17,
+      id: 18,
       name: r'vibrationEnabled',
       type: IsarType.bool,
     ),
@@ -154,24 +159,25 @@ void _settingsCollectionSerialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeString(offsets[0], object.appVersion);
-  writer.writeBool(offsets[1], object.autoBackupEnabled);
-  writer.writeString(offsets[2], object.buildNumber);
-  writer.writeDateTime(offsets[3], object.createdAt);
-  writer.writeLong(offsets[4], object.defaultHistoryFilter);
-  writer.writeLong(offsets[5], object.defaultHistoryGrouping);
-  writer.writeLong(offsets[6], object.defaultSnoozeMinutes);
-  writer.writeLong(offsets[7], object.firstDayOfWeek);
-  writer.writeBool(offsets[8], object.isDeleted);
-  writer.writeString(offsets[9], object.language);
-  writer.writeBool(offsets[10], object.notificationSound);
-  writer.writeBool(offsets[11], object.notificationsEnabled);
-  writer.writeLong(offsets[12], object.reminderBeforeMinutes);
-  writer.writeLong(offsets[13], object.themeMode);
-  writer.writeBool(offsets[14], object.timeFormat24);
-  writer.writeDateTime(offsets[15], object.updatedAt);
-  writer.writeString(offsets[16], object.uuid);
-  writer.writeBool(offsets[17], object.vibrationEnabled);
+  writer.writeLong(offsets[0], object.accentColor);
+  writer.writeString(offsets[1], object.appVersion);
+  writer.writeBool(offsets[2], object.autoBackupEnabled);
+  writer.writeString(offsets[3], object.buildNumber);
+  writer.writeDateTime(offsets[4], object.createdAt);
+  writer.writeLong(offsets[5], object.defaultHistoryFilter);
+  writer.writeLong(offsets[6], object.defaultHistoryGrouping);
+  writer.writeLong(offsets[7], object.defaultSnoozeMinutes);
+  writer.writeLong(offsets[8], object.firstDayOfWeek);
+  writer.writeBool(offsets[9], object.isDeleted);
+  writer.writeString(offsets[10], object.language);
+  writer.writeBool(offsets[11], object.notificationSound);
+  writer.writeBool(offsets[12], object.notificationsEnabled);
+  writer.writeLong(offsets[13], object.reminderBeforeMinutes);
+  writer.writeLong(offsets[14], object.themeMode);
+  writer.writeBool(offsets[15], object.timeFormat24);
+  writer.writeDateTime(offsets[16], object.updatedAt);
+  writer.writeString(offsets[17], object.uuid);
+  writer.writeBool(offsets[18], object.vibrationEnabled);
 }
 
 SettingsCollection _settingsCollectionDeserialize(
@@ -181,25 +187,26 @@ SettingsCollection _settingsCollectionDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = SettingsCollection();
-  object.appVersion = reader.readString(offsets[0]);
-  object.autoBackupEnabled = reader.readBool(offsets[1]);
-  object.buildNumber = reader.readString(offsets[2]);
-  object.createdAt = reader.readDateTime(offsets[3]);
-  object.defaultHistoryFilter = reader.readLong(offsets[4]);
-  object.defaultHistoryGrouping = reader.readLong(offsets[5]);
-  object.defaultSnoozeMinutes = reader.readLong(offsets[6]);
-  object.firstDayOfWeek = reader.readLong(offsets[7]);
+  object.accentColor = reader.readLong(offsets[0]);
+  object.appVersion = reader.readString(offsets[1]);
+  object.autoBackupEnabled = reader.readBool(offsets[2]);
+  object.buildNumber = reader.readString(offsets[3]);
+  object.createdAt = reader.readDateTime(offsets[4]);
+  object.defaultHistoryFilter = reader.readLong(offsets[5]);
+  object.defaultHistoryGrouping = reader.readLong(offsets[6]);
+  object.defaultSnoozeMinutes = reader.readLong(offsets[7]);
+  object.firstDayOfWeek = reader.readLong(offsets[8]);
   object.id = id;
-  object.isDeleted = reader.readBool(offsets[8]);
-  object.language = reader.readString(offsets[9]);
-  object.notificationSound = reader.readBool(offsets[10]);
-  object.notificationsEnabled = reader.readBool(offsets[11]);
-  object.reminderBeforeMinutes = reader.readLong(offsets[12]);
-  object.themeMode = reader.readLong(offsets[13]);
-  object.timeFormat24 = reader.readBool(offsets[14]);
-  object.updatedAt = reader.readDateTime(offsets[15]);
-  object.uuid = reader.readString(offsets[16]);
-  object.vibrationEnabled = reader.readBool(offsets[17]);
+  object.isDeleted = reader.readBool(offsets[9]);
+  object.language = reader.readString(offsets[10]);
+  object.notificationSound = reader.readBool(offsets[11]);
+  object.notificationsEnabled = reader.readBool(offsets[12]);
+  object.reminderBeforeMinutes = reader.readLong(offsets[13]);
+  object.themeMode = reader.readLong(offsets[14]);
+  object.timeFormat24 = reader.readBool(offsets[15]);
+  object.updatedAt = reader.readDateTime(offsets[16]);
+  object.uuid = reader.readString(offsets[17]);
+  object.vibrationEnabled = reader.readBool(offsets[18]);
   return object;
 }
 
@@ -211,15 +218,15 @@ P _settingsCollectionDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (reader.readString(offset)) as P;
-    case 1:
-      return (reader.readBool(offset)) as P;
-    case 2:
-      return (reader.readString(offset)) as P;
-    case 3:
-      return (reader.readDateTime(offset)) as P;
-    case 4:
       return (reader.readLong(offset)) as P;
+    case 1:
+      return (reader.readString(offset)) as P;
+    case 2:
+      return (reader.readBool(offset)) as P;
+    case 3:
+      return (reader.readString(offset)) as P;
+    case 4:
+      return (reader.readDateTime(offset)) as P;
     case 5:
       return (reader.readLong(offset)) as P;
     case 6:
@@ -227,24 +234,26 @@ P _settingsCollectionDeserializeProp<P>(
     case 7:
       return (reader.readLong(offset)) as P;
     case 8:
-      return (reader.readBool(offset)) as P;
+      return (reader.readLong(offset)) as P;
     case 9:
-      return (reader.readString(offset)) as P;
-    case 10:
       return (reader.readBool(offset)) as P;
+    case 10:
+      return (reader.readString(offset)) as P;
     case 11:
       return (reader.readBool(offset)) as P;
     case 12:
-      return (reader.readLong(offset)) as P;
+      return (reader.readBool(offset)) as P;
     case 13:
       return (reader.readLong(offset)) as P;
     case 14:
-      return (reader.readBool(offset)) as P;
+      return (reader.readLong(offset)) as P;
     case 15:
-      return (reader.readDateTime(offset)) as P;
+      return (reader.readBool(offset)) as P;
     case 16:
-      return (reader.readString(offset)) as P;
+      return (reader.readDateTime(offset)) as P;
     case 17:
+      return (reader.readString(offset)) as P;
+    case 18:
       return (reader.readBool(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -459,6 +468,61 @@ extension SettingsCollectionQueryWhere
 
 extension SettingsCollectionQueryFilter
     on QueryBuilder<SettingsCollection, SettingsCollection, QFilterCondition> {
+  QueryBuilder<SettingsCollection, SettingsCollection, QAfterFilterCondition>
+  accentColorEqualTo(int value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'accentColor', value: value),
+      );
+    });
+  }
+
+  QueryBuilder<SettingsCollection, SettingsCollection, QAfterFilterCondition>
+  accentColorGreaterThan(int value, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'accentColor',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<SettingsCollection, SettingsCollection, QAfterFilterCondition>
+  accentColorLessThan(int value, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'accentColor',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<SettingsCollection, SettingsCollection, QAfterFilterCondition>
+  accentColorBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'accentColor',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+        ),
+      );
+    });
+  }
+
   QueryBuilder<SettingsCollection, SettingsCollection, QAfterFilterCondition>
   appVersionEqualTo(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -1597,6 +1661,20 @@ extension SettingsCollectionQueryLinks
 extension SettingsCollectionQuerySortBy
     on QueryBuilder<SettingsCollection, SettingsCollection, QSortBy> {
   QueryBuilder<SettingsCollection, SettingsCollection, QAfterSortBy>
+  sortByAccentColor() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'accentColor', Sort.asc);
+    });
+  }
+
+  QueryBuilder<SettingsCollection, SettingsCollection, QAfterSortBy>
+  sortByAccentColorDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'accentColor', Sort.desc);
+    });
+  }
+
+  QueryBuilder<SettingsCollection, SettingsCollection, QAfterSortBy>
   sortByAppVersion() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'appVersion', Sort.asc);
@@ -1851,6 +1929,20 @@ extension SettingsCollectionQuerySortBy
 
 extension SettingsCollectionQuerySortThenBy
     on QueryBuilder<SettingsCollection, SettingsCollection, QSortThenBy> {
+  QueryBuilder<SettingsCollection, SettingsCollection, QAfterSortBy>
+  thenByAccentColor() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'accentColor', Sort.asc);
+    });
+  }
+
+  QueryBuilder<SettingsCollection, SettingsCollection, QAfterSortBy>
+  thenByAccentColorDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'accentColor', Sort.desc);
+    });
+  }
+
   QueryBuilder<SettingsCollection, SettingsCollection, QAfterSortBy>
   thenByAppVersion() {
     return QueryBuilder.apply(this, (query) {
@@ -2121,6 +2213,13 @@ extension SettingsCollectionQuerySortThenBy
 extension SettingsCollectionQueryWhereDistinct
     on QueryBuilder<SettingsCollection, SettingsCollection, QDistinct> {
   QueryBuilder<SettingsCollection, SettingsCollection, QDistinct>
+  distinctByAccentColor() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'accentColor');
+    });
+  }
+
+  QueryBuilder<SettingsCollection, SettingsCollection, QDistinct>
   distinctByAppVersion({bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'appVersion', caseSensitive: caseSensitive);
@@ -2252,6 +2351,13 @@ extension SettingsCollectionQueryProperty
   QueryBuilder<SettingsCollection, int, QQueryOperations> idProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'id');
+    });
+  }
+
+  QueryBuilder<SettingsCollection, int, QQueryOperations>
+  accentColorProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'accentColor');
     });
   }
 

@@ -11,7 +11,7 @@ void main() {
     test('constants are correctly configured', () {
       expect(
         HomeWidgetSyncService.appGroupId,
-        equals('group.com.example.medication_reminder'),
+        equals('group.com.mohammedzaki.medication_reminder'),
       );
       expect(
         HomeWidgetSyncService.androidWidgetProvider,

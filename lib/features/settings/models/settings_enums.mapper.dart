@@ -166,3 +166,61 @@ extension AppHistoryGroupingMapperExtension on AppHistoryGrouping {
   }
 }
 
+class AppAccentColorMapper extends EnumMapper<AppAccentColor> {
+  AppAccentColorMapper._();
+
+  static AppAccentColorMapper? _instance;
+  static AppAccentColorMapper ensureInitialized() {
+    if (_instance == null) {
+      MapperContainer.globals.use(_instance = AppAccentColorMapper._());
+    }
+    return _instance!;
+  }
+
+  static AppAccentColor fromValue(dynamic value) {
+    ensureInitialized();
+    return MapperContainer.globals.fromValue(value);
+  }
+
+  @override
+  AppAccentColor decode(dynamic value) {
+    switch (value) {
+      case r'indigo':
+        return AppAccentColor.indigo;
+      case r'emerald':
+        return AppAccentColor.emerald;
+      case r'ocean':
+        return AppAccentColor.ocean;
+      case r'sunset':
+        return AppAccentColor.sunset;
+      case r'violet':
+        return AppAccentColor.violet;
+      default:
+        throw MapperException.unknownEnumValue(value);
+    }
+  }
+
+  @override
+  dynamic encode(AppAccentColor self) {
+    switch (self) {
+      case AppAccentColor.indigo:
+        return r'indigo';
+      case AppAccentColor.emerald:
+        return r'emerald';
+      case AppAccentColor.ocean:
+        return r'ocean';
+      case AppAccentColor.sunset:
+        return r'sunset';
+      case AppAccentColor.violet:
+        return r'violet';
+    }
+  }
+}
+
+extension AppAccentColorMapperExtension on AppAccentColor {
+  String toValue() {
+    AppAccentColorMapper.ensureInitialized();
+    return MapperContainer.globals.toValue<AppAccentColor>(this) as String;
+  }
+}
+

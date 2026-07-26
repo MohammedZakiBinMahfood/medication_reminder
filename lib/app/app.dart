@@ -31,10 +31,12 @@ class App extends ConsumerWidget {
       _ => const Locale('ar'),
     };
 
+    final accent = settings?.accentColor ?? AppAccentColor.indigo;
+
     return MaterialApp(
       title: 'Mudawy',
-      theme: AppTheme.lightTheme,
-      darkTheme: AppTheme.darkTheme,
+      theme: AppTheme.buildLightTheme(accent),
+      darkTheme: AppTheme.buildDarkTheme(accent),
       themeMode: themeMode,
       navigatorKey: CNavigator.navigatorKey,
       debugShowCheckedModeBanner: false,

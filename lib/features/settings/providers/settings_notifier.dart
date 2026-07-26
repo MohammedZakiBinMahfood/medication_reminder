@@ -68,6 +68,22 @@ class SettingsNotifier extends BaseNotifier<SettingsModel> {
     }
   }
 
+  Future<void> updateAccentColor(AppAccentColor color) async {
+    final current = state.data;
+    if (current == null) return;
+
+    final updated = current.copyWith(
+      accentColor: color,
+      updatedAt: DateTime.now(),
+    );
+    setSuccess(updated);
+
+    final result = await _repository.updateAccentColor(color);
+    if (result is Failure) {
+      setSuccess(current);
+    }
+  }
+
   Future<void> updateFirstDayOfWeek(int day) async {
     final current = state.data;
     if (current == null) return;

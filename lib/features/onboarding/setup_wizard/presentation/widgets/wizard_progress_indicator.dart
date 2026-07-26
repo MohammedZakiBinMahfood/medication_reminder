@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:medication_reminder/core/design_system/colors/app_colors.dart';
 import 'package:medication_reminder/core/design_system/spacing/app_spacing.dart';
 import 'package:medication_reminder/features/onboarding/setup_wizard/models/wizard_step.dart';
+import 'package:medication_reminder/l10n/app_localizations.dart';
 
 class WizardProgressIndicator extends StatelessWidget {
   final WizardStep currentStep;
@@ -10,11 +11,12 @@ class WizardProgressIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final totalSteps = WizardStep.completion.value;
     final currentIndex = currentStep.value;
 
     return Semantics(
-      label: 'Step ${currentIndex + 1} of ${totalSteps + 1}',
+      label: l10n.wizardStepProgress(currentIndex + 1, totalSteps + 1),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: List.generate(totalSteps + 1, (index) {

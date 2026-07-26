@@ -47,9 +47,9 @@ void main() {
     mockNotificationManager = MockNotificationManager();
   });
 
-  DashboardStateModel _emptyDashboardState() => DashboardStateModel.empty();
+  DashboardStateModel emptyDashboardState() => DashboardStateModel.empty();
 
-  DashboardStateModel _populatedDashboardState() {
+  DashboardStateModel populatedDashboardState() {
     return DashboardStateModel(
       sections: [
         DashboardSectionModel(
@@ -79,7 +79,7 @@ void main() {
     );
   }
 
-  List<Override> _baseOverrides() => [
+  List<Override> baseOverrides() => [
     todayDashboardRepositoryProvider.overrideWithValue(mockDashboardRepo),
     settingsRepositoryProvider.overrideWithValue(mockSettingsRepo),
     notificationManagerProvider.overrideWithValue(mockNotificationManager),
@@ -97,7 +97,7 @@ void main() {
 
       await tester.pumpWidget(
         WidgetTestHelper.wrapFullScreen(
-          overrides: _baseOverrides(),
+          overrides: baseOverrides(),
           child: const DashboardScreen(),
         ),
       );
@@ -112,11 +112,11 @@ void main() {
       ).thenAnswer((_) async => Success(TestFixtures.settings()));
       when(
         () => mockDashboardRepo.getTodayDashboard(filter: any(named: 'filter')),
-      ).thenAnswer((_) async => Success(_emptyDashboardState()));
+      ).thenAnswer((_) async => Success(emptyDashboardState()));
 
       await tester.pumpWidget(
         WidgetTestHelper.wrapFullScreen(
-          overrides: _baseOverrides(),
+          overrides: baseOverrides(),
           child: const DashboardScreen(),
         ),
       );
@@ -139,7 +139,7 @@ void main() {
 
       await tester.pumpWidget(
         WidgetTestHelper.wrapFullScreen(
-          overrides: _baseOverrides(),
+          overrides: baseOverrides(),
           child: const DashboardScreen(),
         ),
       );
@@ -159,11 +159,11 @@ void main() {
       ).thenAnswer((_) async => Success(TestFixtures.settings()));
       when(
         () => mockDashboardRepo.getTodayDashboard(filter: any(named: 'filter')),
-      ).thenAnswer((_) async => Success(_populatedDashboardState()));
+      ).thenAnswer((_) async => Success(populatedDashboardState()));
 
       await tester.pumpWidget(
         WidgetTestHelper.wrapFullScreen(
-          overrides: _baseOverrides(),
+          overrides: baseOverrides(),
           child: const DashboardScreen(),
         ),
       );
@@ -184,11 +184,11 @@ void main() {
       ).thenAnswer((_) async => Success(TestFixtures.settings()));
       when(
         () => mockDashboardRepo.getTodayDashboard(filter: any(named: 'filter')),
-      ).thenAnswer((_) async => Success(_emptyDashboardState()));
+      ).thenAnswer((_) async => Success(emptyDashboardState()));
 
       await tester.pumpWidget(
         WidgetTestHelper.wrapFullScreen(
-          overrides: _baseOverrides(),
+          overrides: baseOverrides(),
           child: const DashboardScreen(),
         ),
       );
@@ -208,11 +208,11 @@ void main() {
       ).thenAnswer((_) async => Success(TestFixtures.settings()));
       when(
         () => mockDashboardRepo.getTodayDashboard(filter: any(named: 'filter')),
-      ).thenAnswer((_) async => Success(_emptyDashboardState()));
+      ).thenAnswer((_) async => Success(emptyDashboardState()));
 
       await tester.pumpWidget(
         WidgetTestHelper.wrapFullScreen(
-          overrides: _baseOverrides(),
+          overrides: baseOverrides(),
           child: const DashboardScreen(),
         ),
       );

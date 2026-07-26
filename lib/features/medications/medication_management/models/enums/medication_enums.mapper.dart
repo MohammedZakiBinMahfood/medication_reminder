@@ -166,3 +166,65 @@ extension DoseStatusMapperExtension on DoseStatus {
   }
 }
 
+class FoodInstructionMapper extends EnumMapper<FoodInstruction> {
+  FoodInstructionMapper._();
+
+  static FoodInstructionMapper? _instance;
+  static FoodInstructionMapper ensureInitialized() {
+    if (_instance == null) {
+      MapperContainer.globals.use(_instance = FoodInstructionMapper._());
+    }
+    return _instance!;
+  }
+
+  static FoodInstruction fromValue(dynamic value) {
+    ensureInitialized();
+    return MapperContainer.globals.fromValue(value);
+  }
+
+  @override
+  FoodInstruction decode(dynamic value) {
+    switch (value) {
+      case r'none':
+        return FoodInstruction.none;
+      case r'beforeMeal':
+        return FoodInstruction.beforeMeal;
+      case r'withMeal':
+        return FoodInstruction.withMeal;
+      case r'afterMeal':
+        return FoodInstruction.afterMeal;
+      case r'onEmptyStomach':
+        return FoodInstruction.onEmptyStomach;
+      case r'beforeBed':
+        return FoodInstruction.beforeBed;
+      default:
+        throw MapperException.unknownEnumValue(value);
+    }
+  }
+
+  @override
+  dynamic encode(FoodInstruction self) {
+    switch (self) {
+      case FoodInstruction.none:
+        return r'none';
+      case FoodInstruction.beforeMeal:
+        return r'beforeMeal';
+      case FoodInstruction.withMeal:
+        return r'withMeal';
+      case FoodInstruction.afterMeal:
+        return r'afterMeal';
+      case FoodInstruction.onEmptyStomach:
+        return r'onEmptyStomach';
+      case FoodInstruction.beforeBed:
+        return r'beforeBed';
+    }
+  }
+}
+
+extension FoodInstructionMapperExtension on FoodInstruction {
+  String toValue() {
+    FoodInstructionMapper.ensureInitialized();
+    return MapperContainer.globals.toValue<FoodInstruction>(this) as String;
+  }
+}
+

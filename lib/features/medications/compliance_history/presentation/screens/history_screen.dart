@@ -26,24 +26,23 @@ class HistoryScreen extends ConsumerStatefulWidget {
 }
 
 class _HistoryScreenState extends ConsumerState<HistoryScreen>
-    with WidgetsBindingObserver, SingleTickerProviderStateMixin {
+    with WidgetsBindingObserver, TickerProviderStateMixin {
   final _scrollController = ScrollController();
-  late TabController _tabController;
+  TabController? _tabController;
+  int _previousProfileCount = 0;
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     _scrollController.addListener(_onScroll);
-    _tabController = TabController(length: 1, vsync: this);
-    _tabController.addListener(_onTabChanged);
   }
 
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
     _scrollController.dispose();
-    _tabController.dispose();
+    _tabController?.dispose();
     super.dispose();
   }
 
@@ -65,21 +64,35 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen>
   }
 
   void _onTabChanged() {
-    if (!_tabController.indexIsChanging) return;
+    if (_tabController == null || !_tabController!.indexIsChanging) return;
     final profiles = ref.read(allProfilesProvider).value ?? [];
     final currentFilter = ref.read(historyFilterProvider);
 
-    if (_tabController.index == 0) {
+    if (_tabController!.index == 0) {
       if (currentFilter.profileUuid != null) {
         ref.read(historyFilterProvider.notifier).setProfileFilter(null);
         ref.read(historyListProvider.notifier).refresh();
       }
     } else {
-      final profile = profiles[_tabController.index - 1];
+      final profile = profiles[_tabController!.index - 1];
       if (currentFilter.profileUuid != profile.uuid) {
         ref.read(historyFilterProvider.notifier).setProfileFilter(profile.uuid);
         ref.read(historyListProvider.notifier).refresh();
       }
+    }
+  }
+
+  void _syncTabController(List profiles) {
+    final tabCount = profiles.length + 1;
+    if (_previousProfileCount != tabCount) {
+      _previousProfileCount = tabCount;
+      final oldIndex = _tabController != null
+          ? _tabController!.index.clamp(0, _tabController!.length - 1)
+          : 0;
+      _tabController?.dispose();
+      _tabController = TabController(length: tabCount, vsync: this);
+      _tabController!.addListener(_onTabChanged);
+      _tabController!.index = oldIndex.clamp(0, tabCount - 1);
     }
   }
 
@@ -90,15 +103,7 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen>
     final profilesAsync = ref.watch(allProfilesProvider);
     final profiles = profilesAsync.value ?? [];
 
-    // Rebuild tab controller when profile count changes.
-    final tabCount = profiles.length + 1;
-    if (_tabController.length != tabCount) {
-      final oldIndex = _tabController.index.clamp(0, _tabController.length - 1);
-      _tabController.dispose();
-      _tabController = TabController(length: tabCount, vsync: this);
-      _tabController.addListener(_onTabChanged);
-      _tabController.index = oldIndex.clamp(0, tabCount - 1);
-    }
+    _syncTabController(profiles);
 
     return CScaffold(
       appBar: AppBar(
@@ -114,17 +119,19 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen>
             ),
           ),
         ],
-        bottom: TabBar(
-          controller: _tabController,
-          isScrollable: true,
-          labelColor: AppColors.primary,
-          unselectedLabelColor: AppColors.textSecondary,
-          indicatorColor: AppColors.primary,
-          tabs: [
-            const Tab(text: 'All'),
-            for (final p in profiles) Tab(text: p.name),
-          ],
-        ),
+        bottom: _tabController != null
+            ? TabBar(
+                controller: _tabController!,
+                isScrollable: true,
+                labelColor: AppColors.primary,
+                unselectedLabelColor: AppColors.textSecondary,
+                indicatorColor: AppColors.primary,
+                tabs: [
+                  const Tab(text: 'All'),
+                  for (final p in profiles) Tab(text: p.name),
+                ],
+              )
+            : null,
       ),
       body: _buildBody(state, l10n),
     );

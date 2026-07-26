@@ -28,6 +28,7 @@ import '../widgets/dashboard_summary_card.dart';
 import '../widgets/dashboard_section_header.dart';
 import '../widgets/dashboard_medication_card.dart';
 import '../widgets/dashboard_empty_view.dart';
+import '../widgets/completion_celebration_dialog.dart';
 import '../widgets/dashboard_filters.dart';
 import '../widgets/dashboard_floating_actions.dart';
 import '../widgets/welcome_card.dart';
@@ -152,7 +153,9 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen>
     return Column(
       children: [
         WelcomeCard(onExploreApp: _onExploreApp),
+        const SizedBox(height: AppSpacing.s),
         const NotificationHintCard(),
+        const SizedBox(height: AppSpacing.s),
         const ProfileSwitcher(),
         const DashboardHeader(),
         DashboardSummaryCard(summary: data.summary),
@@ -239,6 +242,9 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen>
   }
 
   void _markAsTaken(DashboardMedicationModel medication) {
+    final dashboardData = ref.read(dashboardListProvider).data;
+    final isLastDose = dashboardData != null && dashboardData.summary.upcoming <= 1;
+
     ref
         .read(dashboardActionProvider.notifier)
         .markAsTaken(
@@ -246,7 +252,27 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen>
           scheduleUuid: medication.scheduleUuid,
           scheduledAt: medication.scheduledTime,
         );
-    CSnackbar.success(context, AppLocalizations.of(context).doseTaken);
+
+    final l10n = AppLocalizations.of(context);
+    final remainingStock = (medication.stockQuantity ?? 0) - 1;
+    if (medication.stockQuantity != null &&
+        remainingStock <= (medication.reorderThreshold ?? 0)) {
+      CSnackbar.warning(
+        context,
+        l10n.refillAlertMessage(
+          medication.name,
+          remainingStock,
+        ),
+      );
+    } else {
+      CSnackbar.success(context, l10n.doseTaken);
+    }
+
+    if (isLastDose) {
+      Future.delayed(const Duration(milliseconds: 400), () {
+        if (mounted) CompletionCelebrationDialog.show(context);
+      });
+    }
   }
 
   void _markAsSkipped(DashboardMedicationModel medication) {

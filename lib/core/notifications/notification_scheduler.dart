@@ -248,11 +248,19 @@ class NotificationScheduler {
     required MedicationScheduleModel schedule,
     required int slotsRemaining,
     bool isCritical = false,
+    String languageCode = 'ar',
   }) async {
-    final title = isCritical ? '⚠️ تنبيه دواء حرج' : 'تذكير بموعد الدواء';
+    final isEn = languageCode == 'en';
+    final title = isCritical
+        ? (isEn ? '⚠️ Critical Medication Reminder' : '⚠️ تنبيه دواء حرج')
+        : (isEn ? 'Medication Reminder' : 'تذكير بموعد الدواء');
     final body = isCritical
-        ? 'حان وقت تناول دوائك الحرج الآن، نرجو عدم التأخير'
-        : 'حان وقت تناول الدواء';
+        ? (isEn
+            ? 'It is time to take your critical medication now, please do not delay.'
+            : 'حان وقت تناول دوائك الحرج الآن، نرجو عدم التأخير')
+        : (isEn
+            ? 'It is time to take your medication.'
+            : 'حان وقت تناول الدواء');
 
     final occurrences = _calculator.upcomingOccurrences(
       schedule,

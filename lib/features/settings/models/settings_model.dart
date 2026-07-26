@@ -10,6 +10,7 @@ class SettingsModel with SettingsModelMappable {
   // ── General ──
   final String language;
   final AppThemeMode themeMode;
+  final AppAccentColor accentColor;
   final int firstDayOfWeek;
   final bool timeFormat24;
 
@@ -39,6 +40,7 @@ class SettingsModel with SettingsModelMappable {
     required this.uuid,
     required this.language,
     required this.themeMode,
+    this.accentColor = AppAccentColor.indigo,
     required this.firstDayOfWeek,
     required this.timeFormat24,
     required this.notificationsEnabled,

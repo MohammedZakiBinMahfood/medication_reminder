@@ -14,6 +14,8 @@ class MedicationModel with MedicationModelMappable {
   final bool isActive;
   final int? stockQuantity;
   final int? reorderThreshold;
+  final FoodInstruction foodInstruction;
+  final String? imagePath;
   final DateTime createdAt;
   final DateTime updatedAt;
 
@@ -27,6 +29,8 @@ class MedicationModel with MedicationModelMappable {
     required this.isActive,
     this.stockQuantity,
     this.reorderThreshold,
+    this.foodInstruction = FoodInstruction.none,
+    this.imagePath,
     required this.createdAt,
     required this.updatedAt,
   });

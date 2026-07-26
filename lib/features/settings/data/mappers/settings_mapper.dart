@@ -11,6 +11,7 @@ class SettingsMapper {
       uuid: collection.uuid,
       language: collection.language,
       themeMode: _themeModeFromInt(collection.themeMode),
+      accentColor: _accentColorFromInt(collection.accentColor),
       firstDayOfWeek: collection.firstDayOfWeek,
       timeFormat24: collection.timeFormat24,
       notificationsEnabled: collection.notificationsEnabled,
@@ -41,6 +42,7 @@ class SettingsMapper {
       ..uuid = model.uuid
       ..language = model.language
       ..themeMode = model.themeMode.index
+      ..accentColor = model.accentColor.index
       ..firstDayOfWeek = model.firstDayOfWeek
       ..timeFormat24 = model.timeFormat24
       ..notificationsEnabled = model.notificationsEnabled
@@ -68,6 +70,7 @@ class SettingsMapper {
       ..uuid = uuid
       ..language = 'ar'
       ..themeMode = AppThemeMode.light.index
+      ..accentColor = AppAccentColor.indigo.index
       ..firstDayOfWeek =
           6 // Saturday (Islamic week)
       ..timeFormat24 = false
@@ -88,6 +91,13 @@ class SettingsMapper {
 
   static AppThemeMode _themeModeFromInt(int value) {
     return AppThemeMode.values[value.clamp(0, AppThemeMode.values.length - 1)];
+  }
+
+  static AppAccentColor _accentColorFromInt(int value) {
+    return AppAccentColor.values[value.clamp(
+      0,
+      AppAccentColor.values.length - 1,
+    )];
   }
 
   static AppHistoryFilter _historyFilterFromInt(int value) {

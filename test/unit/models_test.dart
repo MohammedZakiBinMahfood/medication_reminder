@@ -131,7 +131,8 @@ void main() {
         createdAt: DateTime(2026),
         updatedAt: DateTime(2026),
       );
-      expect(model.formattedTime, equals('08:00'));
+      expect(model.formatTime(isArabic: false), equals('08:00 AM'));
+      expect(model.formatTime(isArabic: true), equals('08:00 ص'));
     });
 
     test('formattedTime pads single digits', () {
@@ -147,7 +148,8 @@ void main() {
         createdAt: DateTime(2026),
         updatedAt: DateTime(2026),
       );
-      expect(model.formattedTime, equals('01:05'));
+      expect(model.formatTime(isArabic: false), equals('01:05 AM'));
+      expect(model.formatTime(isArabic: true), equals('01:05 ص'));
     });
 
     test('formattedTime at midnight', () {
@@ -163,7 +165,8 @@ void main() {
         createdAt: DateTime(2026),
         updatedAt: DateTime(2026),
       );
-      expect(model.formattedTime, equals('00:00'));
+      expect(model.formatTime(isArabic: false), equals('12:00 AM'));
+      expect(model.formatTime(isArabic: true), equals('12:00 ص'));
     });
 
     test('formattedTime at end of day', () {
@@ -179,7 +182,8 @@ void main() {
         createdAt: DateTime(2026),
         updatedAt: DateTime(2026),
       );
-      expect(model.formattedTime, equals('23:00'));
+      expect(model.formatTime(isArabic: false), equals('11:00 PM'));
+      expect(model.formatTime(isArabic: true), equals('11:00 م'));
     });
 
     test('copyWith creates modified copy', () {
@@ -337,7 +341,7 @@ void main() {
   group('MedicationScheduleListModel', () {
     test('formattedTime works correctly', () {
       final model = MedicationScheduleListModel(
-        id: 'id',
+        uuid: 'id',
         medicationUuid: 'med-id',
         minutesFromMidnight: 900,
         repeatType: RepeatType.daily,
@@ -345,7 +349,8 @@ void main() {
         interval: 1,
         startDate: DateTime(2026),
       );
-      expect(model.formattedTime, equals('15:00'));
+      expect(model.formatTime(isArabic: false), equals('03:00 PM'));
+      expect(model.formatTime(isArabic: true), equals('03:00 م'));
     });
   });
 

@@ -1,6 +1,11 @@
+import 'package:dart_mappable/dart_mappable.dart';
+import 'package:medication_reminder/core/utils/time_formatter.dart';
 import '../../medication_management/models/enums/medication_enums.dart';
 
-class HistoryItemModel {
+part 'history_item_model.mapper.dart';
+
+@MappableClass()
+class HistoryItemModel with HistoryItemModelMappable {
   final String doseLogUuid;
   final String medicationUuid;
   final String scheduleUuid;
@@ -33,16 +38,16 @@ class HistoryItemModel {
     return '$day/$month/${scheduledAt.year}';
   }
 
-  String get formattedTime {
-    final hours = scheduledAt.hour.toString().padLeft(2, '0');
-    final minutes = scheduledAt.minute.toString().padLeft(2, '0');
-    return '$hours:$minutes';
+  String formatTime({bool isArabic = true}) {
+    return AppTimeFormatter.formatDateTime(scheduledAt, isArabic: isArabic);
   }
 
-  String get formattedActionTime {
+  String get formattedTime => formatTime();
+
+  String formatActionTime({bool isArabic = true}) {
     if (actionAt == null) return '';
-    final hours = actionAt!.hour.toString().padLeft(2, '0');
-    final minutes = actionAt!.minute.toString().padLeft(2, '0');
-    return '$hours:$minutes';
+    return AppTimeFormatter.formatDateTime(actionAt!, isArabic: isArabic);
   }
+
+  String get formattedActionTime => formatActionTime();
 }

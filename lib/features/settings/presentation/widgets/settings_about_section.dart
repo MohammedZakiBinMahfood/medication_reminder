@@ -115,7 +115,7 @@ class SettingsAboutSection extends ConsumerWidget {
             child: ListTile(
               leading: const Icon(Icons.health_and_safety),
               title: Text(l10n.healthSystemHealthTitle),
-              subtitle: const Text('Check app health status'),
+              subtitle: Text(l10n.settingsSystemHealthSubtitle),
               trailing: const Icon(Icons.chevron_right),
               onTap: () => CNavigator.push(const SystemHealthScreen()),
             ),

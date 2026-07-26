@@ -19,6 +19,8 @@ class MedicationStateModel with MedicationStateModelMappable {
   final bool isActive;
   final int? stockQuantity;
   final int? reorderThreshold;
+  final FoodInstruction foodInstruction;
+  final String? imagePath;
 
   const MedicationStateModel({
     this.id,
@@ -35,6 +37,8 @@ class MedicationStateModel with MedicationStateModelMappable {
     this.isActive = true,
     this.stockQuantity,
     this.reorderThreshold,
+    this.foodInstruction = FoodInstruction.none,
+    this.imagePath,
   });
 
   factory MedicationStateModel.empty() {

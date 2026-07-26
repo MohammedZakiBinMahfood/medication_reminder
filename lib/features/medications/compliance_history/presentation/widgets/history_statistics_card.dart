@@ -220,9 +220,10 @@ class _StreakItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
     return Semantics(
-      label: '$label: $value days',
+      label: '$label: $value ${l10n.historyDays}',
       child: Container(
         padding: const EdgeInsets.all(AppSpacing.m),
         decoration: BoxDecoration(
@@ -231,15 +232,14 @@ class _StreakItem extends StatelessWidget {
         ),
         child: Row(
           children: [
-            Icon(icon, color: AppColors.primary, size: 24),
-            const SizedBox(width: AppSpacing.s),
+            Icon(icon, size: 28, color: AppColors.primary),
+            const SizedBox(width: AppSpacing.m),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    '$value days',
+                    '$value ${l10n.historyDays}',
                     style: theme.textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.w700,
                       color: AppColors.primary,

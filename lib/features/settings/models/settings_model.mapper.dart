@@ -16,6 +16,7 @@ class SettingsModelMapper extends ClassMapperBase<SettingsModel> {
     if (_instance == null) {
       MapperContainer.globals.use(_instance = SettingsModelMapper._());
       AppThemeModeMapper.ensureInitialized();
+      AppAccentColorMapper.ensureInitialized();
       AppHistoryFilterMapper.ensureInitialized();
       AppHistoryGroupingMapper.ensureInitialized();
     }
@@ -36,6 +37,13 @@ class SettingsModelMapper extends ClassMapperBase<SettingsModel> {
   static const Field<SettingsModel, AppThemeMode> _f$themeMode = Field(
     'themeMode',
     _$themeMode,
+  );
+  static AppAccentColor _$accentColor(SettingsModel v) => v.accentColor;
+  static const Field<SettingsModel, AppAccentColor> _f$accentColor = Field(
+    'accentColor',
+    _$accentColor,
+    opt: true,
+    def: AppAccentColor.indigo,
   );
   static int _$firstDayOfWeek(SettingsModel v) => v.firstDayOfWeek;
   static const Field<SettingsModel, int> _f$firstDayOfWeek = Field(
@@ -115,6 +123,7 @@ class SettingsModelMapper extends ClassMapperBase<SettingsModel> {
     #uuid: _f$uuid,
     #language: _f$language,
     #themeMode: _f$themeMode,
+    #accentColor: _f$accentColor,
     #firstDayOfWeek: _f$firstDayOfWeek,
     #timeFormat24: _f$timeFormat24,
     #notificationsEnabled: _f$notificationsEnabled,
@@ -136,6 +145,7 @@ class SettingsModelMapper extends ClassMapperBase<SettingsModel> {
       uuid: data.dec(_f$uuid),
       language: data.dec(_f$language),
       themeMode: data.dec(_f$themeMode),
+      accentColor: data.dec(_f$accentColor),
       firstDayOfWeek: data.dec(_f$firstDayOfWeek),
       timeFormat24: data.dec(_f$timeFormat24),
       notificationsEnabled: data.dec(_f$notificationsEnabled),
@@ -219,6 +229,7 @@ abstract class SettingsModelCopyWith<$R, $In extends SettingsModel, $Out>
     String? uuid,
     String? language,
     AppThemeMode? themeMode,
+    AppAccentColor? accentColor,
     int? firstDayOfWeek,
     bool? timeFormat24,
     bool? notificationsEnabled,
@@ -250,6 +261,7 @@ class _SettingsModelCopyWithImpl<$R, $Out>
     String? uuid,
     String? language,
     AppThemeMode? themeMode,
+    AppAccentColor? accentColor,
     int? firstDayOfWeek,
     bool? timeFormat24,
     bool? notificationsEnabled,
@@ -269,6 +281,7 @@ class _SettingsModelCopyWithImpl<$R, $Out>
       if (uuid != null) #uuid: uuid,
       if (language != null) #language: language,
       if (themeMode != null) #themeMode: themeMode,
+      if (accentColor != null) #accentColor: accentColor,
       if (firstDayOfWeek != null) #firstDayOfWeek: firstDayOfWeek,
       if (timeFormat24 != null) #timeFormat24: timeFormat24,
       if (notificationsEnabled != null)
@@ -295,6 +308,7 @@ class _SettingsModelCopyWithImpl<$R, $Out>
     uuid: data.get(#uuid, or: $value.uuid),
     language: data.get(#language, or: $value.language),
     themeMode: data.get(#themeMode, or: $value.themeMode),
+    accentColor: data.get(#accentColor, or: $value.accentColor),
     firstDayOfWeek: data.get(#firstDayOfWeek, or: $value.firstDayOfWeek),
     timeFormat24: data.get(#timeFormat24, or: $value.timeFormat24),
     notificationsEnabled: data.get(

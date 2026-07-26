@@ -26,10 +26,10 @@ class MedicationScheduleListModelMapper
   @override
   final String id = 'MedicationScheduleListModel';
 
-  static String _$id(MedicationScheduleListModel v) => v.id;
-  static const Field<MedicationScheduleListModel, String> _f$id = Field(
-    'id',
-    _$id,
+  static String _$uuid(MedicationScheduleListModel v) => v.uuid;
+  static const Field<MedicationScheduleListModel, String> _f$uuid = Field(
+    'uuid',
+    _$uuid,
   );
   static String _$medicationUuid(MedicationScheduleListModel v) =>
       v.medicationUuid;
@@ -62,7 +62,7 @@ class MedicationScheduleListModelMapper
 
   @override
   final MappableFields<MedicationScheduleListModel> fields = const {
-    #id: _f$id,
+    #uuid: _f$uuid,
     #medicationUuid: _f$medicationUuid,
     #minutesFromMidnight: _f$minutesFromMidnight,
     #repeatType: _f$repeatType,
@@ -74,7 +74,7 @@ class MedicationScheduleListModelMapper
 
   static MedicationScheduleListModel _instantiate(DecodingData data) {
     return MedicationScheduleListModel(
-      id: data.dec(_f$id),
+      uuid: data.dec(_f$uuid),
       medicationUuid: data.dec(_f$medicationUuid),
       minutesFromMidnight: data.dec(_f$minutesFromMidnight),
       repeatType: data.dec(_f$repeatType),
@@ -161,7 +161,7 @@ abstract class MedicationScheduleListModelCopyWith<
     implements ClassCopyWith<$R, $In, $Out> {
   ListCopyWith<$R, int, ObjectCopyWith<$R, int, int>> get weekdays;
   $R call({
-    String? id,
+    String? uuid,
     String? medicationUuid,
     int? minutesFromMidnight,
     RepeatType? repeatType,
@@ -201,7 +201,7 @@ class _MedicationScheduleListModelCopyWithImpl<$R, $Out>
       );
   @override
   $R call({
-    String? id,
+    String? uuid,
     String? medicationUuid,
     int? minutesFromMidnight,
     RepeatType? repeatType,
@@ -211,7 +211,7 @@ class _MedicationScheduleListModelCopyWithImpl<$R, $Out>
     Object? endDate = $none,
   }) => $apply(
     FieldCopyWithData({
-      if (id != null) #id: id,
+      if (uuid != null) #uuid: uuid,
       if (medicationUuid != null) #medicationUuid: medicationUuid,
       if (minutesFromMidnight != null)
         #minutesFromMidnight: minutesFromMidnight,
@@ -225,7 +225,7 @@ class _MedicationScheduleListModelCopyWithImpl<$R, $Out>
   @override
   MedicationScheduleListModel $make(CopyWithData data) =>
       MedicationScheduleListModel(
-        id: data.get(#id, or: $value.id),
+        uuid: data.get(#uuid, or: $value.uuid),
         medicationUuid: data.get(#medicationUuid, or: $value.medicationUuid),
         minutesFromMidnight: data.get(
           #minutesFromMidnight,

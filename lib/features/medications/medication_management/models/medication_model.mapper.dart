@@ -16,6 +16,7 @@ class MedicationModelMapper extends ClassMapperBase<MedicationModel> {
     if (_instance == null) {
       MapperContainer.globals.use(_instance = MedicationModelMapper._());
       MedicationPriorityMapper.ensureInitialized();
+      FoodInstructionMapper.ensureInitialized();
     }
     return _instance!;
   }
@@ -64,6 +65,21 @@ class MedicationModelMapper extends ClassMapperBase<MedicationModel> {
     _$reorderThreshold,
     opt: true,
   );
+  static FoodInstruction _$foodInstruction(MedicationModel v) =>
+      v.foodInstruction;
+  static const Field<MedicationModel, FoodInstruction> _f$foodInstruction =
+      Field(
+        'foodInstruction',
+        _$foodInstruction,
+        opt: true,
+        def: FoodInstruction.none,
+      );
+  static String? _$imagePath(MedicationModel v) => v.imagePath;
+  static const Field<MedicationModel, String> _f$imagePath = Field(
+    'imagePath',
+    _$imagePath,
+    opt: true,
+  );
   static DateTime _$createdAt(MedicationModel v) => v.createdAt;
   static const Field<MedicationModel, DateTime> _f$createdAt = Field(
     'createdAt',
@@ -86,6 +102,8 @@ class MedicationModelMapper extends ClassMapperBase<MedicationModel> {
     #isActive: _f$isActive,
     #stockQuantity: _f$stockQuantity,
     #reorderThreshold: _f$reorderThreshold,
+    #foodInstruction: _f$foodInstruction,
+    #imagePath: _f$imagePath,
     #createdAt: _f$createdAt,
     #updatedAt: _f$updatedAt,
   };
@@ -101,6 +119,8 @@ class MedicationModelMapper extends ClassMapperBase<MedicationModel> {
       isActive: data.dec(_f$isActive),
       stockQuantity: data.dec(_f$stockQuantity),
       reorderThreshold: data.dec(_f$reorderThreshold),
+      foodInstruction: data.dec(_f$foodInstruction),
+      imagePath: data.dec(_f$imagePath),
       createdAt: data.dec(_f$createdAt),
       updatedAt: data.dec(_f$updatedAt),
     );
@@ -178,6 +198,8 @@ abstract class MedicationModelCopyWith<$R, $In extends MedicationModel, $Out>
     bool? isActive,
     int? stockQuantity,
     int? reorderThreshold,
+    FoodInstruction? foodInstruction,
+    String? imagePath,
     DateTime? createdAt,
     DateTime? updatedAt,
   });
@@ -205,6 +227,8 @@ class _MedicationModelCopyWithImpl<$R, $Out>
     bool? isActive,
     Object? stockQuantity = $none,
     Object? reorderThreshold = $none,
+    FoodInstruction? foodInstruction,
+    Object? imagePath = $none,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) => $apply(
@@ -218,6 +242,8 @@ class _MedicationModelCopyWithImpl<$R, $Out>
       if (isActive != null) #isActive: isActive,
       if (stockQuantity != $none) #stockQuantity: stockQuantity,
       if (reorderThreshold != $none) #reorderThreshold: reorderThreshold,
+      if (foodInstruction != null) #foodInstruction: foodInstruction,
+      if (imagePath != $none) #imagePath: imagePath,
       if (createdAt != null) #createdAt: createdAt,
       if (updatedAt != null) #updatedAt: updatedAt,
     }),
@@ -233,6 +259,8 @@ class _MedicationModelCopyWithImpl<$R, $Out>
     isActive: data.get(#isActive, or: $value.isActive),
     stockQuantity: data.get(#stockQuantity, or: $value.stockQuantity),
     reorderThreshold: data.get(#reorderThreshold, or: $value.reorderThreshold),
+    foodInstruction: data.get(#foodInstruction, or: $value.foodInstruction),
+    imagePath: data.get(#imagePath, or: $value.imagePath),
     createdAt: data.get(#createdAt, or: $value.createdAt),
     updatedAt: data.get(#updatedAt, or: $value.updatedAt),
   );

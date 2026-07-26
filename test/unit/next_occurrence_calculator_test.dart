@@ -16,7 +16,7 @@ void main() {
     calculator = NextOccurrenceCalculator();
   });
 
-  MedicationScheduleModel _dailySchedule({
+  MedicationScheduleModel dailySchedule({
     int minutesFromMidnight = 480,
     DateTime? startDate,
     DateTime? endDate,
@@ -36,7 +36,7 @@ void main() {
     );
   }
 
-  MedicationScheduleModel _intervalSchedule({
+  MedicationScheduleModel intervalSchedule({
     int intervalHours = 4,
     DateTime? startDate,
     DateTime? endDate,
@@ -56,7 +56,7 @@ void main() {
     );
   }
 
-  MedicationScheduleModel _asNeededSchedule() {
+  MedicationScheduleModel asNeededSchedule() {
     return MedicationScheduleModel(
       uuid: 'sch-004',
       profileUuid: 'test-profile',
@@ -74,7 +74,7 @@ void main() {
   group('NextOccurrenceCalculator', () {
     group('nextOccurrence', () {
       test('daily schedule returns future occurrence', () {
-        final schedule = _dailySchedule(minutesFromMidnight: 480);
+        final schedule = dailySchedule(minutesFromMidnight: 480);
         final result = calculator.nextOccurrence(schedule);
         expect(result, isNotNull);
         expect(result!.hour, equals(8));
@@ -82,19 +82,19 @@ void main() {
       });
 
       test('asNeeded returns null', () {
-        final schedule = _asNeededSchedule();
+        final schedule = asNeededSchedule();
         final result = calculator.nextOccurrence(schedule);
         expect(result, isNull);
       });
 
       test('expired schedule returns null', () {
-        final schedule = _dailySchedule(endDate: DateTime(2020, 1, 1));
+        final schedule = dailySchedule(endDate: DateTime(2020, 1, 1));
         final result = calculator.nextOccurrence(schedule);
         expect(result, isNull);
       });
 
       test('schedule with no endDate is never expired', () {
-        final schedule = _dailySchedule(endDate: null);
+        final schedule = dailySchedule(endDate: null);
         final result = calculator.nextOccurrence(schedule);
         expect(result, isNotNull);
       });
@@ -102,26 +102,26 @@ void main() {
 
     group('upcomingOccurrences', () {
       test('asNeeded returns empty list', () {
-        final schedule = _asNeededSchedule();
+        final schedule = asNeededSchedule();
         final results = calculator.upcomingOccurrences(schedule);
         expect(results, isEmpty);
       });
 
       test('daily returns at most one occurrence', () {
-        final schedule = _dailySchedule();
+        final schedule = dailySchedule();
         final results = calculator.upcomingOccurrences(schedule);
         expect(results.length, lessThanOrEqualTo(1));
       });
 
       test('interval returns up to maxCount occurrences', () {
-        final schedule = _intervalSchedule(intervalHours: 4);
+        final schedule = intervalSchedule(intervalHours: 4);
         final results = calculator.upcomingOccurrences(schedule, maxCount: 3);
         expect(results.length, lessThanOrEqualTo(3));
         expect(results.length, greaterThanOrEqualTo(1));
       });
 
       test('expired schedule returns empty list', () {
-        final schedule = _dailySchedule(endDate: DateTime(2020, 1, 1));
+        final schedule = dailySchedule(endDate: DateTime(2020, 1, 1));
         final results = calculator.upcomingOccurrences(schedule);
         expect(results, isEmpty);
       });

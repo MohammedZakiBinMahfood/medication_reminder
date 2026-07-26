@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:medication_reminder/l10n/app_localizations.dart';
 import 'package:medication_reminder/shared/components/c_card.dart';
@@ -6,6 +7,7 @@ import 'package:medication_reminder/core/design_system/spacing/app_spacing.dart'
 import 'package:medication_reminder/core/design_system/radius/app_radius.dart';
 import 'package:medication_reminder/core/design_system/colors/app_colors.dart';
 import 'package:medication_reminder/core/extensions/color_extensions.dart';
+import 'package:medication_reminder/core/utils/time_formatter.dart';
 import '../../../medication_management/models/enums/medication_enums.dart';
 import '../../models/dashboard_medication_model.dart';
 
@@ -28,9 +30,10 @@ class DashboardMedicationCard extends StatelessWidget {
     final l10n = AppLocalizations.of(context);
     final colorScheme = Theme.of(context).colorScheme;
     final medicationColor = medication.color.toColor();
+    final isArabic = Localizations.localeOf(context).languageCode == 'ar';
 
     final cardLabel =
-        '${medication.name} ${medication.dosage} ${_formatTime(medication.scheduledTime)}';
+        '${medication.name} ${medication.dosage} ${_formatTime(medication.scheduledTime, isArabic)}';
 
     return Padding(
       padding: const EdgeInsets.symmetric(
@@ -43,15 +46,37 @@ class DashboardMedicationCard extends StatelessWidget {
           padding: const EdgeInsets.all(AppSpacing.m),
           child: Row(
             children: [
-              Container(
-                width: 6,
-                height: 50,
-                decoration: BoxDecoration(
-                  color: medicationColor,
-                  borderRadius: AppRadius.borderXs,
+              if (medication.imagePath != null && medication.imagePath!.isNotEmpty) ...[
+                ClipRRect(
+                  borderRadius: AppRadius.borderS,
+                  child: Image.file(
+                    File(medication.imagePath!),
+                    width: 44,
+                    height: 44,
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) =>
+                        Container(
+                      width: 6,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: medicationColor,
+                        borderRadius: AppRadius.borderXs,
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-              const SizedBox(width: AppSpacing.m),
+                const SizedBox(width: AppSpacing.s),
+              ] else ...[
+                Container(
+                  width: 6,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    color: medicationColor,
+                    borderRadius: AppRadius.borderXs,
+                  ),
+                ),
+                const SizedBox(width: AppSpacing.m),
+              ],
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -66,6 +91,30 @@ class DashboardMedicationCard extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
+                        if (medication.foodInstruction != FoodInstruction.none) ...[
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 6,
+                              vertical: 2,
+                            ),
+                            decoration: BoxDecoration(
+                              color: colorScheme.primaryContainer,
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            child: Text(
+                              _formatFoodInstruction(
+                                l10n,
+                                medication.foodInstruction,
+                              )!,
+                              style: TextStyle(
+                                fontSize: 10,
+                                fontWeight: FontWeight.w600,
+                                color: colorScheme.onPrimaryContainer,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: AppSpacing.xs),
+                        ],
                         PriorityBadge(priority: medication.priority),
                       ],
                     ),
@@ -85,7 +134,7 @@ class DashboardMedicationCard extends StatelessWidget {
                         ),
                         const SizedBox(width: AppSpacing.xs),
                         Text(
-                          _formatTime(medication.scheduledTime),
+                          _formatTime(medication.scheduledTime, isArabic),
                           style: Theme.of(context).textTheme.bodySmall
                               ?.copyWith(color: colorScheme.onSurfaceVariant),
                         ),
@@ -238,8 +287,25 @@ class DashboardMedicationCard extends StatelessWidget {
     );
   }
 
-  String _formatTime(DateTime time) {
-    return '${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}';
+  String _formatTime(DateTime time, bool isArabic) {
+    return AppTimeFormatter.formatDateTime(time, isArabic: isArabic);
+  }
+
+  String? _formatFoodInstruction(AppLocalizations l10n, FoodInstruction inst) {
+    switch (inst) {
+      case FoodInstruction.none:
+        return null;
+      case FoodInstruction.beforeMeal:
+        return l10n.foodInstructionBeforeMeal;
+      case FoodInstruction.withMeal:
+        return l10n.foodInstructionWithMeal;
+      case FoodInstruction.afterMeal:
+        return l10n.foodInstructionAfterMeal;
+      case FoodInstruction.onEmptyStomach:
+        return l10n.foodInstructionOnEmptyStomach;
+      case FoodInstruction.beforeBed:
+        return l10n.foodInstructionBeforeBed;
+    }
   }
 }
 

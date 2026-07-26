@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medication_reminder/core/design_system/spacing/app_spacing.dart';
+import 'package:medication_reminder/l10n/app_localizations.dart';
 import 'package:medication_reminder/shared/components/c_card.dart';
 import 'package:medication_reminder/shared/components/c_button.dart';
 import '../../models/models.dart';
@@ -23,18 +24,19 @@ class QuickFixesCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (failedChecks.isEmpty) return const SizedBox.shrink();
+    final l10n = AppLocalizations.of(context);
 
     return CCard(
       margin: const EdgeInsets.symmetric(horizontal: AppSpacing.l),
       child: Semantics(
         container: true,
         header: true,
-        label: 'Quick fixes available',
+        label: l10n.healthQuickFixes,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Quick Fixes',
+              l10n.healthQuickFixes,
               style: Theme.of(context).textTheme.titleSmall?.copyWith(
                 fontWeight: FontWeight.w600,
               ),
@@ -43,6 +45,7 @@ class QuickFixesCard extends StatelessWidget {
             ...failedChecks.map((check) {
               final (label, action) = _fixForCheck(
                 check,
+                l10n: l10n,
                 onEnableNotifications: onEnableNotifications,
                 onOpenBatterySettings: onOpenBatterySettings,
                 onGrantExactAlarm: onGrantExactAlarm,
@@ -69,6 +72,7 @@ class QuickFixesCard extends StatelessWidget {
 
   (String?, VoidCallback?) _fixForCheck(
     HealthCheckModel check, {
+    required AppLocalizations l10n,
     required VoidCallback onEnableNotifications,
     required VoidCallback onOpenBatterySettings,
     required VoidCallback onGrantExactAlarm,
@@ -76,19 +80,19 @@ class QuickFixesCard extends StatelessWidget {
   }) {
     return switch (check.type) {
       HealthCheckType.notificationPermission => (
-        'Enable Notifications',
+        l10n.healthActionEnableNotifications,
         onEnableNotifications,
       ),
       HealthCheckType.exactAlarmPermission => (
-        'Grant Exact Alarm',
+        l10n.healthActionGrantExactAlarm,
         onGrantExactAlarm,
       ),
       HealthCheckType.batteryOptimization => (
-        'Disable Battery Optimization',
+        l10n.healthActionOpenBatterySettings,
         onOpenBatterySettings,
       ),
       HealthCheckType.notificationService => (
-        'Refresh Scheduler',
+        l10n.healthRefresh,
         onRefreshScheduler,
       ),
       _ => (null, null),

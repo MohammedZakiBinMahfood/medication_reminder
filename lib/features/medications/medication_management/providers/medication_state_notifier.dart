@@ -27,6 +27,9 @@ class MedicationStateNotifier extends Notifier<MedicationStateModel> {
   void setStockQuantity(int? v) => state = state.copyWith(stockQuantity: v);
   void setReorderThreshold(int? v) =>
       state = state.copyWith(reorderThreshold: v);
+  void setFoodInstruction(FoodInstruction v) =>
+      state = state.copyWith(foodInstruction: v);
+  void setImagePath(String? v) => state = state.copyWith(imagePath: v);
 
   void reset() => state = MedicationStateModel(startDate: DateTime.now());
 
@@ -46,6 +49,8 @@ class MedicationStateNotifier extends Notifier<MedicationStateModel> {
       isActive: field.isActive,
       stockQuantity: field.stockQuantity,
       reorderThreshold: field.reorderThreshold,
+      foodInstruction: field.foodInstruction,
+      imagePath: field.imagePath,
     );
   }
 }

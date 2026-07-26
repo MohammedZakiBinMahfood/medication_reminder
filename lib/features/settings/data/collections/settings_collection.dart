@@ -12,6 +12,7 @@ class SettingsCollection {
   // ── General ──
   late String language;
   late int themeMode;
+  int accentColor = 0;
   late int firstDayOfWeek;
   late bool timeFormat24;
 

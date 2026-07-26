@@ -10,3 +10,13 @@ enum RepeatType { daily, specificDays, asNeeded, interval }
 
 @MappableEnum()
 enum DoseStatus { pending, taken, skipped, missed }
+
+@MappableEnum()
+enum FoodInstruction {
+  none,
+  beforeMeal,
+  withMeal,
+  afterMeal,
+  onEmptyStomach,
+  beforeBed,
+}

@@ -19,6 +19,9 @@ abstract class SettingsRepository {
   /// Updates a single theme setting.
   Future<Result<void>> updateThemeMode(AppThemeMode mode);
 
+  /// Updates accent color theme.
+  Future<Result<void>> updateAccentColor(AppAccentColor color);
+
   /// Updates first day of week.
   Future<Result<void>> updateFirstDayOfWeek(int day);
 

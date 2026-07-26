@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:home_widget/home_widget.dart';
+import 'package:medication_reminder/core/utils/time_formatter.dart';
 import '../../features/medications/today_dashboard/models/dashboard_medication_model.dart';
 import '../../features/medications/today_dashboard/models/dashboard_summary_model.dart';
 
@@ -15,13 +16,14 @@ class HomeWidgetSyncService {
   static Future<void> syncNextMedication({
     required DashboardMedicationModel? nextMedication,
     required DashboardSummaryModel? summary,
+    String? emptyMessage,
   }) async {
     try {
       if (nextMedication != null) {
-        final hour = nextMedication.scheduledTime.hour.toString().padLeft(2, '0');
-        final minute =
-            nextMedication.scheduledTime.minute.toString().padLeft(2, '0');
-        final formattedTime = '$hour:$minute';
+        final formattedTime = AppTimeFormatter.formatDateTime(
+          nextMedication.scheduledTime,
+          isArabic: true,
+        );
 
         await HomeWidget.saveWidgetData<String>(
           'next_med_name',
@@ -38,7 +40,7 @@ class HomeWidgetSyncService {
       } else {
         await HomeWidget.saveWidgetData<String>(
           'next_med_name',
-          'لا توجد جرعات متبقية اليوم',
+          emptyMessage ?? 'لا توجد جرعات متبقية اليوم',
         );
         await HomeWidget.saveWidgetData<String>('next_med_dosage', '');
         await HomeWidget.saveWidgetData<String>('next_med_time', '--:--');

@@ -28,8 +28,8 @@ class SettingsProfilesSection extends ConsumerWidget {
         leading: const Icon(Icons.people),
         title: Text(l10n.settingsProfiles),
         subtitle: activeName != null
-            ? Text('$activeName · $profileCount ${profileCount == 1 ? 'profile' : 'profiles'}')
-            : Text('$profileCount ${profileCount == 1 ? 'profile' : 'profiles'}'),
+            ? Text(l10n.settingsProfileActive(activeName, profileCount))
+            : Text(l10n.settingsProfileCount(profileCount)),
         trailing: const Icon(Icons.chevron_right),
         onTap: () => CNavigator.push(const ProfileManagementScreen()),
       ),

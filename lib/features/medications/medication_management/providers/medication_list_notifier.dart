@@ -3,6 +3,7 @@ import 'package:app_platform_state/state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../profiles/providers/profile_providers.dart';
 import '../models/models.dart';
+import '../repositories/medication_filters.dart';
 import '../repositories/medication_repository.dart';
 import 'medication_filters_provider.dart';
 import 'repository_providers.dart';
@@ -17,6 +18,7 @@ class MedicationListNotifier
     extends BaseNotifier<Paginated<MedicationListModel>> {
   late MedicationRepository repository;
   Pagination _pagination = const Pagination(page: 1, limit: 20);
+  bool _showAllProfiles = false;
 
   @override
   BaseState<Paginated<MedicationListModel>> build() {
@@ -25,7 +27,7 @@ class MedicationListNotifier
     ref.listen<AsyncValue<String>>(activeProfileUuidProvider, (prev, next) {
       final prevUuid = prev?.value;
       final nextUuid = next.value;
-      if (prevUuid != nextUuid) {
+      if (prevUuid != nextUuid && !_showAllProfiles) {
         repository = ref.read(medicationRepositoryProvider);
         loadFirstPage();
       }
@@ -35,14 +37,26 @@ class MedicationListNotifier
     return const BaseState();
   }
 
+  void setShowAllProfiles(bool showAll) {
+    _showAllProfiles = showAll;
+    loadFirstPage();
+  }
+
+  MedicationFilters _currentFilters() {
+    final filters = ref.read(medicationFiltersProvider);
+    if (_showAllProfiles) {
+      return filters.copyWith(includeAllProfiles: true);
+    }
+    return filters.copyWith(includeAllProfiles: false);
+  }
+
   Future<void> loadFirstPage() async {
     _pagination = _pagination.first();
     setLoading();
 
-    final filters = ref.read(medicationFiltersProvider);
     final result = await repository.getList(
       pagination: _pagination,
-      filters: filters,
+      filters: _currentFilters(),
     );
 
     if (result case Success(:final data)) {
@@ -59,10 +73,9 @@ class MedicationListNotifier
     setSuccess(current.copyWith(isLoadingMore: true));
     _pagination = _pagination.next();
 
-    final filters = ref.read(medicationFiltersProvider);
     final result = await repository.getList(
       pagination: _pagination,
-      filters: filters,
+      filters: _currentFilters(),
     );
 
     if (result case Success(:final data)) {
