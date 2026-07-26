@@ -25,13 +25,13 @@ class CDialog {
           actions: [
             TextButton(
               autofocus: true,
-              onPressed: () => Navigator.pop(context),
+              onPressed: () => Navigator.pop(context, false),
               child: Text(cancelText),
             ),
             TextButton(
               onPressed: () {
                 onConfirm?.call();
-                Navigator.pop(context);
+                Navigator.pop(context, true);
               },
               child: Text(
                 confirmText,

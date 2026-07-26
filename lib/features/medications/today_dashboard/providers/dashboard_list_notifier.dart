@@ -23,15 +23,15 @@ class DashboardListNotifier extends BaseNotifier<DashboardStateModel> {
     ref.listen<AsyncValue<String>>(activeProfileUuidProvider, (prev, next) {
       final prevUuid = prev?.value;
       final nextUuid = next.value;
-      if (prevUuid != nextUuid) {
+      if (prev?.hasValue == true && prevUuid != nextUuid) {
         repository = ref.read(todayDashboardRepositoryProvider);
-        _loadDashboard(showLoading: true);
+        Future.microtask(() => _loadDashboard(showLoading: true));
       }
     });
 
     ref.listen<DashboardFilterModel>(dashboardFilterProvider, (prev, next) {
       if (prev != next) {
-        _loadDashboard(showLoading: false);
+        Future.microtask(() => _loadDashboard(showLoading: false));
       }
     });
 

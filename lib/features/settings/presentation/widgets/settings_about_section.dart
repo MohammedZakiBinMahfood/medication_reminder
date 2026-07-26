@@ -251,6 +251,7 @@ class SettingsAboutSection extends ConsumerWidget {
           ref.invalidate(historyListProvider);
           ref.invalidate(activeProfileUuidProvider);
           ref.invalidate(activeProfileProvider);
+          ref.invalidate(allProfilesProvider);
 
           if (context.mounted) {
             CSnackbar.success(context, l10n.settingsClearAllDataDone);

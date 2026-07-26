@@ -23,7 +23,7 @@ class HistoryListNotifier extends BaseNotifier<HistoryStateModel> {
 
     ref.listen<HistoryFilterModel>(historyFilterProvider, (prev, next) {
       if (prev != next) {
-        _loadHistory(showLoading: false);
+        Future.microtask(() => _loadHistory(showLoading: false));
       }
     });
 

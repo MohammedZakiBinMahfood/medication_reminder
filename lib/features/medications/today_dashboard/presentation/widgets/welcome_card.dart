@@ -147,12 +147,15 @@ class WelcomeCard extends ConsumerWidget {
                   Expanded(
                     flex: 2,
                     child: Center(
-                      child: Image.asset(
-                        'assets/images/welcome_pill_3d.png',
-                        fit: BoxFit.contain,
-                        height: 120,
-                        errorBuilder: (context, error, stackTrace) =>
-                            const SizedBox.shrink(),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 4),
+                        child: Image.asset(
+                          'assets/images/welcome_pill_3d.png',
+                          fit: BoxFit.contain,
+                          height: 110,
+                          errorBuilder: (context, error, stackTrace) =>
+                              const SizedBox.shrink(),
+                        ),
                       ),
                     ),
                   ),

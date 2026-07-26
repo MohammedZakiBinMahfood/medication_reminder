@@ -27,9 +27,9 @@ class MedicationListNotifier
     ref.listen<AsyncValue<String>>(activeProfileUuidProvider, (prev, next) {
       final prevUuid = prev?.value;
       final nextUuid = next.value;
-      if (prevUuid != nextUuid && !_showAllProfiles) {
+      if (prev?.hasValue == true && prevUuid != nextUuid && !_showAllProfiles) {
         repository = ref.read(medicationRepositoryProvider);
-        loadFirstPage();
+        Future.microtask(loadFirstPage);
       }
     });
 
