@@ -30,3 +30,6 @@
 -dontwarn javax.annotation.**
 -dontwarn sun.misc.Unsafe
 -dontwarn org.codehaus.mojo.animal_sniffer.**
+
+# Play Store split / deferred components rules
+-dontwarn com.google.android.play.core.**
