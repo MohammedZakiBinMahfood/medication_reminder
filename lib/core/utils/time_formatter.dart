@@ -11,11 +11,7 @@ class AppTimeFormatter {
   }
 
   static String formatDateTime(DateTime dateTime, {bool isArabic = true}) {
-    return formatHourMinute(
-      dateTime.hour,
-      dateTime.minute,
-      isArabic: isArabic,
-    );
+    return formatHourMinute(dateTime.hour, dateTime.minute, isArabic: isArabic);
   }
 
   static String formatHourMinute(

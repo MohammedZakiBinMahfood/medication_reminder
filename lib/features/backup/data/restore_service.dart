@@ -69,9 +69,7 @@ class RestoreService {
 
       if (backup.settings != null) {
         final collection = _settingsFromMap(backup.settings!);
-        final existing = await _isar.settingsCollections
-            .where()
-            .findFirst();
+        final existing = await _isar.settingsCollections.where().findFirst();
         if (existing != null && mode == BackupRestoreMode.replace) {
           collection.id = existing.id;
         }
@@ -82,10 +80,15 @@ class RestoreService {
 
   BackupData _parseBackupData(Map<String, dynamic> json) {
     return BackupData(
-      metadata: BackupMetadataMapper.fromMap(json['metadata'] as Map<String, dynamic>),
-      medications: (json['medications'] as List<dynamic>).cast<Map<String, dynamic>>(),
-      medicationSchedules: (json['medicationSchedules'] as List<dynamic>).cast<Map<String, dynamic>>(),
-      doseLogs: (json['doseLogs'] as List<dynamic>).cast<Map<String, dynamic>>(),
+      metadata: BackupMetadataMapper.fromMap(
+        json['metadata'] as Map<String, dynamic>,
+      ),
+      medications: (json['medications'] as List<dynamic>)
+          .cast<Map<String, dynamic>>(),
+      medicationSchedules: (json['medicationSchedules'] as List<dynamic>)
+          .cast<Map<String, dynamic>>(),
+      doseLogs: (json['doseLogs'] as List<dynamic>)
+          .cast<Map<String, dynamic>>(),
       settings: json['settings'] as Map<String, dynamic>?,
     );
   }
@@ -98,8 +101,10 @@ class RestoreService {
       ..color = map['color'] as String? ?? '#4F46E5'
       ..priority = (map['priority'] as num?)?.toInt() ?? 0
       ..isActive = map['isActive'] as bool? ?? true
-      ..createdAt = DateTime.tryParse(map['createdAt'] as String? ?? '') ?? DateTime.now()
-      ..updatedAt = DateTime.tryParse(map['updatedAt'] as String? ?? '') ?? DateTime.now()
+      ..createdAt =
+          DateTime.tryParse(map['createdAt'] as String? ?? '') ?? DateTime.now()
+      ..updatedAt =
+          DateTime.tryParse(map['updatedAt'] as String? ?? '') ?? DateTime.now()
       ..isDeleted = map['isDeleted'] as bool? ?? false;
   }
 
@@ -111,10 +116,15 @@ class RestoreService {
       ..repeatType = (map['repeatType'] as num?)?.toInt() ?? 0
       ..weekdays = (map['weekdays'] as List<dynamic>?)?.cast<byte>() ?? <byte>[]
       ..interval = (map['interval'] as num?)?.toInt() ?? 1
-      ..startDate = DateTime.tryParse(map['startDate'] as String? ?? '') ?? DateTime.now()
-      ..endDate = map['endDate'] != null ? DateTime.tryParse(map['endDate'] as String) : null
-      ..createdAt = DateTime.tryParse(map['createdAt'] as String? ?? '') ?? DateTime.now()
-      ..updatedAt = DateTime.tryParse(map['updatedAt'] as String? ?? '') ?? DateTime.now()
+      ..startDate =
+          DateTime.tryParse(map['startDate'] as String? ?? '') ?? DateTime.now()
+      ..endDate = map['endDate'] != null
+          ? DateTime.tryParse(map['endDate'] as String)
+          : null
+      ..createdAt =
+          DateTime.tryParse(map['createdAt'] as String? ?? '') ?? DateTime.now()
+      ..updatedAt =
+          DateTime.tryParse(map['updatedAt'] as String? ?? '') ?? DateTime.now()
       ..isDeleted = map['isDeleted'] as bool? ?? false;
   }
 
@@ -123,11 +133,17 @@ class RestoreService {
       ..uuid = map['uuid'] as String
       ..medicationUuid = map['medicationUuid'] as String? ?? ''
       ..scheduleUuid = map['scheduleUuid'] as String? ?? ''
-      ..scheduledAt = DateTime.tryParse(map['scheduledAt'] as String? ?? '') ?? DateTime.now()
-      ..actionAt = map['actionAt'] != null ? DateTime.tryParse(map['actionAt'] as String) : null
+      ..scheduledAt =
+          DateTime.tryParse(map['scheduledAt'] as String? ?? '') ??
+          DateTime.now()
+      ..actionAt = map['actionAt'] != null
+          ? DateTime.tryParse(map['actionAt'] as String)
+          : null
       ..status = (map['status'] as num?)?.toInt() ?? 0
-      ..createdAt = DateTime.tryParse(map['createdAt'] as String? ?? '') ?? DateTime.now()
-      ..updatedAt = DateTime.tryParse(map['updatedAt'] as String? ?? '') ?? DateTime.now()
+      ..createdAt =
+          DateTime.tryParse(map['createdAt'] as String? ?? '') ?? DateTime.now()
+      ..updatedAt =
+          DateTime.tryParse(map['updatedAt'] as String? ?? '') ?? DateTime.now()
       ..isDeleted = map['isDeleted'] as bool? ?? false;
   }
 
@@ -141,15 +157,21 @@ class RestoreService {
       ..notificationsEnabled = map['notificationsEnabled'] as bool? ?? true
       ..notificationSound = map['notificationSound'] as bool? ?? true
       ..vibrationEnabled = map['vibrationEnabled'] as bool? ?? true
-      ..defaultSnoozeMinutes = (map['defaultSnoozeMinutes'] as num?)?.toInt() ?? 10
-      ..reminderBeforeMinutes = (map['reminderBeforeMinutes'] as num?)?.toInt() ?? 0
-      ..defaultHistoryFilter = (map['defaultHistoryFilter'] as num?)?.toInt() ?? 0
-      ..defaultHistoryGrouping = (map['defaultHistoryGrouping'] as num?)?.toInt() ?? 0
+      ..defaultSnoozeMinutes =
+          (map['defaultSnoozeMinutes'] as num?)?.toInt() ?? 10
+      ..reminderBeforeMinutes =
+          (map['reminderBeforeMinutes'] as num?)?.toInt() ?? 0
+      ..defaultHistoryFilter =
+          (map['defaultHistoryFilter'] as num?)?.toInt() ?? 0
+      ..defaultHistoryGrouping =
+          (map['defaultHistoryGrouping'] as num?)?.toInt() ?? 0
       ..autoBackupEnabled = map['autoBackupEnabled'] as bool? ?? false
       ..appVersion = map['appVersion'] as String? ?? ''
       ..buildNumber = map['buildNumber'] as String? ?? ''
-      ..createdAt = DateTime.tryParse(map['createdAt'] as String? ?? '') ?? DateTime.now()
-      ..updatedAt = DateTime.tryParse(map['updatedAt'] as String? ?? '') ?? DateTime.now()
+      ..createdAt =
+          DateTime.tryParse(map['createdAt'] as String? ?? '') ?? DateTime.now()
+      ..updatedAt =
+          DateTime.tryParse(map['updatedAt'] as String? ?? '') ?? DateTime.now()
       ..isDeleted = map['isDeleted'] as bool? ?? false;
   }
 }

@@ -14,9 +14,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
     final theme = Theme.of(context);
 
     return CScaffold(
-      appBar: CAppBar(
-        title: l10n.settingsPrivacyPolicy,
-      ),
+      appBar: CAppBar(title: l10n.settingsPrivacyPolicy),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -84,11 +82,11 @@ class PrivacyPolicyScreen extends StatelessWidget {
                   : '2. Usage of Device Permissions',
               body: isArabic
                   ? 'يطلب التطبيق أذونات محددة لغرض تقديم الخدمة الأساسية فقط:\n'
-                      '• الإشعارات (Notifications): لإرسال تذكيرات دقيقة بمواعيد الجرعات الدوائية.\n'
-                      '• الكاميرا والمعرض (Camera & Gallery): لالتقاط أو اختيار صور الأدوية لتمييزها بصرياً، وتُحفظ هذه الصور محلياً على جهازك فقط.'
+                        '• الإشعارات (Notifications): لإرسال تذكيرات دقيقة بمواعيد الجرعات الدوائية.\n'
+                        '• الكاميرا والمعرض (Camera & Gallery): لالتقاط أو اختيار صور الأدوية لتمييزها بصرياً، وتُحفظ هذه الصور محلياً على جهازك فقط.'
                   : 'The app requests specific permissions solely for core functionality:\n'
-                      '• Notifications: To deliver precise dose reminders.\n'
-                      '• Camera & Photo Gallery: To capture or select medication photos for visual identification, saved strictly on your local device.',
+                        '• Notifications: To deliver precise dose reminders.\n'
+                        '• Camera & Photo Gallery: To capture or select medication photos for visual identification, saved strictly on your local device.',
             ),
 
             const SizedBox(height: 12),
@@ -133,9 +131,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
             const SizedBox(height: 24),
             Center(
               child: Text(
-                isArabic
-                    ? 'آخر تحديث: يوليو 2026'
-                    : 'Last Updated: July 2026',
+                isArabic ? 'آخر تحديث: يوليو 2026' : 'Last Updated: July 2026',
                 style: theme.textTheme.bodySmall?.copyWith(
                   color: theme.colorScheme.outline,
                 ),

@@ -32,9 +32,7 @@ class ProfileSwitcher extends ConsumerWidget {
             itemBuilder: (context, index) {
               if (index == profiles.length) {
                 return _AddProfileButton(
-                  onTap: () => CNavigator.push(
-                    const ProfileManagementScreen(),
-                  ),
+                  onTap: () => CNavigator.push(const ProfileManagementScreen()),
                 );
               }
               final profile = profiles[index];
@@ -73,9 +71,7 @@ class _ProfileAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = Color(
-      int.parse(profile.color.replaceFirst('#', '0xFF')),
-    );
+    final color = Color(int.parse(profile.color.replaceFirst('#', '0xFF')));
 
     return GestureDetector(
       onTap: onTap,
@@ -96,7 +92,10 @@ class _ProfileAvatar extends StatelessWidget {
                   : null,
             ),
             child: Icon(
-              IconData(profile.avatarIconCodePoint, fontFamily: 'MaterialIcons'),
+              IconData(
+                profile.avatarIconCodePoint,
+                fontFamily: 'MaterialIcons',
+              ),
               color: isActive ? Colors.white : color,
               size: 22,
             ),

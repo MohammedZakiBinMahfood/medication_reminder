@@ -67,8 +67,7 @@ class HealthScoreCard extends StatelessWidget {
                       Text(
                         '$passedCount passed, $failedCount failed',
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color:
-                              Theme.of(context).colorScheme.onSurfaceVariant,
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
                         ),
                       ),
                     ],
@@ -85,10 +84,10 @@ class HealthScoreCard extends StatelessWidget {
                         CircularProgressIndicator(
                           value: score,
                           strokeWidth: 5,
-                          backgroundColor:
-                              Theme.of(context).colorScheme.surfaceContainerHighest,
-                          valueColor:
-                              AlwaysStoppedAnimation<Color>(scoreColor),
+                          backgroundColor: Theme.of(
+                            context,
+                          ).colorScheme.surfaceContainerHighest,
+                          valueColor: AlwaysStoppedAnimation<Color>(scoreColor),
                         ),
                         Center(
                           child: Text(

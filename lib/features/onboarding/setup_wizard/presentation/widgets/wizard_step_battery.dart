@@ -75,10 +75,7 @@ class WizardStepBattery extends StatelessWidget {
           Semantics(
             button: true,
             label: l10n.wizardNext,
-            child: CButton.text(
-              text: l10n.wizardNext,
-              onPressed: onNext,
-            ),
+            child: CButton.text(text: l10n.wizardNext, onPressed: onNext),
           ),
           const SizedBox(height: AppSpacing.xl),
         ],

@@ -83,7 +83,11 @@ class WizardStepNotification extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.check_circle, color: AppColors.success, size: 20),
+                    Icon(
+                      Icons.check_circle,
+                      color: AppColors.success,
+                      size: 20,
+                    ),
                     const SizedBox(width: AppSpacing.s),
                     Text(
                       l10n.wizardNotificationGranted,
@@ -96,20 +100,14 @@ class WizardStepNotification extends StatelessWidget {
               ),
             ),
             const SizedBox(height: AppSpacing.l),
-            CButton(
-              text: l10n.wizardNext,
-              onPressed: onNext,
-            ),
+            CButton(text: l10n.wizardNext, onPressed: onNext),
           ] else ...[
             CButton(
               text: l10n.wizardGrantPermission,
               onPressed: onRequestPermission,
             ),
             const SizedBox(height: AppSpacing.m),
-            CButton.text(
-              text: l10n.wizardNext,
-              onPressed: onNext,
-            ),
+            CButton.text(text: l10n.wizardNext, onPressed: onNext),
           ],
           const SizedBox(height: AppSpacing.xl),
         ],

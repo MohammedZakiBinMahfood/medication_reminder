@@ -49,8 +49,12 @@ class BackupState {
       restoreMode: restoreMode ?? this.restoreMode,
       isExporting: isExporting ?? this.isExporting,
       isImporting: isImporting ?? this.isImporting,
-      validationResult: clearValidation ? null : (validationResult ?? this.validationResult),
-      selectedFile: clearSelectedFile ? null : (selectedFile ?? this.selectedFile),
+      validationResult: clearValidation
+          ? null
+          : (validationResult ?? this.validationResult),
+      selectedFile: clearSelectedFile
+          ? null
+          : (selectedFile ?? this.selectedFile),
     );
   }
 
@@ -59,8 +63,9 @@ class BackupState {
   int get doseLogCount => lastBackup?.doseLogs.length ?? 0;
 }
 
-final backupProvider =
-    NotifierProvider<BackupNotifier, BackupState>(BackupNotifier.new);
+final backupProvider = NotifierProvider<BackupNotifier, BackupState>(
+  BackupNotifier.new,
+);
 
 class BackupNotifier extends Notifier<BackupState> {
   late BackupRepository _repository;
@@ -72,10 +77,7 @@ class BackupNotifier extends Notifier<BackupState> {
   }
 
   Future<void> exportBackup() async {
-    state = state.copyWith(
-      isExporting: true,
-      clearError: true,
-    );
+    state = state.copyWith(isExporting: true, clearError: true);
 
     final result = await _repository.exportBackup();
     if (result case Success(:final data)) {
@@ -94,17 +96,11 @@ class BackupNotifier extends Notifier<BackupState> {
   }
 
   Future<void> shareBackup() async {
-    state = state.copyWith(
-      isExporting: true,
-      clearError: true,
-    );
+    state = state.copyWith(isExporting: true, clearError: true);
 
     final result = await _repository.shareBackup();
     if (result case Success()) {
-      state = state.copyWith(
-        isExporting: false,
-        status: LoadStatus.success,
-      );
+      state = state.copyWith(isExporting: false, status: LoadStatus.success);
     } else if (result case Failure(:final error)) {
       state = state.copyWith(
         isExporting: false,
@@ -127,14 +123,9 @@ class BackupNotifier extends Notifier<BackupState> {
 
     final result = await _repository.validateBackupFile(file);
     if (result case Success(:final data)) {
-      state = state.copyWith(
-        selectedFile: file,
-        validationResult: data,
-      );
+      state = state.copyWith(selectedFile: file, validationResult: data);
     } else if (result case Failure(:final error)) {
-      state = state.copyWith(
-        error: error.errorMessage,
-      );
+      state = state.copyWith(error: error.errorMessage);
     }
   }
 
@@ -142,10 +133,7 @@ class BackupNotifier extends Notifier<BackupState> {
     final file = state.selectedFile;
     if (file == null || state.validationResult?.isValid != true) return;
 
-    state = state.copyWith(
-      isImporting: true,
-      clearError: true,
-    );
+    state = state.copyWith(isImporting: true, clearError: true);
 
     final result = await _repository.restoreFromFile(
       file,

@@ -33,10 +33,7 @@ class HomeWidgetSyncService {
           'next_med_dosage',
           nextMedication.dosage,
         );
-        await HomeWidget.saveWidgetData<String>(
-          'next_med_time',
-          formattedTime,
-        );
+        await HomeWidget.saveWidgetData<String>('next_med_time', formattedTime);
       } else {
         await HomeWidget.saveWidgetData<String>(
           'next_med_name',

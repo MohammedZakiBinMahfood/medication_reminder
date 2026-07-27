@@ -281,6 +281,7 @@ class SettingsGeneralSection extends ConsumerWidget {
       ),
     );
   }
+
   String _accentColorLabel(AppAccentColor accent, AppLocalizations l10n) {
     return switch (accent) {
       AppAccentColor.indigo => l10n.accentIndigo,

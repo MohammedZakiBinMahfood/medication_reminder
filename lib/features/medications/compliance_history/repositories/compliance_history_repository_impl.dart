@@ -17,17 +17,13 @@ import 'compliance_history_repository.dart';
 
 final complianceHistoryRepositoryProvider =
     Provider<ComplianceHistoryRepository>(
-      (ref) => ComplianceHistoryRepositoryImpl(
-        isar: ref.read(isarProvider),
-      ),
+      (ref) => ComplianceHistoryRepositoryImpl(isar: ref.read(isarProvider)),
     );
 
 class ComplianceHistoryRepositoryImpl implements ComplianceHistoryRepository {
   final Isar isar;
 
-  ComplianceHistoryRepositoryImpl({
-    required this.isar,
-  });
+  ComplianceHistoryRepositoryImpl({required this.isar});
 
   @override
   Future<Result<HistoryStateModel>> getHistory({

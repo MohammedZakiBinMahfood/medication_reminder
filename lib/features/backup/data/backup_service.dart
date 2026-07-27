@@ -15,7 +15,9 @@ class BackupService {
 
   Future<BackupData> createBackupData() async {
     final medications = await _isar.medicationCollections.where().findAll();
-    final schedules = await _isar.medicationScheduleCollections.where().findAll();
+    final schedules = await _isar.medicationScheduleCollections
+        .where()
+        .findAll();
     final doseLogs = await _isar.doseLogCollections.where().findAll();
     final settings = await _isar.settingsCollections.where().findFirst();
 

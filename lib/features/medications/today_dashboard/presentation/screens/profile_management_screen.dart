@@ -97,11 +97,7 @@ class _ProfileManagementScreenState
                       )
                     : null,
                 trailing: PopupMenuButton<String>(
-                  onSelected: (value) => _handleAction(
-                    context,
-                    value,
-                    profile,
-                  ),
+                  onSelected: (value) => _handleAction(context, value, profile),
                   itemBuilder: (context) => [
                     if (!isActive)
                       PopupMenuItem(
@@ -147,9 +143,7 @@ class _ProfileManagementScreenState
                       ),
                   ],
                 ),
-                onTap: isActive
-                    ? null
-                    : () => _switchProfile(profile.uuid),
+                onTap: isActive ? null : () => _switchProfile(profile.uuid),
               );
             },
           );
@@ -169,7 +163,11 @@ class _ProfileManagementScreenState
     }
   }
 
-  void _handleAction(BuildContext context, String action, ProfileModel profile) {
+  void _handleAction(
+    BuildContext context,
+    String action,
+    ProfileModel profile,
+  ) {
     switch (action) {
       case 'switch':
         _switchProfile(profile.uuid);
@@ -211,7 +209,9 @@ class _ProfileManagementScreenState
       context: context,
       builder: (context) => StatefulBuilder(
         builder: (context, setDialogState) => AlertDialog(
-          title: Text(profile != null ? l10n.profileEditTitle : l10n.profileAddTitle),
+          title: Text(
+            profile != null ? l10n.profileEditTitle : l10n.profileAddTitle,
+          ),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -229,9 +229,7 @@ class _ProfileManagementScreenState
               Wrap(
                 spacing: 8,
                 children: colorOptions.map((hex) {
-                  final color = Color(
-                    int.parse(hex.replaceFirst('#', '0xFF')),
-                  );
+                  final color = Color(int.parse(hex.replaceFirst('#', '0xFF')));
                   final isSelected = selectedColor == hex;
                   return GestureDetector(
                     onTap: () => setDialogState(() => selectedColor = hex),
@@ -243,8 +241,7 @@ class _ProfileManagementScreenState
                         shape: BoxShape.circle,
                         border: isSelected
                             ? Border.all(
-                                color:
-                                    Theme.of(context).colorScheme.onSurface,
+                                color: Theme.of(context).colorScheme.onSurface,
                                 width: 2.5,
                               )
                             : null,
@@ -277,14 +274,13 @@ class _ProfileManagementScreenState
                       decoration: BoxDecoration(
                         color: isSelected
                             ? Theme.of(context).colorScheme.primaryContainer
-                            : Theme.of(context)
-                                .colorScheme
-                                .surfaceContainerHighest,
+                            : Theme.of(
+                                context,
+                              ).colorScheme.surfaceContainerHighest,
                         borderRadius: BorderRadius.circular(8),
                         border: isSelected
                             ? Border.all(
-                                color:
-                                    Theme.of(context).colorScheme.primary,
+                                color: Theme.of(context).colorScheme.primary,
                                 width: 1.5,
                               )
                             : null,
@@ -365,9 +361,7 @@ class _ProfileManagementScreenState
       context: context,
       builder: (context) => AlertDialog(
         title: Text(l10n.profileDeleteDialogTitle),
-        content: Text(
-          l10n.profileDeleteConfirm(profile.name),
-        ),
+        content: Text(l10n.profileDeleteConfirm(profile.name)),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),

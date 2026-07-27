@@ -111,7 +111,9 @@ class ProfileRepositoryImpl implements ProfileRepository {
 
       // If the deleted profile was active, switch to default
       final activeResult = await getActiveProfileUuid();
-      final activeUuid = activeResult is Success<String> ? activeResult.data : null;
+      final activeUuid = activeResult is Success<String>
+          ? activeResult.data
+          : null;
       if (activeUuid == uuid) {
         final defaultResult = await getDefaultProfile();
         if (defaultResult is Success<ProfileModel>) {
@@ -155,9 +157,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
           .sortBySortOrder()
           .findAll();
 
-      return Success(
-        collections.map(ProfileMapper.toDomain).toList(),
-      );
+      return Success(collections.map(ProfileMapper.toDomain).toList());
     } catch (e) {
       return Failure(UnknownError(e.toString()));
     }
@@ -252,5 +252,4 @@ class ProfileRepositoryImpl implements ProfileRepository {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(_activeProfileKey, uuid);
   }
-
 }

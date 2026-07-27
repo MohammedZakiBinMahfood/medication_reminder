@@ -20,24 +20,21 @@ import '../models/dashboard_enums.dart';
 import '../../../../core/widgets/home_widget_sync_service.dart';
 import 'today_dashboard_repository.dart';
 
-final todayDashboardRepositoryProvider = Provider<TodayDashboardRepository>(
-  (ref) {
-    final profileUuid = ref.watch(activeProfileUuidProvider).value ?? '';
-    return TodayDashboardRepositoryImpl(
-      isar: ref.read(isarProvider),
-      profileUuid: profileUuid,
-    );
-  },
-);
+final todayDashboardRepositoryProvider = Provider<TodayDashboardRepository>((
+  ref,
+) {
+  final profileUuid = ref.watch(activeProfileUuidProvider).value ?? '';
+  return TodayDashboardRepositoryImpl(
+    isar: ref.read(isarProvider),
+    profileUuid: profileUuid,
+  );
+});
 
 class TodayDashboardRepositoryImpl implements TodayDashboardRepository {
   final Isar isar;
   final String profileUuid;
 
-  TodayDashboardRepositoryImpl({
-    required this.isar,
-    required this.profileUuid,
-  });
+  TodayDashboardRepositoryImpl({required this.isar, required this.profileUuid});
 
   @override
   Future<Result<DashboardStateModel>> getTodayDashboard({

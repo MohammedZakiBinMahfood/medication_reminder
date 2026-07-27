@@ -11,9 +11,7 @@ final sharedPreferencesProvider = Provider<SharedPreferences>((ref) {
 });
 
 final wizardRepositoryProvider = Provider<WizardRepository>((ref) {
-  return WizardRepositoryImpl(
-    prefs: ref.watch(sharedPreferencesProvider),
-  );
+  return WizardRepositoryImpl(prefs: ref.watch(sharedPreferencesProvider));
 });
 
 class WizardRepositoryImpl implements WizardRepository {

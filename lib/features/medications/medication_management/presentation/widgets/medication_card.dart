@@ -90,7 +90,7 @@ class MedicationCard extends ConsumerWidget {
                       cancelText: l10n.cancel,
                       isDestructive: true,
                     ).then((confirmed) {
-                      if (confirmed == true) {
+                      if (confirmed == true && context.mounted) {
                         _toggleMedication(ref, value, context, l10n);
                       }
                     });

@@ -8,17 +8,14 @@ import '../repositories/system_health_repository_impl.dart';
 
 final systemHealthProvider =
     NotifierProvider<SystemHealthNotifier, BaseState<SystemHealthState>>(
-  SystemHealthNotifier.new,
-);
+      SystemHealthNotifier.new,
+    );
 
 class SystemHealthState {
   final List<HealthCheckModel> checks;
   final bool isRefreshing;
 
-  const SystemHealthState({
-    this.checks = const [],
-    this.isRefreshing = false,
-  });
+  const SystemHealthState({this.checks = const [], this.isRefreshing = false});
 
   SystemHealthState copyWith({
     List<HealthCheckModel>? checks,
@@ -34,8 +31,7 @@ class SystemHealthState {
 
   int get passedCount => checks.where((c) => !c.isFailed).length;
 
-  double get score =>
-      checks.isEmpty ? 0 : passedCount / checks.length;
+  double get score => checks.isEmpty ? 0 : passedCount / checks.length;
 
   String get overallHealthLabel {
     final s = score;
@@ -50,8 +46,7 @@ class SystemHealthState {
 }
 
 class SystemHealthNotifier extends Notifier<BaseState<SystemHealthState>> {
-  SystemHealthRepository get _repo =>
-      ref.read(systemHealthRepositoryProvider);
+  SystemHealthRepository get _repo => ref.read(systemHealthRepositoryProvider);
 
   @override
   BaseState<SystemHealthState> build() => const BaseState();
@@ -86,7 +81,9 @@ class SystemHealthNotifier extends Notifier<BaseState<SystemHealthState>> {
   Future<void> refresh() async {
     state = state.copyWith(
       status: LoadStatus.success,
-      data: state.data?.copyWith(isRefreshing: true) ?? const SystemHealthState(isRefreshing: true),
+      data:
+          state.data?.copyWith(isRefreshing: true) ??
+          const SystemHealthState(isRefreshing: true),
     );
     await loadAll();
   }

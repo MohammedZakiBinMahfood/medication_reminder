@@ -130,30 +130,31 @@ class _ConfettiPainter extends CustomPainter {
   final List<_ConfettiParticle> particles;
 
   _ConfettiPainter({required this.progress})
-      : particles = List.generate(40, (index) {
-          final random = Random(index);
-          final colors = [
-            const Color(0xFF4F46E5),
-            const Color(0xFF10B981),
-            const Color(0xFFF59E0B),
-            const Color(0xFFEC4899),
-            const Color(0xFF8B5CF6),
-          ];
-          return _ConfettiParticle(
-            color: colors[random.nextInt(colors.length)],
-            x: random.nextDouble(),
-            speedY: 0.5 + random.nextDouble() * 0.8,
-            size: 6 + random.nextDouble() * 6,
-            rotationSpeed: (random.nextDouble() - 0.5) * 4,
-          );
-        });
+    : particles = List.generate(40, (index) {
+        final random = Random(index);
+        final colors = [
+          const Color(0xFF4F46E5),
+          const Color(0xFF10B981),
+          const Color(0xFFF59E0B),
+          const Color(0xFFEC4899),
+          const Color(0xFF8B5CF6),
+        ];
+        return _ConfettiParticle(
+          color: colors[random.nextInt(colors.length)],
+          x: random.nextDouble(),
+          speedY: 0.5 + random.nextDouble() * 0.8,
+          size: 6 + random.nextDouble() * 6,
+          rotationSpeed: (random.nextDouble() - 0.5) * 4,
+        );
+      });
 
   @override
   void paint(Canvas canvas, Size size) {
     for (final p in particles) {
       final y = ((progress * p.speedY) % 1.0) * size.height;
       final x = p.x * size.width;
-      final paint = Paint()..color = p.color.withValues(alpha: 1.0 - progress * 0.3);
+      final paint = Paint()
+        ..color = p.color.withValues(alpha: 1.0 - progress * 0.3);
 
       canvas.save();
       canvas.translate(x, y);

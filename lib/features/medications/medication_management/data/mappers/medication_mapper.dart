@@ -120,6 +120,9 @@ class MedicationMapper {
   }
 
   static FoodInstruction foodInstructionFromInt(int value) {
-    return FoodInstruction.values[value.clamp(0, FoodInstruction.values.length - 1)];
+    return FoodInstruction.values[value.clamp(
+      0,
+      FoodInstruction.values.length - 1,
+    )];
   }
 }

@@ -1,8 +1,18 @@
 import 'dart:convert';
 
 class BackupValidator {
-  static const _requiredKeys = ['metadata', 'medications', 'medicationSchedules', 'doseLogs'];
-  static const _metadataKeys = ['appVersion', 'buildNumber', 'exportedAt', 'deviceModel'];
+  static const _requiredKeys = [
+    'metadata',
+    'medications',
+    'medicationSchedules',
+    'doseLogs',
+  ];
+  static const _metadataKeys = [
+    'appVersion',
+    'buildNumber',
+    'exportedAt',
+    'deviceModel',
+  ];
 
   static BackupValidationResult validateFile(String content) {
     try {
@@ -27,18 +37,30 @@ class BackupValidator {
     }
 
     if (json['medications'] is! List) {
-      return BackupValidationResult(isValid: false, error: 'medications must be a list');
+      return BackupValidationResult(
+        isValid: false,
+        error: 'medications must be a list',
+      );
     }
     if (json['medicationSchedules'] is! List) {
-      return BackupValidationResult(isValid: false, error: 'medicationSchedules must be a list');
+      return BackupValidationResult(
+        isValid: false,
+        error: 'medicationSchedules must be a list',
+      );
     }
     if (json['doseLogs'] is! List) {
-      return BackupValidationResult(isValid: false, error: 'doseLogs must be a list');
+      return BackupValidationResult(
+        isValid: false,
+        error: 'doseLogs must be a list',
+      );
     }
 
     final metadata = json['metadata'];
     if (metadata is! Map<String, dynamic>) {
-      return BackupValidationResult(isValid: false, error: 'metadata must be an object');
+      return BackupValidationResult(
+        isValid: false,
+        error: 'metadata must be an object',
+      );
     }
 
     for (final key in _metadataKeys) {

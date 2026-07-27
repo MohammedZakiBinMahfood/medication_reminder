@@ -16,9 +16,7 @@ class SettingsProfilesSection extends ConsumerWidget {
 
     final profileCount = profilesAsync.value?.length ?? 0;
     final activeName = profilesAsync.value
-        ?.where(
-          (p) => p.uuid == (activeUuidAsync.value ?? ''),
-        )
+        ?.where((p) => p.uuid == (activeUuidAsync.value ?? ''))
         .firstOrNull
         ?.name;
 

@@ -11,7 +11,11 @@ class UpdateDialog extends ConsumerWidget {
 
   const UpdateDialog({super.key, required this.result});
 
-  static void show(BuildContext context, WidgetRef ref, VersionCheckResult result) {
+  static void show(
+    BuildContext context,
+    WidgetRef ref,
+    VersionCheckResult result,
+  ) {
     showDialog<void>(
       context: context,
       barrierDismissible: true,
@@ -110,8 +114,9 @@ class _UpdateCheckLoading extends StatelessWidget {
               height: 28,
               child: CircularProgressIndicator(
                 strokeWidth: 3,
-                valueColor:
-                    AlwaysStoppedAnimation<Color>(theme.colorScheme.primary),
+                valueColor: AlwaysStoppedAnimation<Color>(
+                  theme.colorScheme.primary,
+                ),
               ),
             ),
             const SizedBox(width: 16),

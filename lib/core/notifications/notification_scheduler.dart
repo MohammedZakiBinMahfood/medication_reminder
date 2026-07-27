@@ -50,7 +50,8 @@ class NotificationScheduler {
     final schedules = (schedulesResult as Success).data;
 
     final medResult = await _repository.getMedication(medicationUuid);
-    final isCritical = medResult is Success &&
+    final isCritical =
+        medResult is Success &&
         (medResult as Success).data.priority == MedicationPriority.high;
 
     final available = await _queueManager.availableSlots;
@@ -256,11 +257,11 @@ class NotificationScheduler {
         : (isEn ? 'Medication Reminder' : 'تذكير بموعد الدواء');
     final body = isCritical
         ? (isEn
-            ? 'It is time to take your critical medication now, please do not delay.'
-            : 'حان وقت تناول دوائك الحرج الآن، نرجو عدم التأخير')
+              ? 'It is time to take your critical medication now, please do not delay.'
+              : 'حان وقت تناول دوائك الحرج الآن، نرجو عدم التأخير')
         : (isEn
-            ? 'It is time to take your medication.'
-            : 'حان وقت تناول الدواء');
+              ? 'It is time to take your medication.'
+              : 'حان وقت تناول الدواء');
 
     final occurrences = _calculator.upcomingOccurrences(
       schedule,

@@ -28,7 +28,9 @@ class AppTheme {
   static ThemeData get darkTheme => buildDarkTheme(AppAccentColor.indigo);
   static ThemeData get lightTheme => buildLightTheme(AppAccentColor.indigo);
 
-  static ThemeData buildDarkTheme([AppAccentColor accent = AppAccentColor.indigo]) {
+  static ThemeData buildDarkTheme([
+    AppAccentColor accent = AppAccentColor.indigo,
+  ]) {
     final primary = getPrimaryColor(accent);
     final colorScheme = ColorScheme.fromSeed(
       seedColor: primary,
@@ -154,7 +156,9 @@ class AppTheme {
     );
   }
 
-  static ThemeData buildLightTheme([AppAccentColor accent = AppAccentColor.indigo]) {
+  static ThemeData buildLightTheme([
+    AppAccentColor accent = AppAccentColor.indigo,
+  ]) {
     final primary = getPrimaryColor(accent);
     final colorScheme = ColorScheme.fromSeed(
       seedColor: primary,

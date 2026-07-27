@@ -1,6 +1,16 @@
 import 'package:flutter/foundation.dart';
 
-enum HealthStatus { granted, denied, unknown, ignored, optimized, ready, error, healthy, unavailable }
+enum HealthStatus {
+  granted,
+  denied,
+  unknown,
+  ignored,
+  optimized,
+  ready,
+  error,
+  healthy,
+  unavailable,
+}
 
 enum HealthCheckType {
   notificationPermission,

@@ -7,8 +7,9 @@ import 'package:medication_reminder/core/notifications/notification_providers.da
 import '../models/models.dart';
 import '../repositories/repositories.dart';
 
-final wizardProvider =
-    NotifierProvider<WizardNotifier, WizardState>(WizardNotifier.new);
+final wizardProvider = NotifierProvider<WizardNotifier, WizardState>(
+  WizardNotifier.new,
+);
 
 class WizardNotifier extends Notifier<WizardState> {
   late final WizardRepository _repository;
@@ -59,10 +60,7 @@ class WizardNotifier extends Notifier<WizardState> {
       if (result case Success(:final data)) {
         granted = data == true;
       }
-      state = state.copyWith(
-        notificationGranted: granted,
-        isLoading: false,
-      );
+      state = state.copyWith(notificationGranted: granted, isLoading: false);
     } catch (e) {
       state = state.copyWith(isLoading: false);
     }
@@ -105,10 +103,7 @@ class WizardNotifier extends Notifier<WizardState> {
       final manager = ref.read(notificationManagerProvider);
       await manager.requestExactAlarmsPermission();
       final canSchedule = await manager.canScheduleExactNotifications();
-      state = state.copyWith(
-        exactAlarmGranted: canSchedule,
-        isLoading: false,
-      );
+      state = state.copyWith(exactAlarmGranted: canSchedule, isLoading: false);
     } catch (e) {
       state = state.copyWith(isLoading: false);
     }

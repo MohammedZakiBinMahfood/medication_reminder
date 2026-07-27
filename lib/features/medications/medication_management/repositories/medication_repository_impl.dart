@@ -22,7 +22,9 @@ class MedicationRepositoryImpl implements MedicationRepository {
     MedicationAddModel model,
   ) async {
     debugPrint('🔴 [REPO] createMedication called');
-    debugPrint('🔴 [REPO] model: name=${model.name}, dosage=${model.dosage}, profileUuid=${model.profileUuid}');
+    debugPrint(
+      '🔴 [REPO] model: name=${model.name}, dosage=${model.dosage}, profileUuid=${model.profileUuid}',
+    );
     try {
       final uuid = UuidService.generate();
       final now = DateTime.now();

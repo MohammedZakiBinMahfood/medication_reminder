@@ -36,10 +36,7 @@ class _SystemHealthScreenState extends ConsumerState<SystemHealthScreen> {
     final state = ref.watch(systemHealthProvider);
 
     return CScaffold(
-      appBar: CAppBar(
-        title: l10n.healthSystemHealthTitle,
-        centerTitle: true,
-      ),
+      appBar: CAppBar(title: l10n.healthSystemHealthTitle, centerTitle: true),
       body: _buildBody(state, l10n),
     );
   }
@@ -78,7 +75,9 @@ class _SystemHealthScreenState extends ConsumerState<SystemHealthScreen> {
           QuickFixesCard(
             failedChecks: data.failedChecks,
             onEnableNotifications: () {
-              ref.read(systemHealthProvider.notifier).requestNotificationPermission();
+              ref
+                  .read(systemHealthProvider.notifier)
+                  .requestNotificationPermission();
             },
             onOpenBatterySettings: () {
               ref.read(systemHealthProvider.notifier).openBatterySettings();
@@ -92,13 +91,17 @@ class _SystemHealthScreenState extends ConsumerState<SystemHealthScreen> {
           ),
           const SizedBox(height: AppSpacing.m),
           _SectionHeader(title: l10n.systemHealthChecksSection),
-          ...data.checks.map((check) => HealthCheckTile(
-            check: check,
-            title: _checkTitle(check.type, l10n),
-            description: _checkDescription(check, l10n),
-            actionLabel: check.actionLabel != null ? _actionLabel(check.actionLabel!, l10n) : null,
-            onAction: check.onAction,
-          )),
+          ...data.checks.map(
+            (check) => HealthCheckTile(
+              check: check,
+              title: _checkTitle(check.type, l10n),
+              description: _checkDescription(check, l10n),
+              actionLabel: check.actionLabel != null
+                  ? _actionLabel(check.actionLabel!, l10n)
+                  : null,
+              onAction: check.onAction,
+            ),
+          ),
           const SizedBox(height: AppSpacing.m),
         ],
       ),
@@ -107,11 +110,14 @@ class _SystemHealthScreenState extends ConsumerState<SystemHealthScreen> {
 
   String _checkTitle(HealthCheckType type, AppLocalizations l10n) {
     return switch (type) {
-      HealthCheckType.notificationPermission => l10n.healthNotificationPermissionTitle,
+      HealthCheckType.notificationPermission =>
+        l10n.healthNotificationPermissionTitle,
       HealthCheckType.exactAlarmPermission => l10n.healthExactAlarmTitle,
       HealthCheckType.batteryOptimization => l10n.healthBatteryTitle,
-      HealthCheckType.notificationService => l10n.healthNotificationServiceTitle,
-      HealthCheckType.pendingNotifications => l10n.healthPendingNotificationsTitle,
+      HealthCheckType.notificationService =>
+        l10n.healthNotificationServiceTitle,
+      HealthCheckType.pendingNotifications =>
+        l10n.healthPendingNotificationsTitle,
       HealthCheckType.database => l10n.healthDatabaseTitle,
       HealthCheckType.timeZone => l10n.healthTimeZoneTitle,
       HealthCheckType.application => l10n.healthApplicationTitle,
@@ -161,7 +167,8 @@ class _SystemHealthScreenState extends ConsumerState<SystemHealthScreen> {
     return switch (type) {
       HealthCheckType.database => l10n.healthDatabaseHealthy,
       HealthCheckType.timeZone => l10n.healthTimeZoneInfo,
-      HealthCheckType.pendingNotifications => l10n.healthPendingNotificationsInfo,
+      HealthCheckType.pendingNotifications =>
+        l10n.healthPendingNotificationsInfo,
       HealthCheckType.application => l10n.healthApplicationInfo,
       _ => '',
     };

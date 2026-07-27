@@ -60,8 +60,7 @@ class HealthCheckTile extends StatelessWidget {
                       ),
                     ),
                   ],
-                  if (check.pendingCount != null &&
-                      check.maxSlots != null) ...[
+                  if (check.pendingCount != null && check.maxSlots != null) ...[
                     const SizedBox(height: AppSpacing.xxs),
                     Text(
                       '${check.pendingCount} / ${check.maxSlots}',
@@ -72,10 +71,7 @@ class HealthCheckTile extends StatelessWidget {
                   ],
                   if (actionLabel != null && onAction != null) ...[
                     const SizedBox(height: AppSpacing.s),
-                    CButton.outlined(
-                      text: actionLabel!,
-                      onPressed: onAction,
-                    ),
+                    CButton.outlined(text: actionLabel!, onPressed: onAction),
                   ],
                 ],
               ),

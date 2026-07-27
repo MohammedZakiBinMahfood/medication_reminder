@@ -17,9 +17,9 @@ class BackupRepositoryImpl implements BackupRepository {
     required BackupService backupService,
     required RestoreService restoreService,
     required BackupFileManager fileManager,
-  })  : _backupService = backupService,
-        _restoreService = restoreService,
-        _fileManager = fileManager;
+  }) : _backupService = backupService,
+       _restoreService = restoreService,
+       _fileManager = fileManager;
 
   @override
   Future<Result<BackupData>> exportBackup() async {

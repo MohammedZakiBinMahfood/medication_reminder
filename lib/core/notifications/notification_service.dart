@@ -39,16 +39,12 @@ class NotificationService {
           DarwinNotificationAction.plain(
             NotificationConstants.actionTaken,
             'تم التناول',
-            options: {
-              DarwinNotificationActionOption.foreground,
-            },
+            options: {DarwinNotificationActionOption.foreground},
           ),
           DarwinNotificationAction.plain(
             'snooze_15',
             'تأجيل 15 دقيقة',
-            options: {
-              DarwinNotificationActionOption.foreground,
-            },
+            options: {DarwinNotificationActionOption.foreground},
           ),
         ],
       ),
@@ -127,11 +123,7 @@ class NotificationService {
           : InterruptionLevel.active,
       categoryIdentifier: NotificationConstants.categoryMedicationReminder,
     );
-    return NotificationDetails(
-      android: android,
-      iOS: darwin,
-      macOS: darwin,
-    );
+    return NotificationDetails(android: android, iOS: darwin, macOS: darwin);
   }
 
   /// One-shot notification at a specific [scheduledDate].

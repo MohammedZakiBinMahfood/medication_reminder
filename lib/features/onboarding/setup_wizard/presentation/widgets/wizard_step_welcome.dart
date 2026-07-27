@@ -60,15 +60,9 @@ class WizardStepWelcome extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           const Spacer(flex: 3),
-          CButton(
-            text: l10n.wizardStart,
-            onPressed: onStart,
-          ),
+          CButton(text: l10n.wizardStart, onPressed: onStart),
           const SizedBox(height: AppSpacing.m),
-          CButton.text(
-            text: l10n.wizardSkip,
-            onPressed: onSkip,
-          ),
+          CButton.text(text: l10n.wizardSkip, onPressed: onSkip),
           const SizedBox(height: AppSpacing.xl),
         ],
       ),

@@ -37,9 +37,9 @@ class QuickFixesCard extends StatelessWidget {
           children: [
             Text(
               l10n.healthQuickFixes,
-              style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                fontWeight: FontWeight.w600,
-              ),
+              style: Theme.of(
+                context,
+              ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w600),
             ),
             const SizedBox(height: AppSpacing.m),
             ...failedChecks.map((check) {

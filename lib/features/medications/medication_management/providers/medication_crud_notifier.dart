@@ -30,7 +30,9 @@ class MedicationCrudNotifier extends Notifier<ActionStore> {
     final activeAsync = ref.read(activeProfileUuidProvider);
     debugPrint('🔴 [CRUD] activeAsync.value=${activeAsync.value}');
     if (activeAsync.value != null && activeAsync.value!.isNotEmpty) {
-      debugPrint('🔴 [CRUD] returning from activeAsync.value: ${activeAsync.value}');
+      debugPrint(
+        '🔴 [CRUD] returning from activeAsync.value: ${activeAsync.value}',
+      );
       return activeAsync.value!;
     }
     try {
@@ -57,7 +59,9 @@ class MedicationCrudNotifier extends Notifier<ActionStore> {
     debugPrint('🔴 [CRUD] create() called');
     final data = ref.read(medicationStateProvider);
     const key = ActionKey(ActionType.create);
-    debugPrint('🔴 [CRUD] key.value="${key.value}", state.isLoading=${state.isLoading(key.value)}');
+    debugPrint(
+      '🔴 [CRUD] key.value="${key.value}", state.isLoading=${state.isLoading(key.value)}',
+    );
     if (state.isLoading(key.value)) {
       debugPrint('🔴 [CRUD] already loading, returning');
       return;
@@ -68,12 +72,16 @@ class MedicationCrudNotifier extends Notifier<ActionStore> {
     try {
       final profileUuid = await _getActiveProfileUuid();
       debugPrint('🔴 [CRUD] profileUuid="$profileUuid"');
-      
+
       final model = _buildAddModel(data, profileUuid);
-      debugPrint('🔴 [CRUD] model built: name=${model.name}, dosage=${model.dosage}, profileUuid=${model.profileUuid}');
-      
+      debugPrint(
+        '🔴 [CRUD] model built: name=${model.name}, dosage=${model.dosage}, profileUuid=${model.profileUuid}',
+      );
+
       final result = await repository.createMedication(model);
-      debugPrint('🔴 [CRUD] repository.createMedication returned: ${result.runtimeType}');
+      debugPrint(
+        '🔴 [CRUD] repository.createMedication returned: ${result.runtimeType}',
+      );
 
       if (result case Success<MedicationModel>(:final data)) {
         debugPrint('🔴 [CRUD] SUCCESS: uuid=${data.uuid}');
@@ -185,7 +193,10 @@ class MedicationCrudNotifier extends Notifier<ActionStore> {
     debugPrint('🔴 [CRUD] invalidated historyStatisticsProvider');
   }
 
-  MedicationAddModel _buildAddModel(MedicationStateModel data, String profileUuid) {
+  MedicationAddModel _buildAddModel(
+    MedicationStateModel data,
+    String profileUuid,
+  ) {
     return MedicationAddModel(
       profileUuid: profileUuid,
       name: data.name ?? '',
@@ -206,7 +217,10 @@ class MedicationCrudNotifier extends Notifier<ActionStore> {
     );
   }
 
-  MedicationEditModel _buildEditModel(MedicationStateModel data, String profileUuid) {
+  MedicationEditModel _buildEditModel(
+    MedicationStateModel data,
+    String profileUuid,
+  ) {
     return MedicationEditModel(
       id: data.id ?? '',
       profileUuid: profileUuid,

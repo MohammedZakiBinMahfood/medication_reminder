@@ -178,8 +178,8 @@ class NotificationManager {
 
   Future<bool> canScheduleExactNotifications() async {
     try {
-      final android =
-          _service.plugin.resolvePlatformSpecificImplementation<
+      final android = _service.plugin
+          .resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin
           >();
       return await android?.canScheduleExactNotifications() ?? false;
@@ -190,8 +190,8 @@ class NotificationManager {
 
   Future<void> requestExactAlarmsPermission() async {
     try {
-      final android =
-          _service.plugin.resolvePlatformSpecificImplementation<
+      final android = _service.plugin
+          .resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin
           >();
       await android?.requestExactAlarmsPermission();

@@ -243,7 +243,8 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen>
 
   void _markAsTaken(DashboardMedicationModel medication) {
     final dashboardData = ref.read(dashboardListProvider).data;
-    final isLastDose = dashboardData != null && dashboardData.summary.upcoming <= 1;
+    final isLastDose =
+        dashboardData != null && dashboardData.summary.upcoming <= 1;
 
     ref
         .read(dashboardActionProvider.notifier)
@@ -259,10 +260,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen>
         remainingStock <= (medication.reorderThreshold ?? 0)) {
       CSnackbar.warning(
         context,
-        l10n.refillAlertMessage(
-          medication.name,
-          remainingStock,
-        ),
+        l10n.refillAlertMessage(medication.name, remainingStock),
       );
     } else {
       CSnackbar.success(context, l10n.doseTaken);

@@ -10,7 +10,8 @@ class NotificationConstants {
   static const String androidChannelDescription =
       'Reminders for taking your medications';
 
-  static const String androidCriticalChannelId = 'critical_medication_reminders';
+  static const String androidCriticalChannelId =
+      'critical_medication_reminders';
   static const String androidCriticalChannelName = 'Critical Medication Alarms';
   static const String androidCriticalChannelDescription =
       'High priority alarm reminders for vital medications';

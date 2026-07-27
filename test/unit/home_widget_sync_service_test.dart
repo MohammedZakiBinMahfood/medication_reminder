@@ -17,10 +17,7 @@ void main() {
         HomeWidgetSyncService.androidWidgetProvider,
         equals('MedicationWidgetProvider'),
       );
-      expect(
-        HomeWidgetSyncService.iOSWidgetName,
-        equals('MedicationWidget'),
-      );
+      expect(HomeWidgetSyncService.iOSWidgetName, equals('MedicationWidget'));
     });
 
     test('syncNextMedication handles null nextMedication safely', () async {

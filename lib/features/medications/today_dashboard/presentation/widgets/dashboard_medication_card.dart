@@ -46,7 +46,8 @@ class DashboardMedicationCard extends StatelessWidget {
           padding: const EdgeInsets.all(AppSpacing.m),
           child: Row(
             children: [
-              if (medication.imagePath != null && medication.imagePath!.isNotEmpty) ...[
+              if (medication.imagePath != null &&
+                  medication.imagePath!.isNotEmpty) ...[
                 ClipRRect(
                   borderRadius: AppRadius.borderS,
                   child: Image.file(
@@ -54,8 +55,7 @@ class DashboardMedicationCard extends StatelessWidget {
                     width: 44,
                     height: 44,
                     fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) =>
-                        Container(
+                    errorBuilder: (context, error, stackTrace) => Container(
                       width: 6,
                       height: 50,
                       decoration: BoxDecoration(
@@ -91,7 +91,8 @@ class DashboardMedicationCard extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
-                        if (medication.foodInstruction != FoodInstruction.none) ...[
+                        if (medication.foodInstruction !=
+                            FoodInstruction.none) ...[
                           Container(
                             padding: const EdgeInsets.symmetric(
                               horizontal: 6,

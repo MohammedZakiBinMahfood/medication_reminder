@@ -30,8 +30,7 @@ class FirstRunState {
       welcomeDismissed: welcomeDismissed ?? this.welcomeDismissed,
       notificationHintDismissed:
           notificationHintDismissed ?? this.notificationHintDismissed,
-      firstMedicationAdded:
-          firstMedicationAdded ?? this.firstMedicationAdded,
+      firstMedicationAdded: firstMedicationAdded ?? this.firstMedicationAdded,
     );
   }
 
@@ -48,8 +47,7 @@ class FirstRunNotifier extends Notifier<FirstRunState> {
       welcomeDismissed: _prefs.getBool(_kWelcomeDismissedKey) ?? false,
       notificationHintDismissed:
           _prefs.getBool(_kNotificationHintShownKey) ?? false,
-      firstMedicationAdded:
-          _prefs.getBool(_kFirstMedicationAddedKey) ?? false,
+      firstMedicationAdded: _prefs.getBool(_kFirstMedicationAddedKey) ?? false,
     );
   }
 

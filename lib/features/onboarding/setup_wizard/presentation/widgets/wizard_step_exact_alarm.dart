@@ -69,10 +69,7 @@ class WizardStepExactAlarm extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             const Spacer(flex: 3),
-            CButton(
-              text: l10n.wizardNext,
-              onPressed: onNext,
-            ),
+            CButton(text: l10n.wizardNext, onPressed: onNext),
             const SizedBox(height: AppSpacing.xl),
           ],
         ),
@@ -84,22 +81,22 @@ class WizardStepExactAlarm extends StatelessWidget {
       child: Column(
         children: [
           const Spacer(flex: 2),
-            Semantics(
-              label: l10n.wizardExactAlarmIcon,
-              child: Container(
-                width: 96,
-                height: 96,
-                decoration: BoxDecoration(
-                  color: AppColors.warning.withValues(alpha: 0.1),
-                  shape: BoxShape.circle,
-                ),
-                child: const Icon(
-                  Icons.alarm_outlined,
-                  size: 48,
-                  color: AppColors.warning,
-                ),
+          Semantics(
+            label: l10n.wizardExactAlarmIcon,
+            child: Container(
+              width: 96,
+              height: 96,
+              decoration: BoxDecoration(
+                color: AppColors.warning.withValues(alpha: 0.1),
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(
+                Icons.alarm_outlined,
+                size: 48,
+                color: AppColors.warning,
               ),
             ),
+          ),
           const SizedBox(height: AppSpacing.xl),
           Semantics(
             header: true,
@@ -138,7 +135,11 @@ class WizardStepExactAlarm extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.check_circle, color: AppColors.success, size: 20),
+                    Icon(
+                      Icons.check_circle,
+                      color: AppColors.success,
+                      size: 20,
+                    ),
                     const SizedBox(width: AppSpacing.s),
                     Text(
                       l10n.wizardExactAlarmGranted,
@@ -151,20 +152,14 @@ class WizardStepExactAlarm extends StatelessWidget {
               ),
             ),
             const SizedBox(height: AppSpacing.l),
-            CButton(
-              text: l10n.wizardNext,
-              onPressed: onNext,
-            ),
+            CButton(text: l10n.wizardNext, onPressed: onNext),
           ] else ...[
             CButton(
               text: l10n.wizardEnableExactAlarm,
               onPressed: onRequestPermission,
             ),
             const SizedBox(height: AppSpacing.m),
-            CButton.text(
-              text: l10n.wizardNext,
-              onPressed: onNext,
-            ),
+            CButton.text(text: l10n.wizardNext, onPressed: onNext),
           ],
           const SizedBox(height: AppSpacing.xl),
         ],

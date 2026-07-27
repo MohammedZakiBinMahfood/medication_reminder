@@ -6,8 +6,9 @@ final versionCheckerProvider = Provider<VersionChecker>((ref) {
   return VersionChecker();
 });
 
-final updateCheckProvider =
-    FutureProvider.autoDispose<VersionCheckResult>((ref) async {
+final updateCheckProvider = FutureProvider.autoDispose<VersionCheckResult>((
+  ref,
+) async {
   final checker = ref.read(versionCheckerProvider);
   return checker.checkForUpdate();
 });

@@ -49,9 +49,9 @@ class BackupScreen extends ConsumerWidget {
         children: [
           Text(
             l10n.backupExportTitle,
-            style: Theme.of(context).textTheme.titleSmall?.copyWith(
-              fontWeight: FontWeight.w600,
-            ),
+            style: Theme.of(
+              context,
+            ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w600),
           ),
           const SizedBox(height: AppSpacing.s),
           Text(
@@ -105,9 +105,9 @@ class BackupScreen extends ConsumerWidget {
         children: [
           Text(
             l10n.backupImportTitle,
-            style: Theme.of(context).textTheme.titleSmall?.copyWith(
-              fontWeight: FontWeight.w600,
-            ),
+            style: Theme.of(
+              context,
+            ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w600),
           ),
           const SizedBox(height: AppSpacing.s),
           Text(
@@ -157,9 +157,9 @@ class BackupScreen extends ConsumerWidget {
                 const SizedBox(height: AppSpacing.s),
                 Text(
                   state.validationResult!.error!,
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: AppColors.error,
-                  ),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodySmall?.copyWith(color: AppColors.error),
                 ),
               ],
             ],
@@ -169,9 +169,9 @@ class BackupScreen extends ConsumerWidget {
             const SizedBox(height: AppSpacing.s),
             Text(
               state.error!,
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: AppColors.error,
-              ),
+              style: Theme.of(
+                context,
+              ).textTheme.bodySmall?.copyWith(color: AppColors.error),
             ),
           ],
         ],
@@ -199,9 +199,9 @@ class BackupScreen extends ConsumerWidget {
             Expanded(
               child: Text(
                 validationResult.error ?? l10n.backupInvalidFile,
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: AppColors.error,
-                ),
+                style: Theme.of(
+                  context,
+                ).textTheme.bodySmall?.copyWith(color: AppColors.error),
               ),
             ),
           ],
@@ -222,7 +222,11 @@ class BackupScreen extends ConsumerWidget {
         children: [
           Row(
             children: [
-              const Icon(Icons.check_circle, color: AppColors.success, size: 20),
+              const Icon(
+                Icons.check_circle,
+                color: AppColors.success,
+                size: 20,
+              ),
               const SizedBox(width: AppSpacing.s),
               Text(
                 l10n.backupValidFile,
@@ -237,21 +241,29 @@ class BackupScreen extends ConsumerWidget {
           _metaRow(context, l10n.backupVersion, meta.appVersion),
           _metaRow(context, l10n.backupDevice, meta.deviceModel),
           _metaRow(context, l10n.backupExported, meta.exportedAt),
-          _metaRow(context, l10n.backupMedicationsCount, '${meta.medicationCount}'),
+          _metaRow(
+            context,
+            l10n.backupMedicationsCount,
+            '${meta.medicationCount}',
+          ),
           _metaRow(context, l10n.backupDoseLogsCount, '${meta.doseLogCount}'),
           if (meta.hasSettings)
             Padding(
               padding: const EdgeInsets.only(top: AppSpacing.xxs),
               child: Row(
                 children: [
-                  const Icon(Icons.settings, size: 14, color: AppColors.success),
+                  const Icon(
+                    Icons.settings,
+                    size: 14,
+                    color: AppColors.success,
+                  ),
                   const SizedBox(width: AppSpacing.xs),
                   Expanded(
                     child: Text(
                       l10n.backupIncludesSettings,
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: AppColors.success,
-                      ),
+                      style: Theme.of(
+                        context,
+                      ).textTheme.bodySmall?.copyWith(color: AppColors.success),
                     ),
                   ),
                 ],
@@ -277,9 +289,9 @@ class BackupScreen extends ConsumerWidget {
           ),
           Text(
             value,
-            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              fontWeight: FontWeight.w500,
-            ),
+            style: Theme.of(
+              context,
+            ).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w500),
           ),
         ],
       ),
@@ -298,9 +310,9 @@ class BackupScreen extends ConsumerWidget {
         children: [
           Text(
             l10n.backupRestoreMode,
-            style: Theme.of(context).textTheme.titleSmall?.copyWith(
-              fontWeight: FontWeight.w600,
-            ),
+            style: Theme.of(
+              context,
+            ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w600),
           ),
           const SizedBox(height: AppSpacing.s),
           Text(
@@ -394,11 +406,7 @@ class BackupScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildInfoSection(
-    BuildContext context,
-    state,
-    AppLocalizations l10n,
-  ) {
+  Widget _buildInfoSection(BuildContext context, state, AppLocalizations l10n) {
     final lastBackup = state.lastBackup;
     if (lastBackup == null) return const SizedBox.shrink();
 
@@ -408,13 +416,21 @@ class BackupScreen extends ConsumerWidget {
         children: [
           Text(
             l10n.backupLastExport,
-            style: Theme.of(context).textTheme.titleSmall?.copyWith(
-              fontWeight: FontWeight.w600,
-            ),
+            style: Theme.of(
+              context,
+            ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w600),
           ),
           const SizedBox(height: AppSpacing.s),
-          _metaRow(context, l10n.backupMedicationsCount, '${state.medicationCount}'),
-          _metaRow(context, l10n.backupSchedulesCount, '${state.scheduleCount}'),
+          _metaRow(
+            context,
+            l10n.backupMedicationsCount,
+            '${state.medicationCount}',
+          ),
+          _metaRow(
+            context,
+            l10n.backupSchedulesCount,
+            '${state.scheduleCount}',
+          ),
           _metaRow(context, l10n.backupDoseLogsCount, '${state.doseLogCount}'),
         ],
       ),

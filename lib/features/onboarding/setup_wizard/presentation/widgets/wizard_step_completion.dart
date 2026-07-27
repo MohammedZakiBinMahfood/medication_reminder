@@ -66,10 +66,7 @@ class WizardStepCompletion extends StatelessWidget {
             onPressed: onAddMedication,
           ),
           const SizedBox(height: AppSpacing.m),
-          CButton.text(
-            text: l10n.wizardGoHome,
-            onPressed: onGoHome,
-          ),
+          CButton.text(text: l10n.wizardGoHome, onPressed: onGoHome),
           const SizedBox(height: AppSpacing.xl),
         ],
       ),

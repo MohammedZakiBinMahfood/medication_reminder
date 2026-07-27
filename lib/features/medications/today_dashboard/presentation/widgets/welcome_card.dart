@@ -81,34 +81,31 @@ class WelcomeCard extends ConsumerWidget {
                             Flexible(
                               child: Text(
                                 l10n.firstRunWelcomeTitle,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleLarge
+                                style: Theme.of(context).textTheme.titleLarge
                                     ?.copyWith(
                                       fontWeight: FontWeight.w700,
                                       color: isDark
-                                          ? Theme.of(context).colorScheme.onSurface
+                                          ? Theme.of(
+                                              context,
+                                            ).colorScheme.onSurface
                                           : const Color(0xFF0F172A),
                                       fontSize: 19,
                                     ),
                               ),
                             ),
                             const SizedBox(width: 6),
-                            const Text(
-                              '👋',
-                              style: TextStyle(fontSize: 20),
-                            ),
+                            const Text('👋', style: TextStyle(fontSize: 20)),
                           ],
                         ),
                         const SizedBox(height: 8),
                         Text(
                           l10n.firstRunWelcomeDescription,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium
+                          style: Theme.of(context).textTheme.bodyMedium
                               ?.copyWith(
                                 color: isDark
-                                    ? Theme.of(context).colorScheme.onSurfaceVariant
+                                    ? Theme.of(
+                                        context,
+                                      ).colorScheme.onSurfaceVariant
                                     : const Color(0xFF64748B),
                                 height: 1.45,
                                 fontSize: 13,
@@ -129,7 +126,9 @@ class WelcomeCard extends ConsumerWidget {
                             elevation: 0,
                           ),
                           onPressed: () {
-                            ref.read(firstRunProvider.notifier).dismissWelcome();
+                            ref
+                                .read(firstRunProvider.notifier)
+                                .dismissWelcome();
                             onExploreApp();
                           },
                           child: Text(

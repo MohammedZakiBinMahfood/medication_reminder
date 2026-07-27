@@ -20,10 +20,7 @@ class BackupFileManager {
     final file = File('${directory.path}/$fileName');
     await file.writeAsString(jsonContent);
 
-    await Share.shareXFiles(
-      [XFile(file.path)],
-      text: 'Mudawy Backup',
-    );
+    await Share.shareXFiles([XFile(file.path)], text: 'Mudawy Backup');
   }
 
   Future<File?> pickBackupFile() async {

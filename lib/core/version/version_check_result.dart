@@ -14,6 +14,6 @@ class VersionCheckResult {
   const VersionCheckResult.error({
     required this.currentVersion,
     required this.errorMessage,
-  })  : latestVersion = '',
-        hasUpdate = false;
+  }) : latestVersion = '',
+       hasUpdate = false;
 }
