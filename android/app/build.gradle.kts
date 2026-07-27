@@ -1,8 +1,15 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("dev.flutter.flutter-gradle-plugin")
 }
-
+val keystoreProperties = Properties()
+val keystorePropertiesFile = rootProject.file("key.properties")
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(FileInputStream(keystorePropertiesFile))
+}
 android {
     namespace = "com.mohammedzaki.medication_reminder"
     compileSdk = 36
@@ -24,17 +31,16 @@ android {
 
     signingConfigs {
         create("release") {
-            // TODO: Configure release signing before publishing
-            // storeFile = file("path/to/keystore.jks")
-            // storePassword = System.getenv("STORE_PASSWORD") ?: ""
-            // keyAlias = System.getenv("KEY_ALIAS") ?: ""
-            // keyPassword = System.getenv("KEY_PASSWORD") ?: ""
+            keyAlias = keystoreProperties.getProperty("keyAlias")
+            keyPassword = keystoreProperties.getProperty("keyPassword")
+            storeFile = keystoreProperties.getProperty("storeFile")?.let { file(it) }
+            storePassword = keystoreProperties.getProperty("storePassword")
         }
     }
 
     buildTypes {
         release {
-            signingConfig = signingConfigs.getByName("debug")
+            signingConfig = signingConfigs.getByName("release")
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(
